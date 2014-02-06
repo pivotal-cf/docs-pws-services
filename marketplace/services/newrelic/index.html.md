@@ -4,7 +4,7 @@ title: New Relic
 
 ## <a id='managing'></a>Managing Services ##
 
-[Managing services from the command line](../../../../using/services/managing-services.html)
+[Managing services from the command line](/devguide/services/managing-services.html)
 
 ### <a id='create'></a>Creating a Service Instance ###
 
@@ -29,7 +29,7 @@ To log into your New Relic Account via SSO you only need to log into the [run.pi
 ## <a id='notes'></a>Important Notes ##
 
 * To opt-out of marketing emails from New Relic, log into their dashboard via SSO as described above and click the account dropdown in the top-right. In User Preferences, unselect "I want to receive information emails", then click "Save email preferences".
-* Also on the User Preferences page of New Relic's site is a field to change the email address for the account. *Do not change this field*. Doing so with break the SSO integration and prevent you from logging into your account. 
+* Also on the User Preferences page of New Relic's site is a field to change the email address for the account. *Do not change this field*. Doing so with break the SSO integration and prevent you from logging into your account.
 
 ## <a id='sample-app'></a>Sample Applications ##
 

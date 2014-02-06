@@ -6,7 +6,7 @@ The Easiest, Most Advanced Managed Memcache.
 
 ## <a id='managing'></a>Managing Services ##
 
-[Managing services from the command line](../../../using/services/managing-services.html)
+[Managing services from the command line](/devguide/services/managing-services.html)
 
 ### Creating a Service Instance ##
 
@@ -15,18 +15,18 @@ An instance of this service can be provisioned via the CLI with the following co
 <pre class="terminal">
 $ cf create-service memcachier
 </pre>
-    
+
 ### Binding Your Service Instance ##
 
 Bind the service instance to your app with the following command:
-    
+
 <pre class="terminal">
-$ cf bind-service 
+$ cf bind-service
 </pre>
 
 ## <a id='using'></a>Using Service Instances with your Application ##
 
-See [Using Service Instances with your Application](../../adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](../../../using/deploying-apps/environment-variable.html).
+See [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
 Format of credentials in `VCAP_SERVICES` environment variable.
 

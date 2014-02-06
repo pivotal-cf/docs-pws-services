@@ -6,7 +6,7 @@ Instantly provision the tools you need for your development team (Source Code Ma
 
 ## <a id='managing'></a>Managing Services ##
 
-[Managing services from the command line](../../../using/services/managing-services.html)
+[Managing services from the command line](/devguide/services/managing-services.html))
 
 ### Creating a Service Instance ##
 
@@ -15,7 +15,7 @@ An instance of this service can be provisioned via the CLI with the following co
 <pre class="terminal">
 $ cf create-service cloudforge
 </pre>
-    
+
 ## <a id='support'></a>Support ##
 
 [Contacting Service Providers for Support](../contacting-service-providers-for-support.html)

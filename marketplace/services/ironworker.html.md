@@ -6,7 +6,7 @@ IronWorker is a multi-language worker platform that runs tasks in the background
 
 ## <a id='managing'></a>Managing Services ##
 
-[Managing services from the command line](../../../using/services/managing-services.html)
+[Managing services from the command line](/devguide/services/managing-services.html)
 
 ### Creating a Service Instance ##
 
@@ -15,20 +15,20 @@ An instance of this service can be provisioned via the CLI with the following co
 <pre class="terminal">
 $ cf create-service ironworker
 </pre>
-    
+
 ### Binding Your Service Instance ##
 
 Bind the service instance to your app with the following command:
-    
+
 <pre class="terminal">
-$ cf bind-service 
+$ cf bind-service
 </pre>
 
 ## <a id='using'></a>Using Service Instances with your Application ##
 
 * Include this section only if your service is bindable. What is the format of the credentials stored in the VCAP_SERVICES environment variable? *
 
-See [Using Service Instances with your Application](../../adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](../../../using/deploying-apps/environment-variable.html).
+See [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
 Format of credentials in `VCAP_SERVICES` environment variable.
 
@@ -160,7 +160,7 @@ The most common source of worker errors is a mismatch between your local environ
 You can view and analyze all your workers from the HUD...
 
 ![ironworkers on the hud][1]
-  
+
 ## Share your projects with other people
 
 Each of your projects can be shared with coworkers and friends. It's easy and just takes a few seconds. They'll get an invite to signup for Iron.io for free and have automatic access to the project once completed.

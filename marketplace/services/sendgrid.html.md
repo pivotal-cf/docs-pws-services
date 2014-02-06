@@ -8,7 +8,7 @@ Pivotal CF hosted customers can start receiving 25,000 free emails using SendGri
 
 ## <a id='managing'></a>Managing Services ##
 
-To create and bind a new SendGrid service, see [Managing Services from the Command Line](../../../using/services/managing-services.html).
+To create and bind a new SendGrid service, see [Managing Services from the Command Line](/devguide/services/managing-services.html)
 
 ### Creating A SendGrid Service ##
 
@@ -23,7 +23,7 @@ The service name can be anything you want and the plan level is one of these opt
 ### Binding Your SendGrid Service ##
 
 Bind your SendGrid service to your app, using the following command:
-    
+
 <pre class="terminal">
 $ cf bind-service [service-name] [app-name]
 </pre>
@@ -34,7 +34,7 @@ Once SendGrid has been added a username and password will be available. These ar
 
 ## <a id='using'></a>Using SendGrid within your Application ##
 
-Once a SendGrid service instance has been bound to your application, the [VCAP_SERVICES Environment Variable](../../../using/deploying-apps/environment-variable.html) will be automatically updated to include your credentials. The section of `VCAP_SERVICES` that pertains to SendGrid will look like this:
+Once a SendGrid service instance has been bound to your application, the [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html) will be automatically updated to include your credentials. The section of `VCAP_SERVICES` that pertains to SendGrid will look like this:
 
 
     {
@@ -52,7 +52,7 @@ Once a SendGrid service instance has been bound to your application, the [VCAP_S
       ]
     }
 
-The getting started guide has more background on [using service instances with your application](../../adding-a-service.html#using).
+The getting started guide has more background on [using service instances with your application](/devguide/services/adding-a-service.html#using).
 
 
 ## <a id='sample-app'></a>Sample Applications ##
@@ -107,55 +107,55 @@ If you prefer to use Java's built in libraries to send emails you can do the fol
     import javax.mail.Authenticator;
     import javax.mail.PasswordAuthentication;
     import java.util.Properties;
-     
+
     public class SimpleMail {
-     
+
         private static final String SMTP_HOST_NAME = “smtp.sendgrid.net”;
         private static final String SMTP_AUTH_USER = “<sendgrid_username>”;
         private static final String SMTP_AUTH_PWD  = “<sendgrid_password>”;
-     
+
         public static void main(String[] args) throws Exception{
            new SimpleMail().test();
         }
-     
+
         public void test() throws Exception{
             Properties props = new Properties();
             props.put(“mail.transport.protocol”, “smtp”);
             props.put(“mail.smtp.host”, SMTP_HOST_NAME);
             props.put(“mail.smtp.port”, 587);
             props.put(“mail.smtp.auth”, “true”);
-     
+
             Authenticator auth = new SMTPAuthenticator();
             Session mailSession = Session.getDefaultInstance(props, auth);
             // uncomment for debugging infos to stdout
             // mailSession.setDebug(true);
             Transport transport = mailSession.getTransport();
-     
+
             MimeMessage message = new MimeMessage(mailSession);
-     
+
             Multipart multipart = new MimeMultipart(“alternative”);
-     
+
             BodyPart part1 = new MimeBodyPart();
             part1.setText(“This is multipart mail and u read part1……”);
-     
+
             BodyPart part2 = new MimeBodyPart();
             part2.setContent(”<b>This is multipart mail and u read part2……</b>”, “text/html”);
-     
+
             multipart.addBodyPart(part1);
             multipart.addBodyPart(part2);
-     
+
             message.setContent(multipart);
             message.setFrom(new InternetAddress(“me@myhost.com”));
             message.setSubject(“This is the subject”);
             message.addRecipient(Message.RecipientType.TO,
                  new InternetAddress(“someone@somewhere.com”));
-     
+
             transport.connect();
             transport.sendMessage(message,
                 message.getRecipients(Message.RecipientType.TO));
             transport.close();
         }
-     
+
         private class SMTPAuthenticator extends javax.mail.Authenticator {
             public PasswordAuthentication getPasswordAuthentication() {
                String username = SMTP_AUTH_USER;
@@ -185,7 +185,7 @@ First, get SendGrid credentials from `VCAP_SERVICES` environment variable
         end
       end
     end
-```    
+```
 
 You will also need to edit the ActionMailer settings in `config/environment.rb`:
 

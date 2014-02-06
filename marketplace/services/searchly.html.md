@@ -6,7 +6,7 @@ Search made simple.
 
 ## <a id='managing'></a>Managing Services ##
 
-[Managing services from the command line](../../../using/services/managing-services.html)
+[Managing services from the command line](/devguide/services/managing-services.html)
 
 ### Creating a Service Instance ##
 
@@ -15,18 +15,18 @@ An instance of this service can be provisioned via the CLI with the following co
 <pre class="terminal">
 $ cf create-service searchly
 </pre>
-    
+
 ### Binding Your Service Instance ##
 
 Bind the service instance to your app with the following command:
-    
+
 <pre class="terminal">
-$ cf bind-service 
+$ cf bind-service
 </pre>
 
 ## <a id='using'></a>Using Service Instances with your Application ##
 
-See [Using Service Instances with your Application](../../adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](../../../using/deploying-apps/environment-variable.html).
+See [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
 Format of credentials in `VCAP_SERVICES` environment variable.
 
@@ -84,22 +84,22 @@ $ mvn clean install
 ### Configuration
 
 Create a Jest Client Bean:
-    
+
 ```java
 @Configuration
 public class SpringConfiguration {
 
 	@Bean
 	public JestClient jestClient() throws Exception {
-	
+
 		// Using jackson to parse VCAP_SERVICES
 		Map result = new ObjectMapper().readValue(System.getenv("VCAP_SERVICES"), HashMap.class);
-		
+
 		String connectionUrl = (String) ((Map) ((Map) ((List)
 		            result.get("searchly-n/a")).get(0)).get("credentials")).get("uri");
 		// Configuration
 		ClientConfig clientConfig = new ClientConfig.Builder(connectionUrl).multiThreaded(true).build();
-		
+
 		// Construct a new Jest client according to configuration via factory
 		JestClientFactory factory = new JestClientFactory();
 		factory.setClientConfig(clientConfig);
@@ -132,7 +132,7 @@ client.execute(index);
 
 ### Searching
 
-Search queries can be either JSON String or ElasticSearch SearchSourceBuilder object 
+Search queries can be either JSON String or ElasticSearch SearchSourceBuilder object
 (You need to add ElasticSearch dependency for SearchSourceBuilder).
 
 ```java
@@ -177,7 +177,7 @@ Configure Tire in `configure/application.rb` or `configure/environment/productio
 
 
 ```ruby
-# top of Application.configure   
+# top of Application.configure
 require 'json'
 ..
 ..
@@ -274,7 +274,7 @@ elasticSearchClient.search('sample', 'document', qryObj)
 	}).on('error', function (error) {
     		console.log(error)
 	}).exec()
-``` 
+```
 
 ## <a id='sample-app'></a>Sample Applications ##
 

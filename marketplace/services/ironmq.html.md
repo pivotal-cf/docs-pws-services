@@ -6,7 +6,7 @@ IronMQ is a reliable message queue service that lets you connect systems and bui
 
 ## <a id='managing'></a>Managing Services ##
 
-[Managing services from the command line](../../../using/services/managing-services.html)
+[Managing services from the command line](/devguide/services/managing-services.html)
 
 ### Creating a Service Instance ##
 
@@ -28,7 +28,7 @@ Bind the service instance to your app with the following command:
 
 * Include this section only if your service is bindable. What is the format of the credentials stored in the VCAP_SERVICES environment variable? *
 
-See [Using Service Instances with your Application](../../adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](../../../using/deploying-apps/environment-variable.html).
+See [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
 Format of credentials in `VCAP_SERVICES` environment variable.
 
@@ -147,7 +147,7 @@ queue.delete(msg["messages"][0]["id"])
 We’re going to need to add the [IronMQ Clojure client][7] to your project.clj:
 
 
-`[iron_mq_clojure "1.0.3"]`
+[iron_mq_clojure "1.0.3"]
 
 Use these to create a client that allows you to interact with your queues:
 
@@ -169,7 +169,7 @@ Use these to create a client that allows you to interact with your queues:
 
 ## Node.js
 
-We’re going to need to the [IronMQ Node.js client][8] to interact with our queues. You can get it using `npm install iron_mq` or by downloading the source from Github (though you’ll need `[iron_core_node]`[9], too).
+We’re going to need to the [IronMQ Node.js client][8] to interact with our queues. You can get it using `npm install iron_mq` or by downloading the source from Github (though you’ll need [iron_core_node][9], too).
 
 Once that’s done, you can require it to get a simple wrapper for the API:
 
