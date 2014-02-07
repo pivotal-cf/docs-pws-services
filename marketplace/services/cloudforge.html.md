@@ -6,7 +6,7 @@ Instantly provision the tools you need for your development team (Source Code Ma
 
 ## <a id='managing'></a>Managing Services ##
 
-[Managing services from the command line](/devguide/services/managing-services.html))
+[Managing services from the command line](/devguide/services/managing-services.html)
 
 ### Creating a Service Instance ##
 
