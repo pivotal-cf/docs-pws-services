@@ -243,7 +243,7 @@ You can then find your dashboard under the `MY DATABASES` menu.
 
 ## Managing Services
 
-You can continue [managing your services from the command line](http://docs.cloudfoundry.com/docs/using/services/managing-services.html).
+You can continue [managing your services from the command line](/devguide/services/managed.html).
 
 ## Support
 

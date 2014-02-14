@@ -209,9 +209,9 @@ You’re also welcome to stop by the [Iron.io support chat room][12] and chat wi
 ## <a id='sample-app'></a>Integrations ##
 
 <ul>
-  <li><a href="/mq/integrations/delayed_job" >Delayed Job for Rails</a></li>
+  <li>Delayed Job for Rails</li>
   <li><a href="http://www.sumoheavy.com/message-queues-in-magento/" target="_blank" >Zend Framework</a></li>
-  <li><a href="/mq/integrations/celery/" >Celery for Python</a></li>
+  <li>Celery for Python</li>
   <li><a href="http://www.yiiframework.com/extension/yiiron/" target="_blank" >Yii Framework</a></li>
   <li><a href="http://bundles.laravel.com/bundle/ironmq" target="_blank" >Laravel Framework</a></li>
   <li><a href="http://drupal.org/project/ironio" target="_blank" >Drupal</a>
