@@ -39,9 +39,8 @@ Once your Memcached Cloud service is bound to your app, the service credentials 
 	}
 
 * [Ruby](#ruby)
-* [Rails](#rails)
 * [Sinatra](#sinatra)
-* [Unicron](#unicorn)
+* [Unicorn](#unicorn)
 * [Java](#java)
 * [Python](#python)
 * [Django](#django)
@@ -83,7 +82,7 @@ Add this code snippet to your configure block:
 ### <a id="unicorn"></a>Using Memcached on Unicorn
 
 No special setup is required when using Memcached Cloud with a Unicorn server.
-Users running Rails apps on Unicorn should follow the instructions in the [Configuring Memcached from Rails](#rails) section and users running Sinatra apps on Unicorn should follow the instructions in the [Configuring Memcached on Sinatra](#sinatra) section.
+Users running Sinatra apps on Unicorn should follow the instructions in the [Configuring Memcached on Sinatra](#sinatra) section.
 
 ### Testing from Ruby
 
