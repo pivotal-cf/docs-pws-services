@@ -21,7 +21,7 @@ Bind your Memcached Cloud service to your app, using the following command:
 
 	cf bind-service <memcachedcloud_service_name> <app name>
 
-Once your Memcached Cloud service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` env. variable in the following format:
+Once your Memcached Cloud service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` environment variable in the following format:
 
 	{
 	  memcachedcloud-n/a: [
@@ -30,7 +30,7 @@ Once your Memcached Cloud service is bound to your app, the service credentials 
 	      label: "memcachedcloud-n/a",
 	      plan: "20mb",
 	      credentials: {
-			servers: "pub-memcache-6379.us-east-1-1.1.ec2.garantiadata.com:6379",
+			servers: "pub-memcache-6379.us-east-1-1.1.ec2.redislabs.com:6379",
 			username: "memcachedcloud-42",
 	        password: "your_memcahced_password"
 	      }
@@ -47,7 +47,7 @@ Once your Memcached Cloud service is bound to your app, the service credentials 
 * [PHP](#php)
 
 ## <a id="ruby"></a>Using Memcached with Ruby
-[Dalli](https://github.com/mperham/dalli) is a high performance pure Ruby client for accessing memcached servers, which uses the binary protocol.
+[Dalli](https://github.com/mperham/dalli) is a high performance pure Ruby client for accessing Memcached servers, which uses the binary protocol.
 
 For usage with Rails 3.x, update the Gemfile:
 
@@ -93,7 +93,7 @@ No special setup is required when using Memcached Cloud with a Unicorn server. F
 
 ## <a id="java"></a>Using Memcached with Java
 
-[spymemcached](https://code.google.com/p/spymemcached/) is a simple, asynchronous, single-threaded memcached client written in Java. You can download the latest build from: https://code.google.com/p/spymemcached/downloads/list.
+[spymemcached](https://code.google.com/p/spymemcached/) is a simple, asynchronous, single-threaded Memcached client written in Java. You can download the latest build from: https://code.google.com/p/spymemcached/downloads/list.
 
 To use the maven repository, start by specifying the repository:
 
@@ -152,7 +152,7 @@ Configure the connection to your Memcached Cloud service using the `VCAP_SERVICE
 
 ## <a id="python"></a>Using Memcached with Python
 
-[bmemcached](https://github.com/jaysonsantos/python-binary-memcached) is a pure, thread safe, python module to access memcached via its binary protocol.
+[bmemcached](https://github.com/jaysonsantos/python-binary-memcached) is a pure, thread safe, python module to access Memcached via its binary protocol.
 
 Use pip to install it:
 

@@ -29,7 +29,7 @@ Bind your Redis Cloud service to your app, using the following command:
 
 See [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
-Once your Redis Cloud service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` env. variable in the following format:
+Once your Redis Cloud service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` environment variable in the following format:
 
 	{
 	  "rediscloud-n/a": [
@@ -39,7 +39,7 @@ Once your Redis Cloud service is bound to your app, the service credentials will
 	      "plan": "20mb",
 	      "credentials": {
 		    "port"": "6379",
-			"hostname": "pub-redis-6379.us-east-1-2.3.ec2.garantiadata.com",
+			"hostname": "pub-redis-6379.us-east-1-2.3.ec2.redislabs.com",
 			"password": "your_redis_password"
 	      }
 	    }
@@ -100,7 +100,7 @@ No special setup is required when using Redis Cloud with a Unicorn server. For R
 
 ### <a id='java'></a>Using Redis from Java ###
 
-[Jedis](https://github.com/xetorthio/jedis) is a blazingly small, sane and easy to use Redis java client. You can download the latest build from [github](http://github.com/xetorthio/jedis/downloads) or use it as a maven dependency:
+[Jedis](https://github.com/xetorthio/jedis) is a blazingly small, sane and easy to use Redis java client. You can download the latest build from [Github](http://github.com/xetorthio/jedis/downloads) or use it as a maven dependency:
 
 	<dependency>
 		<groupId>redis.clients</groupId>
