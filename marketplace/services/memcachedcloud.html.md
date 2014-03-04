@@ -81,7 +81,7 @@ Add this code snippet to your configure block:
 
 ### <a id="unicorn"></a>Using Memcached on Unicorn
 
-No special setup is required when using Memcached Cloud with a Unicorn server. For Rails apps on Unicorn, follow the instructions in the [Configuring Memcached from Rails](#rails) section and for Sinatra apps on Unicorn see [Configuring Memcached on Sinatra](#sinatra) section.
+No special setup is required when using Memcached Cloud with a Unicorn server. For Sinatra apps on Unicorn see [Configuring Memcached on Sinatra](#sinatra) section.
 
 
 ### Testing from Ruby
