@@ -10,7 +10,7 @@ Search made simple.
 
 ## <a id='using'></a>Using Service Instances with your Application ##
 
-See [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
+See [Using Service Instances with your Application](/devguide/services/adding-a-service.html#use) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
 Format of credentials in `VCAP_SERVICES` environment variable.
 

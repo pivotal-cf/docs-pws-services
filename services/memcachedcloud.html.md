@@ -3,7 +3,7 @@ title: Memcached Cloud
 category: marketplace
 ---
 
-[Memcached Cloud](http://garantiadata.com/memcached) is a fully-managed service for running your Memcached in a reliable and fail-safe manner. Your dataset is constantly replicated, so if a node fails, an auto-switchover mechanism guarantees data is served without interruption. Memcached Cloud provides various data persistence options as well as remote backups for disaster recovery purposes. You can quickly and easily get your apps up and running with Memcached Cloud through its add-on for Cloud Foundry, just tell us how much memory you need and get started instantly with your first Memcached bucket.
+[Memcached Cloud](http://redislabs.com/memcached-cloud) is a fully-managed service for running your Memcached in a reliable and fail-safe manner. Your dataset is constantly replicated, so if a node fails, an auto-switchover mechanism guarantees data is served without interruption. Memcached Cloud provides various data persistence options as well as remote backups for disaster recovery purposes. You can quickly and easily get your apps up and running with Memcached Cloud through its add-on for Cloud Foundry, just tell us how much memory you need and get started instantly with your first Memcached bucket.
 
 A Memcached bucket is created in seconds and from that moment on, all operations are fully-automated. The service completely frees developers from dealing with nodes, clusters, server lists, scaling and failure recovery, while guaranteeing absolutely no data loss.
 
@@ -29,17 +29,17 @@ Bind your Memcached Cloud service to your app, using the following command:
 $ cf bind-service APP_NAME INSTANCE_NAME
 </pre>
 
-Once your Memcached Cloud service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` env. variable in the following format:
+Once your Memcached Cloud service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` environment variable in the following format:
 
 	{
 	  memcachedcloud-n/a: [
 	    {
-	      name: "memcachedcloud-1234a",
+	      name: "memcachedcloud-42",
 	      label: "memcachedcloud-n/a",
 	      plan: "20mb",
 	      credentials: {
-	        servers: "pub-memcache-5678.us-east-1-1.1.ec2.garantiadata.com:5678",
-	        username: "memcachedcloud-1234a",
+			servers: "pub-memcache-6379.us-east-1-1.1.ec2.redislabs.com:6379",
+			username: "memcachedcloud-42",
 	        password: "your_memcahced_password"
 	      }
 	    }
@@ -49,9 +49,8 @@ Once your Memcached Cloud service is bound to your app, the service credentials 
 For more information, see [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
 * [Ruby](#ruby)
-* [Rails](#rails)
 * [Sinatra](#sinatra)
-* [Unicron](#unicorn)
+* [Unicorn](#unicorn)
 * [Java](#java)
 * [Python](#python)
 * [Django](#django)
@@ -86,14 +85,14 @@ Add this code snippet to your configure block:
 		require 'dalli'
 		memcachedcloud_service = JSON.parse(ENV['VCAP_SERVICES'])["memcachedcloud-n/a"]
 		credentials = memcachedcloud_service.first["credentials"]
-    	$cache = Dalli::Client.new(credentials.servers.split(','), :username => credentials.username, :password => credentials.password)
+		$cache = Dalli::Client.new(credentials.servers.split(','), :username => credentials.username, :password => credentials.password)
         . . .
 	end
 
 ### <a id="unicorn"></a>Using Memcached on Unicorn ###
 
-No special setup is required when using Memcached Cloud with a Unicorn server.
-Users running Rails apps on Unicorn should follow the instructions in the [Configuring Memcached from Rails](#rails) section and users running Sinatra apps on Unicorn should follow the instructions in the [Configuring Memcached on Sinatra](#sinatra) section.
+No special setup is required when using Memcached Cloud with a Unicorn server. For Sinatra apps on Unicorn see [Configuring Memcached on Sinatra](#sinatra) section.
+
 
 ### <a id="ruby-testing"></a>Testing from Ruby ###
 
@@ -104,8 +103,9 @@ Users running Rails apps on Unicorn should follow the instructions in the [Confi
 
 ## <a id="java"></a>Using Memcached with Java ##
 
-[spymemcached](https://code.google.com/p/spymemcached/) is a simple, asynchronous, single-threaded memcached client written in java. You can download the latest build from: https://code.google.com/p/spymemcached/downloads/list.
-For using the maven repository, start by specifying the repository:
+[spymemcached](https://code.google.com/p/spymemcached/) is a simple, asynchronous, single-threaded Memcached client written in Java. You can download the latest build from: https://code.google.com/p/spymemcached/downloads/list.
+
+To use the maven repository, start by specifying the repository:
 
 	<repositories>
 	    <repository>
@@ -128,7 +128,7 @@ And specify the actual artifact as follows:
 	  <scope>provided</scope>
 	</dependency>
 
-Configure connection to your Memcached Cloud service using the `VCAP_SERVICES` environment variable and the following code snippet:
+Configure the connection to your Memcached Cloud service using the `VCAP_SERVICES` environment variable and the following code snippet:
 
 	try {
 		String vcap_services = System.getenv("VCAP_SERVICES");
@@ -162,20 +162,20 @@ Configure connection to your Memcached Cloud service using the `VCAP_SERVICES` e
 
 ## <a id="python"></a>Using Memcached with Python ##
 
-[bmemcached](https://github.com/jaysonsantos/python-binary-memcached) is a pure, thread safe, python module to access memcached via it's binary protocol.
+[bmemcached](https://github.com/jaysonsantos/python-binary-memcached) is a pure, thread safe, python module to access Memcached via its binary protocol.
 
 Use pip to install it:
 
 	pip install python-binary-memcached
 
-Configure connection to your Memcached Cloud service using `VCAP_SERVICES` environment variable and the following code snippet:
+Configure the connection to your Memcached Cloud service using `VCAP_SERVICES` environment variable and the following code snippet:
 
 	import os
 	import urlparse
 	import bmemcached
 	import json
 
-	memcachedcloud_service = json.loads(os.environ['VCAP_SERVICES'])['"memcachedcloud-n/a'][0]
+	memcachedcloud_service = json.loads(os.environ['VCAP_SERVICES'])['memcachedcloud-n/a'][0]
 	credentials = memcached_service['credentials']
 	mc = bmemcached.Client(credentials['servers'].split(','), credentials['username'], credentials['password'])
 
@@ -228,7 +228,7 @@ Include the class in your project, and configure a connection to your Memcached 
 	include('MemcacheSASL.php');
 
 	$vcap_services = getenv("VCAP_SERVICES");
-	$"memcachedcloud_service = json_decode($vcap_services, true)[""memcachedcloud-n/a"][0]
+	$"memcachedcloud_service = json_decode($vcap_services, true)["memcachedcloud-n/a"][0]
 	$credentials = $"memcachedcloud_service["credentials"]
 
 	$mc = new MemcacheSASL;
@@ -245,7 +245,7 @@ Include the class in your project, and configure a connection to your Memcached 
 
 Our dashboard presents all performance and usage metrics of your Memcached Cloud service on a single screen, as shown below:
 
-![Dashboard](https://s3.amazonaws.com/memcached-cloud-docs/CFdashboard.png)
+![Dashboard](https://s3.amazonaws.com/paas-docs/memcached-cloud/CF+-+mem.png)
 
 To access your Memcached Cloud dashboard, simply click the 'Manage' button next to the Memcached Cloud service on your app space console.
 
@@ -253,10 +253,10 @@ You can then find your dashboard under the `MY DATABASES` menu.
 
 ## <a id='support'></a>Support ##
 
-Any Memcached Cloud support issues or product feedbacks are welcome via email at support@garantiadata.com.
+Any Memcached Cloud support issues or product feedbacks are welcome via email at support@redislabs.com.
 Please make sure you are familiar with the CloudFoundry method of [contacting service providers for support](http://docs.cloudfoundry.com/docs/dotcom/services-marketplace/contacting-service-providers-for-support.html).
 
 ## <a id='additional-resources'></a>Additional resources ##
 
-* [Developers Resources](http://garantiadata.com/memcached/developers)
+* [Developers Resources](http://redislabs.com/memcached-cloud)
 * [Memcached Wiki](https://code.google.com/p/memcached/wiki/NewStart)
