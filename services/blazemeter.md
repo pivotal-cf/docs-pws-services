@@ -8,11 +8,15 @@ BlazeMeter is a self-service, web and mobile load testing platform (PaaS) provid
 
 [Managing Services](/devguide/services/managing-services.html)
 
+Blazemeter does not support binding.
+
+## <a id='additional-documentation'></a>Addition Documentation ##
+
+http://community.blazemeter.com/knowledgebase
+
 ## <a id='support'></a>Support ##
 
 [Contacting Service Providers for Support](../contacting-service-providers-for-support.html)
 
-## <a id='external-links'></a>External Links ##
+[Contact BlazeMeter Support](http://blazemeter.com/contact-us?dep=Support)
 
-* http://blazemeter.com
-* http://community.blazemeter.com/knowledgebase

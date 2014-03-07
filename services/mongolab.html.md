@@ -1,5 +1,5 @@
 ---
-title: ElephantSQL
+title: MongoLab
 ---
 
 ## <a id='managing-services'></a>Managing Services ##
@@ -12,13 +12,13 @@ Format of credentials in VCAP_SERVICES
 
 ~~~xml
 {
-  elephantsql-dev-n/a: [
+ mongolab-n/a: [
   {
-    name: "elephantsql-dev-c6c60",
-    label: "elephantsql-dev-n/a",
-    plan: "turtle",
+    name: "mongolab-2cea8",
+    label: "mongolab-n/a",
+    plan: "sandbox",
     credentials: {
-      uri: "postgres://seilbmbd:PHxTPJSbkcDakfK4cYwXHiIX9Q8p5Bxn@babar.elephantsql.com:5432/seilbmbd"
+      uri: "mongodb://cloudfoundry-test_2p6otl8c_841b7q4b_tmtlqeaa:eb5d00ac-2a4f-4beb-80ad-9da11cff5a70@ds027908.mongolab.com:27908/cloudfoundry-test_2p6otl8c_841b7q4b"
     }
   }
   ]
@@ -27,15 +27,11 @@ Format of credentials in VCAP_SERVICES
 
 ## Sample Application
 
-https://github.com/scottfrederick/spring-music
+https://github.com/cloudfoundry-samples/spring-music
 
 ## <a id='support'></a>Support ##
 
 [Contacting Service Providers for Support](../contacting-service-providers-for-support.html)
 
-* http://www.elephantsql.com/support.html
-
-## <a id='external-links'></a>External Links ##
-
-* http://www.elephantsql.com/
+https://support.mongolab.com/
 

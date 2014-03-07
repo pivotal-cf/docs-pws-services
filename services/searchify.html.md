@@ -1,0 +1,18 @@
+---
+title: Searchify
+---
+
+Full-text Search-as-a-Service. Easily add custom full-text search, without the cost or complexity of managing search servers.
+
+## <a id='managing'></a>Creating and Managing Services Instances ##
+
+[Managing services from the command line](/devguide/services/managing-services.html)
+
+Searchify does not support binding.
+
+## <a id='support'></a>Support ##
+
+[Contacting Service Providers for Support](/marketplace/contacting-service-providers-for-support.html)
+
+https://www.searchify.com/documentation/
+
