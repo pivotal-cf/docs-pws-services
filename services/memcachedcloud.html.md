@@ -7,19 +7,27 @@ category: marketplace
 
 A Memcached bucket is created in seconds and from that moment on, all operations are fully-automated. The service completely frees developers from dealing with nodes, clusters, server lists, scaling and failure recovery, while guaranteeing absolutely no data loss.
 
-## Creating A Memcached Cloud Service
+## <a id="managing-services"></a>Managing Services ##
+
+[Managing your services from the command line](/devguide/services/managed.html).
+
+### <a id="create-service"></a>Creating A Memcached Cloud Service ###
 
 Create a Memcached Cloud service with the following command:
 
-        cf create-service memcachedcloud <plan name>
+<pre class="terminal">
+$ cf create-service memcachedcloud PLAN_NAME INSTANCE_NAME
+</pre>
 
-where `<plan name>` is the desired plan's name.
+where `PLAN_NAME` is the desired plan's name, and `INSTANCE_NAME` is a name meaningful to you.
 
-## Binding Your Memcached Cloud Service
+### <a id="bind-service"></a>Binding Your Memcached Cloud Service ###
 
 Bind your Memcached Cloud service to your app, using the following command:
 
-	cf bind-service <memcachedcloud_service_name> <app name>
+<pre class="terminal">
+$ cf bind-service APP_NAME INSTANCE_NAME
+</pre>
 
 Once your Memcached Cloud service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` env. variable in the following format:
 
@@ -38,6 +46,8 @@ Once your Memcached Cloud service is bound to your app, the service credentials 
 	  ]
 	}
 
+For more information, see [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
+
 * [Ruby](#ruby)
 * [Rails](#rails)
 * [Sinatra](#sinatra)
@@ -47,7 +57,7 @@ Once your Memcached Cloud service is bound to your app, the service credentials 
 * [Django](#django)
 * [PHP](#php)
 
-## <a id="ruby"></a>Using Memcached with Ruby
+## <a id="ruby"></a>Using Memcached with Ruby ##
 [Dalli](https://github.com/mperham/dalli) is a high performance pure Ruby client for accessing memcached servers, which uses the binary protocol.
 
 For usage with Rails 3.x, update the Gemfile:
@@ -67,7 +77,7 @@ Lastly, in your `config/environments/production.rb`:
 
     	config.cache_store = :dalli_store, credentials.servers, { :username => credentials.username, :password => credentials.password }
 
-### <a id="sinatra"></a>Configuring Memcached on Sinatra
+### <a id="sinatra"></a>Configuring Memcached on Sinatra ###
 
 Add this code snippet to your configure block:
 
@@ -80,19 +90,19 @@ Add this code snippet to your configure block:
         . . .
 	end
 
-### <a id="unicorn"></a>Using Memcached on Unicorn
+### <a id="unicorn"></a>Using Memcached on Unicorn ###
 
 No special setup is required when using Memcached Cloud with a Unicorn server.
 Users running Rails apps on Unicorn should follow the instructions in the [Configuring Memcached from Rails](#rails) section and users running Sinatra apps on Unicorn should follow the instructions in the [Configuring Memcached on Sinatra](#sinatra) section.
 
-### Testing from Ruby
+### <a id="ruby-testing"></a>Testing from Ruby ###
 
 	$cache.set("foo", "bar")
 	# => true
 	$cache.get("foo")
 	# => "bar"
 
-## <a id="java"></a>Using Memcached with Java
+## <a id="java"></a>Using Memcached with Java ##
 
 [spymemcached](https://code.google.com/p/spymemcached/) is a simple, asynchronous, single-threaded memcached client written in java. You can download the latest build from: https://code.google.com/p/spymemcached/downloads/list.
 For using the maven repository, start by specifying the repository:
@@ -145,12 +155,12 @@ Configure connection to your Memcached Cloud service using the `VCAP_SERVICES` e
 		// the memcached client could not be initialized.
 	}
 
-### Testing from Java
+### <a id="java-testing"</a>Testing from Java ###
 
 	mc.set("foo", 0, "bar");
 	Object value = mc.get("foo");
 
-## <a id="python"></a>Using Memcached with Python
+## <a id="python"></a>Using Memcached with Python ##
 
 [bmemcached](https://github.com/jaysonsantos/python-binary-memcached) is a pure, thread safe, python module to access memcached via it's binary protocol.
 
@@ -169,12 +179,12 @@ Configure connection to your Memcached Cloud service using `VCAP_SERVICES` envir
 	credentials = memcached_service['credentials']
 	mc = bmemcached.Client(credentials['servers'].split(','), credentials['username'], credentials['password'])
 
-### Testing from Python
+### <a id="python-testing"</a>Testing from Python ###
 
 	mc.set('foo', 'bar')
 	print client.get('foo')
 
-### <a id="django"></a>Using Memcached with Django
+### <a id="django"></a>Using Memcached with Django ###
 
 Memcached can be used as a django cache backend, with [django-bmemcached](https://github.com/jaysonsantos/django-bmemcached).
 
@@ -202,13 +212,13 @@ Next, configure your `CACHES` in the `settings.py` file:
 	  }
 	}
 
-### Testing from Django
+### <a id="django-testing"></a>Testing from Django ###
 
 	from django.core.cache import cache
 	cache.set("foo", "bar")
 	print cache.get("foo")
 
-## <a id="php"></a>Using Memcached with PHP
+## <a id="php"></a>Using Memcached with PHP ##
 
 [PHPMemcacheSASL](https://github.com/ronnywang/PHPMemcacheSASL) is a simple PHP class with SASL support.
 
@@ -226,12 +236,12 @@ Include the class in your project, and configure a connection to your Memcached 
 	$mc->addServer($host, $port);
 	$mc->setSaslAuthData($credentials['username], $credentials['password']);
 
-### Testing from PHP
+### <a id='php-testing'></a>Testing from PHP ###
 
 	$mc->add("foo", "bar");
 	echo $mc->get("foo");
 
-## Dashboard
+## <a id='dashboard'></a>Dashboard ##
 
 Our dashboard presents all performance and usage metrics of your Memcached Cloud service on a single screen, as shown below:
 
@@ -241,16 +251,12 @@ To access your Memcached Cloud dashboard, simply click the 'Manage' button next 
 
 You can then find your dashboard under the `MY DATABASES` menu.
 
-## Managing Services
-
-You can continue [managing your services from the command line](/devguide/services/managed.html).
-
-## Support
+## <a id='support'></a>Support ##
 
 Any Memcached Cloud support issues or product feedbacks are welcome via email at support@garantiadata.com.
 Please make sure you are familiar with the CloudFoundry method of [contacting service providers for support](http://docs.cloudfoundry.com/docs/dotcom/services-marketplace/contacting-service-providers-for-support.html).
 
-## Additional resources
+## <a id='additional-resources'></a>Additional resources ##
 
 * [Developers Resources](http://garantiadata.com/memcached/developers)
 * [Memcached Wiki](https://code.google.com/p/memcached/wiki/NewStart)

@@ -25,13 +25,10 @@ Format of credentials in VCAP_SERVICES
 }
 ~~~
 
-## Sample Application
-
 ## <a id='support'></a>Support ##
 
 [Contacting Service Providers for Support](../contacting-service-providers-for-support.html)
 
-## <a id='external-links'></a>External Links ##
-
-* http://www.cloudamqp.com/
+* Documentation - http://www.cloudamqp.com/docs/index.html
+* Support - http://www.cloudamqp.com/support.html
 

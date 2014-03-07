@@ -11,16 +11,18 @@ title: New Relic
 An instance of this service can be provisioned via the CLI with the following command:
 
 <pre class="terminal">
-$ cf create-service newrelic
+$ cf create-service newrelic standard INSTANCE
 </pre>
+where `INSTANCE` is a name meaningful to you.
 
 ### <a id='bind'></a>Binding Your Service Instance ###
 
 Bind the service instance to your app with the following command:
 
 <pre class="terminal">
-$ cf bind-service
+$ cf bind-service APP INSTANCE
 </pre>
+where `APP` is the app you're binding and `INSTANCE` is the name you gave your service instance.
 
 ### <a id='sso'></a>Single Sign On ###
 

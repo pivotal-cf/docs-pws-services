@@ -12,10 +12,10 @@ Format of credentials in VCAP_SERVICES
 
 ~~~xml
 {
-  cleardb-dev-n/a: [
+  cleardb-n/a: [
     {
-      name: "cleardb-dev-ebf69",
-      label: "cleardb-dev-n/a",
+      name: "cleardb-ebf69",
+      label: "cleardb-n/a",
       plan: "spark",
       credentials: {
         jdbcUrl: "jdbc:mysql://bb76fcb43f807b:6776566b@us-cdbr-aws-east-105.cleardb.net:3306/ad_033c9629217c759",
@@ -35,13 +35,11 @@ Format of credentials in VCAP_SERVICES
 
 ## Sample Application
 
-https://github.com/scottfrederick/spring-music
+https://github.com/cloudfoundry-samples/spring-music
 
 ## <a id='support'></a>Support ##
 
 [Contacting Service Providers for Support](../contacting-service-providers-for-support.html)
 
-## <a id='external-links'></a>External Links ##
-
-* http://www.cleardb.com/
-
+* Documentation - http://www.cleardb.com/developers
+* FAQ - http://www.cleardb.com/developers/help/faq

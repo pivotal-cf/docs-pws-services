@@ -6,28 +6,27 @@ title: Redis Cloud
 
 Redis Cloud offers true high-availability with its in-memory dataset replication and instant auto-failover mechanism, combined with its fast storage engine. You can easily import an existing dataset to any of your Redis Cloud databases, from your S3 account or from any other Redis server. Daily backups are performed automatically and in addition, you can backup your dataset manually at any given time. The service guarantees high performance, as if you were running the strongest cloud instances.
 
+## <a id="managing-services"></a>Managing Services ##
 
-## <a id='managing'></a>Managing Services ##
+[Managing your services from the command line](/devguide/services/managed.html).
 
-[Managing services from the command line](/devguide/services/managing-services.html)
+### <a id="create-service"></a>Creating a Redis Cloud Service Instance ###
 
-### Creating A Redis Cloud Service
+Create a Redis Cloud service instance with the following command:
 
-Create a Redis Cloud service with the following command:
+<pre class="terminal">
+$ cf create-service rediscloud PLAN_NAME INSTANCE_NAME
+</pre>
 
-	cf create-service rediscloud
+where `PLAN_NAME` is the desired plan's name, and `INSTANCE_NAME` is a name meaningful to you.
 
-and the desired plan.
-
-### Binding Your Redis Cloud Service
+### <a id="bind-service"></a>Binding Your Redis Cloud Service Instance ###
 
 Bind your Redis Cloud service to your app, using the following command:
 
-	cf bind-service <rediscloud_service_name> <app name>
-
-## <a id='using'></a>Using Redis Cloud with your Application ##
-
-See [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
+<pre class="terminal">
+$ cf bind-service APP_NAME INSTANCE_NAME
+</pre>
 
 Once your Redis Cloud service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` env. variable in the following format:
 
@@ -45,6 +44,7 @@ Once your Redis Cloud service is bound to your app, the service credentials will
 	    }
 	  ]
 	}
+For more information, see [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
 ### <a id="ruby"></a>Using Redis from Ruby ###
 
