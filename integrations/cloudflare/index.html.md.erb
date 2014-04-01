@@ -1,104 +1,231 @@
 ---
-title: CloudFlare (SSL-Enabled Custom Domains)
+title: Setting Up SSL-Enabled Custom Domains Using CloudFlare
 ---
 
-This page has has instructions for setting up an SSL-enabled custom domain using CloudFlare, a content distribution network. This is the Pivotal-recommended strategy for using SSL with a custom domain. In the resulting configuration, traffic to and from your application running on Cloud Foundry will be routed via CloudFlare.
+**Note**: SSL (HTTPS) will not work with custom domains without the use of
+third-party SSL termination.
+Pivotal recommends using CloudFlare for this service.
 
-browser  \< --- ssl --- \>  CloudFlare proxy  \< --- ssl --- \>  Cloud Foundry
+This topic explains setting up an SSL-enabled custom domain using CloudFlare, a
+content distribution network.
+This is the Pivotal-recommended strategy for using SSL with a custom domain.
+Using this configuration, traffic to and from your application running on Cloud
+Foundry will be routed via CloudFlare.
 
-To enable this, you will configure CloudFlare’s “Full SSL” option for the domain. You can use a CloudFlare-generated SSL certificate between the browser and the CloudFlare server, or if you prefer, configure CloudFlare to use a certificate you provide. A Cloud Foundry-generated SSL certificate will be used between the CloudFlare proxy and the application on Cloud Foundry.
+Browser  &lt; &mdash; ssl &mdash; &gt;  CloudFlare proxy  &lt; &mdash; ssl &mdash; &gt;  Cloud Foundry
 
-These instructions assume that your domain is already registered with a DNS registrar. To complete this procedure, you must be able to access the DNS registrar for the domain. Note that you do not need to change DNS registrars. The only change you will make with your registrar is to point the authoritative name servers to CloudFlare's name servers.
+To enable this, you configure CloudFlare's "Full SSL" option for the domain.
+You can use a CloudFlare-generated SSL certificate between the browser and the
+CloudFlare server, or, if you prefer, configure CloudFlare to use a certificate
+you provide.
+A Cloud Foundry-generated SSL certificate is used between the CloudFlare proxy
+and the application on Cloud Foundry.
 
-It is recommended that you download the zone file for the domain from your DNS provider, for use in [Step 5 - Configure DNS Records](#configure).
+These instructions assume that your domain is already registered with a DNS
+registrar.
+To complete this procedure, you must be able to access the DNS registrar for the
+domain.
+Note that you do not need to change DNS registrars.
+The only change you make with your registrar is to point the authoritative name
+servers to CloudFlare's name servers.
+
+Before starting, download the zone file for the domain from your DNS provider to
+use in [Step 3 - Configure DNS Records](#configure-dns).
+
+
+## <a id='introduction'></a>Introduction ##
+
+CloudFlare is a caching and security-as-a-service that protects and accelerates
+on-line websites.
+Web traffic is routed through CloudFlare's global network -- this accelerates
+delivery of static and dynamic content, while blocking threats and limiting
+abusive bots and crawlers from wasting your bandwidth and server resources.
+CloudFlare's SSL termination proxy decrypts incoming SSL traffic and can pass on
+unencrypted or fully encrypted requests to the app server.
+Adding your website requires only a simple change to your domain's DNS settings.
+SSL Termination is an enhanced service and requires either a Pro account or a
+Business account.
 
 ## <a id='sign-up'></a>Step 1 - Get CloudFlare Account ##
 
-Go to https://www.cloudflare.com/, and click **Sign up** in the upper right of the page. On the registration page, enter your email address, username, and password. Accept CloudFlare's terms of use, and click **Create account now**.
+1. Go to [https://www.cloudflare.com/plans](https://www.cloudflare.com/plans),
+select a CloudFlare Pro or higher account, and click **Sign up now**.
+Free accounts currently do not provide SSL termination services.
 
- <%= image_tag("cloudflare-register.png") %>
+    <%= image_tag("../../images/cloudflare/sign-up.png") %>
 
+1. On the **Create an Account** page, enter your email address, username, and password. Read and check **I agree to CloudFlare's Terms of use**. Click **Create account now**.
 
-## <a id='add-site'></a>Step 2 - Add Domain to CloudFlare ##
+    <%= image_tag("../../images/cloudflare/create-account.png") %>
 
-On the CloudFlare "Add a website" page, enter the name of your custom domain and click **Add website**. CloudFlare will query authoritative DNS servers for the DNS records registered for the domain.
+## <a id='add-domain'></a>Step 2 - Add Domain to CloudFlare ##
 
- <%= image_tag("add-website.png") %>
+1. On the **Select a website** page, enter the name of your custom domain and
+click **Add website**.
+CloudFlare will query authoritative DNS servers for the DNS record registered
+for the domain.
 
+    <%= image_tag("../../images/cloudflare/add-website.png") %>
 
-## <a id='scan'></a>Step 3 - Wait for Scan to Complete ##
-
-When the scan is complete, a **Domain records scanned** callout appears. Click **Continue Setup**.
-
- <%= image_tag("scan-complete.png") %>
-
-## <a id='configure'></a>Step 4 - Configure DNS Records ##
-
-The CloudFlare "Configure Your DNS Records" lists the records it obtained for the domain. In the row for your domain name -- "uberconnected.com" in the example --- the cloud icon in the "Active" column should be orange.
-
-To ensure your DNS records are correct and complete, Pivotal recommends you download the zone file for the domain from your DNS provider, and then upload it to CloudFlare --- click the **Upload a zone file** link to do so.
-
-If you prefer, you can click **Add** to define additional records, if necessary.
-
-When done, click **I've added all missing records, continue**.
-
-<%= image_tag("config-dns.png") %>
-
-## <a id='settings'></a>Step 5 - Choose Settings ##
-
-On the "Settings for \<YourDomain\>" page:
-
-*  **Choose a plan** --- Select "Pro" or "Business". Do not choose the free plan; you can only configure SSL for a domain if you have a paid CloudFlare plan. If you choose "Pro", CloudFlare will generate an SSL certificate for communications betwen browsers and the CloudFlare proxy. If you prefer to provide your own SSL certificate, choose "Business".
-*  **Performance** --- This configures a performance profile that sets the values of multiple performance-related options. You can choose any of the available options, and easily change it later. After completing this configuration process, follow the instructions in [Reviewing CloudFlare Configuration Options](#review) to understand the performance (and also security) options, and tailor your configuration, as desired.
-    * **CDN only (safest)** --- This is the default.
-    * **CDN + Basic Optimizations**
-    * **CDN + Full Optimizations**
-* **Security** --- This setting controls CloudFlare's which visitors are shown a captcha/challenge page. The options are:
-    * **I'm under attack!** --- Should only be used when a site is having a DDoS attack. When this setting is configured, CloudFlare will present an interstitial page to each site visitor (for about five seconds) while validating that the request came from a human, rather than a web robot.
-    * **High** --- CloudFlare will challenge all visitors that have exhibited threatening behavior within the last 14 days.
-    * **Medium**
-    * **Low** --- CloudFlare will challenge only the most threatening visitors. CloudFlare recommends this as initial setting.
-    * **Essentially off** --- CloudFlare will act only against the most grievous offenders.
-*  **Automatiac IPV6** --- The options are:
-    * **Full IPv6 Gateway** --- Enables IPv6 on all subdomains that are CloudFlare-enabled (marked by an orange cloud in your DNS settings)
-    * **Safe IPv6 Gateway** Will only create an IPv6-specific subdomain for your site (www.ipv6.yoursite.com).
-*  **SmartErrors** --- SmartErrors is a CloudFlare feature that prevents 404 errors from being presented when a site visitor requests a page that is not found. Instead, CloudFlare performs a site search based on the user's request, and presents a list of best-matching pages from the site.
-
+1. When CloudFlare finishes querying the DNS servers, a **Scan complete**
+message appears.
 Click **Continue**.
 
-<%= image_tag("settings.png") %>
+    <%= image_tag("../../images/cloudflare/scan-complete.png") %>
 
-## <a id='ssl'></a>Step 6 - Confirm SSL ##
+## <a id='configure-dns'></a>Step 3 - Configure DNS Records ##
 
-On the "Confirm SSL" page, you can select:
+The **Configure your records** page lists the records obtained from the
+authoritative DNS servers for your domain.
+In the row containing your domain name, the cloud icon in the **Active** column
+should be orange.
 
-* **Automatic SSL Configuration** --- If you select this option, CloudFlare will generate an SSL certificate. If you selected the "Business" plan in the previous step, you can upload your own certificate later.
-* **Custom SSL Configuration** --- This option only appears if you selected a "Business" plan in the previous step. When you select this option, you can upload your own private key and certificate files.
-* **Manual SSL Configuration**
+To ensure your DNS records are correct and complete, Pivotal recommends you
+download the zone file for the domain from your DNS provider, and then upload it
+to CloudFlare using the **Upload a zone file** link.
 
-<%= image_tag("confirm-ssl.png") %>
+Use the **Add** button to define additional records, if necessary.
 
-## <a id='settings'></a>Step 7 - Update Name Servers ##
+When finished, click **I've added all missing records, continue**.
+    <%= image_tag("../../images/cloudflare/configure-dns.png") %>
 
-The "Update Name Servers" page lists your current name servers, and the CloudFlare name servers with which to replace them.
+## <a id='choose-settings'></a>Step 4 - Choose Initial Settings ##
 
-Log on to your domain name registrar and open that page for name server management. Replace the currently configured name servers with the CloudFlare name servers.
+1. On the **Choose initial settings** page, set the following options:
+    * **Choose a plan**: Select either **Pro** or **Business**.
+    Do not choose the free plan; you can only configure SSL for a domain if you
+    have a paid CloudFlare plan.
+    If you choose **Pro**, CloudFlare will generate an SSL certificate for
+    communications between browsers and the CloudFlare proxy.
+    If you prefer to provide your own SSL certificate, choose **Business**.
+    * **Performance**: This configures a profile that sets the values of
+    multiple performance-related options.
+    You can choose any of the available options, and easily change it later.
+    After completing this configuration process, follow the instructions in
+    [Reviewing CloudFlare Configuration Options](#review) to understand the
+    performance and security options, and tailor your configuration as desired.
+        * **CDN only (safest)**: This is the default.
+        * **CDN + Basic Optimizations**
+        * **CDN + Full Optimizations**
+    * **Security**: This setting controls which visitors are shown a CAPTCHA
+    challenge page.
+    The options are:
+        * **High**: Requires a CAPTCHA for any visitors witnessed engaging in
+        malicious behavior on other websites, and challenges visitors based on
+        known malware browser signatures
+        * **Medium**: Requires a CAPTCHA for any visitors witnessed frequently
+        engaging in malicious behavior on other websites, and challenges
+        visitors based on known malware browser signatures
+        * **Low**: Requires a CAPTCHA for any visitors witnessed very frequently
+        engaging in malicious behavior on other websites
+        * **Essentially off**: Only challenges visitors recently involved in
+        significant denial of service (DoS) or hacking attacks
 
-Click **I've updated my nameservers, continue** on the "update your name servers page."
+        CloudFlare recommends using **Low** as an initial setting.
+    * **Automatic IPv6**: The options are:
+        * **Full IPv6 Gateway**: Enables IPv6 on all subdomains that are
+        CloudFlare-enabled (marked by an orange cloud in your DNS settings)
+        * **Safe IPv6 Gateway**: Will only create an IPv6-specific subdomain for
+        your site (www.ipv6.yoursite.com).
+    * **SmartErrors**: SmartErrors is a CloudFlare feature that prevents 404
+    errors from being presented when a site visitor requests a page that is not
+    found.
+    Instead, CloudFlare performs a site search based on keywords and contextual
+    information from the referring link, then presents the visitor with a list
+    of best-matching pages from the site.
+    Options:
+        * **On (partial)**: This enables SmartErrors only for `HTML 404 page not found` errors that are not customized.
+        If you have a customized 404 error page, SmartError will not intercept
+        it in partial mode.
+        * **On (full)**: This enables SmartErrors for all `HTML 404 page not found`
+        error pages, including any custom error pages.
+        * **Off**: This disables SmartErrors.
 
-## <a id='settings'></a>Step 9 - Setup Complete ##
+1. Click **Continue**.
 
-When you have provided all necessary information, the "My Websites" page appears, and states that you have completed the domain setup.
+    <%= image_tag("../../images/cloudflare/initial-settings.png") %>
 
-Check your DNS registrar's site to verify that the name server changes made in the previous step are complete
+## <a id='confirm-ssl'></a>Step 5 - Confirm SSL ##
 
-<%= image_tag("complete.png") %>
+On the **Confirm SSL** page, select your SSL configuration preference:
 
+* **Automatic SSL Configuration**: Use this option if you want CloudFlare to
+automatically issue an SSL certificate for your website.
+* **Custom SSL Configuration**: Use this option to upload your own SSL private
+key and certificate files.
+* **Manual SSL Configuration**: Use this option if you want to manually insert a
+unique meta tag provided by CloudFlare in the head section of the HTML for your
+website.
 
-## <a id='review'></a>Review CloudFlare Configuration Options ##
+    <%= image_tag("../../images/cloudflare/confirm-ssl.png") %>
 
-After your initial domain setup is complete, you may want to review CloudFlare configuration options. To do so, click the **Websites** link at the top of any CloudFlare.com page to view the "My WebSites" page.
+## <a id='update-names'></a>Step 6 - Update Name Servers ##
 
-Click the gear icon in the row for your domain, and choose **CloudFlare settings** from the menu. The **CloudFlare settings** page has several tabs that describe CloudFlare configuration options. In particular, see the **Security** and **Performance** tabs to understand more about the options you configured, and alternative settings.
+The **Update your DNS** page lists your current name servers, and the CloudFlare
+name servers with which to replace them.
 
-<%= image_tag("my-websites.png") %>
+1. Use the provided URLs to update the name server settings for your domain with
+the authoritative server for your domain, i.e., your ISP.
+
+1. Click **I've updated my nameservers, continue**.
+
+    <%= image_tag("../../images/cloudflare/update-name.png") %>
+
+## <a id='select-ssl'></a>Step 7 - Select SSL Option ##
+
+1. On the **Websites page**, click the gear icon for the website you want to
+configure with the SSL Termination service and select **CloudFlare settings**.
+
+    <%= image_tag("../../images/cloudflare/gear.png") %>
+
+1. On the **Settings overview** tab, scroll down the page to **SSL**.
+Select your SSL option:
+
+* **Off**: This disables SSL.
+* **Flexible**: This enables SSL between visitors and CloudFlare, but does not
+enable SSL between CloudFlare and Cloud Foundry.
+Visitor see HTTPS enabled on your website, but you do not need an SSL
+certificate on Cloud Foundry.
+* **Full SSL**: This enables SSL between visitors and CloudFlare, and between
+CloudFlare and Cloud Foundry.
+This setting requires an SSL certificate on Cloud Foundry.
+* **Full SSL (Strict)**: This option is not available when using Cloud Foundry.
+The Full SSL (Strict) option requires the SSL certificate to respond for the
+request domain name, but the SSL certificate returned by Cloud Foundry will be
+for the cfapps.io domain instead.
+
+    <%= image_tag("../../images/cloudflare/choose-ssl.png") %>
+
+## <a id='restrict'></a>Step 8 - Restrict Application to SSL Only ##
+
+To restrict an application to work only over SSL:
+
+1. On the **Websites** page, click the gear icon for the application you want to configure and select **Page Rules**.
+
+    <%= image_tag("../../images/cloudflare/page-rules.png") %>
+
+1. Create a new rule by adding a URL pattern, for example
+`hellocf.mycustomdomain.com`.
+Select **Always use https**.
+
+    <%= image_tag("../../images/cloudflare/page-rules.png") %>
+
+Note that because DNS settings are cached in various points throughout the
+Internet, including on your browser, changes to these SSL settings may take some
+time to propagate through the system and start functioning as you would expect.
+
+## <a id='review'></a>Step 9 - Review CloudFlare Configuration Options ##
+
+After your initial domain setup is complete, you may want to review CloudFlare
+configuration options.
+To do so:
+
+1. Click the **Websites** link at the top of any CloudFlare.com page.
+
+1. Click the gear icon in the row for your domain and select **CloudFlare settings**.
+The **CloudFlare settings** page has several tabs that describe CloudFlare
+configuration options.
+In particular, see the **Security** and **Performance** tabs to understand more
+about the options you configured, and alternative settings.
+
+    <%= image_tag("../../images/cloudflare/my-websites.png") %>
