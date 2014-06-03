@@ -12,7 +12,7 @@ Jenkins can push applications to CloudFoundry.com after a successful build. This
 
 This guide will show how to configure an existing CloudBees Jenkins job to push an application to CloudFoundry.com. Before this can be done, the follow steps should be completed:
 
-* The source code for the application should be in a public git or subversion repository (e.g. [GitHub](http://www.github.com), [BitBucket](https://bitbucket.org/), [Google Code](http://code.google.com/hosting/) or [CloudBees Forge](http://www.cloudbees.com/)).
+* The source code for the application should be in a public git or subversion repository (e.g. [GitHub](http://www.github.com), [BitBucket](https://bitbucket.org/), [Google Code](http://code.google.com/hosting/), or [CloudBees Forge](http://www.cloudbees.com/)).
 * A Jenkins job should be created and configured to successfully build the application. See the [CloudBees Jenkins documentation](http://developer.cloudbees.com/bin/view/DEV/Getting+started+with+Jenkins) for help creating the initial Jenkins job.
 
 ## <a id='config'></a>Configuring a Job ##
@@ -23,17 +23,17 @@ Starting from the Jenkins Dashboard, click on the project name to view the proje
 
  <%= image_tag("dotcom/integration/cloudbees/jenkins-dashboard.png") %>
 
-From the project page, click on the "Configure" link:
+From the project page, click **Configure**:
 
  <%= image_tag("dotcom/integration/cloudbees/jenkins-project.png") %>
 
-Scroll to the bottom of the project configuration page. Click on the "Add post-build action" button, and select "Deploy applications" from the presented list.
+Scroll to the bottom of the project configuration page. Click on **Add post-build action** button, and select **Deploy applications**.
 
  <%= image_tag("dotcom/integration/cloudbees/jenkins-project-configure-1.png") %>
 
  <%= image_tag("dotcom/integration/cloudbees/jenkins-project-configure-2.png") %>
 
-Look for the "Cloud Foundry" section added to the page:
+Look for the **Cloud Foundry** section added to the page:
 
  <%= image_tag("dotcom/integration/cloudbees/jenkins-project-configure-3.png") %>
 
@@ -49,7 +49,7 @@ Fill out the form fields as follows:
 * **Memory Reservation**: Choose the amount of memory that Cloud Foundry should allocate to the application.
 * **Start application on deployment**: Check if Cloud Foundry should start the application after it is pushed.
 
-If the application requires services (a database, document store, key-value store, or messaging system), click on the "Add service" button. Additional fields will be added to the form:
+If the application requires services (a database, document store, key-value store, or messaging system), click the **Add service** button. Additional fields will be added to the form:
 
  <%= image_tag("dotcom/integration/cloudbees/jenkins-project-configure-4.png") %>
 
@@ -61,17 +61,17 @@ Fill out the additional form fields as follows:
 
 You can add as many services as necessary for your application by clicking the "Add service" button multiple times.
 
-After you are done adding the Cloud Foundry configuration to the Jenkins job, press the "Save" button. You will be returned to the project details page, where you can click the "Build Now" link to start a build of the project.
+After you are done adding the Cloud Foundry configuration to the Jenkins job, click **Save**.. You will be returned to the project details page, where you can click the **Build Now** link to start a build of the project.
 
 ## <a id='troubleshooting'></a>Troubleshooting ##
 
 ### "Operation not permitted" error ###
 
-If you receive an "Operation not permitted" exception when pushing an application from Jenkins, your Cloud Foundry authorization may have expired. In such an event, you should receive an email from CloudBees informing you of this. Regardless, you can login to [cloudfoundry.cloudbees.com](https://cloudfoundry.cloudbees.com) and re-authorize CloudBees to deploy applications on your behalf.
+If you receive an `Operation not permitted` exception when pushing an application from Jenkins, your Cloud Foundry authorization may have expired. In such an event, you should receive an email from CloudBees informing you of this. Regardless, you can login to [cloudfoundry.cloudbees.com](https://cloudfoundry.cloudbees.com) and re-authorize CloudBees to deploy applications on your behalf.
 
 ### "External URIs are not enabled for this account" error ###
 
-If you receive an HTTP error code 503 with a message stating "External URIs are not enabled for this account" when pushing an application from Jenkins, double check the format and contents of the "Deployment URL" field in your Cloud Foundry Jenkins deployer configuration. This URL must include the "cloudfoundry.com" domain, and must not contain illegal characters.
+If you receive an HTTP error code 503 with a message stating `External URIs are not enabled for this account` when pushing an application from Jenkins, double check the format and contents of the `Deployment URL` field in your Cloud Foundry Jenkins deployer configuration. This URL must include the `cloudfoundry.com` domain, and must not contain illegal characters.
 
 ### Support ###
 
