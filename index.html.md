@@ -13,4 +13,4 @@ The Services Marketplace provides users of Pivotal Web Services with self-servic
 ## <a id='providers'></a>For Providers ##
 
 * [Provider Documentation](./providers/index.html)
-* [Externally Visible IP Address](./external-ips.html)
+* [Externally Visible IP Addresses](./external-ips.html)
