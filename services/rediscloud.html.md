@@ -31,10 +31,10 @@ $ cf bind-service APP_NAME INSTANCE_NAME
 Once your Redis Cloud service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` environment variable in the following format:
 
 	{
-	  "rediscloud-n/a": [
+	  "rediscloud": [
 	    {
 	      "name": "rediscloud-42",
-	      "label": "rediscloud-n/a",
+	      "label": "rediscloud",
 	      "plan": "20mb",
 	      "credentials": {
 		    "port"": "6379",
@@ -70,7 +70,7 @@ And then install the gem via Bundler:
 
 Lastly, create a new `redis.rb` initializer in `config/initializers/` and add the following code snippet:
 
-	rediscloud_service = JSON.parse(ENV['VCAP_SERVICES'])["rediscloud-n/a"]
+	rediscloud_service = JSON.parse(ENV['VCAP_SERVICES'])["rediscloud"]
 	credentials = rediscloud_service.first["credentials"]
     $redis = Redis.new(:host => credentials["hostname"], :port => credentials["port"], :password => credentials["password"])
 
@@ -81,7 +81,7 @@ Add this code snippet to your configure block:
 	configure do
         . . .
 		require 'redis'
-		rediscloud_service = JSON.parse(ENV['VCAP_SERVICES'])["rediscloud-n/a"]
+		rediscloud_service = JSON.parse(ENV['VCAP_SERVICES'])["rediscloud"]
 		credentials = rediscloud_service.first["credentials"]
 		$redis = Redis.new(:host => credentials.hostname, :port => credentials.port, :password => credentials.password)
         . . .
@@ -117,7 +117,7 @@ Configure the connection to your Redis Cloud service using the `VCAP_SERVICES` e
 		if (vcap_services != null && vcap_services.length() > 0) {
 			// parsing rediscloud credentials
 			JsonRootNode root = new JdomParser().parse(vcap_services);
-			JsonNode rediscloudNode = root.getNode("rediscloud-n/a");
+			JsonNode rediscloudNode = root.getNode("rediscloud");
 			JsonNode credentials = rediscloudNode.getNode(0).getNode("credentials");
 
 			JedisPool pool = new JedisPool(new JedisPoolConfig(),
@@ -155,7 +155,7 @@ Configure the connection to your Redis Cloud service using `VCAP_SERVICES` envir
 	import redis
 	import json
 
-	rediscloud_service = json.loads(os.environ['VCAP_SERVICES'])['rediscloud-n/a'][0]
+	rediscloud_service = json.loads(os.environ['VCAP_SERVICES'])['rediscloud'][0]
 	credentials = rediscloud_service['credentials']
 	r = redis.Redis(host=credentials['hostname'], port=credentials['port'], password=credentials['password'])
 
@@ -181,7 +181,7 @@ Next, configure your `CACHES` in the `settings.py` file:
 	import urlparse
 	import json
 
-	rediscloud_service = json.loads(os.environ['VCAP_SERVICES'])['rediscloud-n/a'][0]
+	rediscloud_service = json.loads(os.environ['VCAP_SERVICES'])['rediscloud'][0]
 	credentials = rediscloud_service['credentials']
 	CACHES = {
 		'default': {
@@ -217,7 +217,7 @@ Configure the connection to your Redis Cloud service using `VCAP_SERVICES` envir
 
 	// parsing rediscloud credentials
 	$vcap_services = getenv("VCAP_SERVICES");
-	$rediscloud_service = json_decode($vcap_services, true)["rediscloud-n/a"][0]
+	$rediscloud_service = json_decode($vcap_services, true)["rediscloud"][0]
 	$credentials = $rediscloud_service["credentials"]
 
 	$redis = new Predis\Client(array(
@@ -243,7 +243,7 @@ Configure the connection to your Redis Cloud service using `VCAP_SERVICES` envir
 
 	// parsing rediscloud credentials
 	var vcap_services = process.env.VCAP_SERVICES;
-	var rediscloud_service = JSON.parse(vcap_services)["rediscloud-n/a"][0]
+	var rediscloud_service = JSON.parse(vcap_services)["rediscloud"][0]
 	var credentials = rediscloud_service.credentials;
 
 	var redis = require('redis');

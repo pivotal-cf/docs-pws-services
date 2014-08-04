@@ -16,10 +16,10 @@ Format of credentials in `VCAP_SERVICES` environment variable:
 
 ~~~xml
 {
-   ironworker-n/a: [
+   ironworker: [
       {
          name: "ironworker-test",
-         label: "ironworker-n/a",
+         label: "ironworker",
          tags: [ ],
          plan: "small",
          credentials: {

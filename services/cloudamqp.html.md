@@ -12,10 +12,10 @@ Format of credentials in VCAP_SERVICES
 
 ~~~xml
 {
-  cloudamqp-dev-n/a: [
+  cloudamqp-dev: [
     {
       name: "cloudamqp-dev-scoen-20130604-1",
-      label: "cloudamqp-dev-n/a",
+      label: "cloudamqp-dev",
       plan: "lemur",
       credentials: {
         uri: "amqp://vzpfjola:fGfyADThftxx0EGbHxLEGdIj3aLs5rQW@lemur.cloudamqp.com/vzpfjola"

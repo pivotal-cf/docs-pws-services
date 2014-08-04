@@ -16,10 +16,10 @@ Format of credentials in `VCAP_SERVICES` environment variable:
 
 ~~~xml
 {
-   ironmq-n/a: [
+   ironmq: [
       {
          name: "ironmq",
-         label: "ironmq-n/a",
+         label: "ironmq",
          tags: [ ],
          plan: "small",
          credentials: {

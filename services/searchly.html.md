@@ -16,10 +16,10 @@ Format of credentials in `VCAP_SERVICES` environment variable.
 
 ~~~xml
 {
-  searchly-n/a: [
+  searchly: [
     {
       name: "searchly-1",
-      label: "searchly-n/a",
+      label: "searchly",
       tags: [ ],
       plan: "starter",
       credentials: {
@@ -80,7 +80,7 @@ public class SpringConfiguration {
 		Map result = new ObjectMapper().readValue(System.getenv("VCAP_SERVICES"), HashMap.class);
 
 		String connectionUrl = (String) ((Map) ((Map) ((List)
-		            result.get("searchly-n/a")).get(0)).get("credentials")).get("uri");
+		            result.get("searchly")).get(0)).get("credentials")).get("uri");
 		// Configuration
 		ClientConfig clientConfig = new ClientConfig.Builder(connectionUrl).multiThreaded(true).build();
 
@@ -168,7 +168,7 @@ require 'json'
 ..
 
 Tire.configure do
-    url JSON.parse(ENV['VCAP_SERVICES']['searchly-n/a'][0]['credentials']['uri'])
+    url JSON.parse(ENV['VCAP_SERVICES']['searchly'][0]['credentials']['uri'])
 end
 ```
 
@@ -219,7 +219,7 @@ Create a search client:
 var ElasticSearchClient = require('elasticsearchclient'),
 url = require('url');
 
-var connectionString = url.parse(JSON.parse(process.env.VCAP_SERVICES)['searchly-n/a'][0]['credentials']['uri']);
+var connectionString = url.parse(JSON.parse(process.env.VCAP_SERVICES)['searchly'][0]['credentials']['uri']);
 
 var serverOptions = {
 	host: connectionString.hostname,

@@ -38,10 +38,10 @@ Once a SendGrid service instance has been bound to your application, the [VCAP_S
 
 
     {
-      sendgrid-n/a: [
+      sendgrid: [
         {
           name: "mysendgrid",
-          label: "sendgrid-n/a",
+          label: "sendgrid",
           plan: "free",
           credentials: {
             hostname: "smtp.sendgrid.net",

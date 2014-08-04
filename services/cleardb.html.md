@@ -12,10 +12,10 @@ Format of credentials in VCAP_SERVICES
 
 ~~~xml
 {
-  cleardb-n/a: [
+  cleardb: [
     {
       name: "cleardb-ebf69",
-      label: "cleardb-n/a",
+      label: "cleardb",
       plan: "spark",
       credentials: {
         jdbcUrl: "jdbc:mysql://bb76fcb43f807b:6776566b@us-cdbr-aws-east-105.cleardb.net:3306/ad_033c9629217c759",

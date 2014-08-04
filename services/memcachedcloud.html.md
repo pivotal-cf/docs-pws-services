@@ -32,10 +32,10 @@ $ cf bind-service APP_NAME INSTANCE_NAME
 Once your Memcached Cloud service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` environment variable in the following format:
 
 	{
-	  memcachedcloud-n/a: [
+	  memcachedcloud: [
 	    {
 	      name: "memcachedcloud-42",
-	      label: "memcachedcloud-n/a",
+	      label: "memcachedcloud",
 	      plan: "20mb",
 	      credentials: {
 			servers: "pub-memcache-6379.us-east-1-1.1.ec2.redislabs.com:6379",
@@ -69,7 +69,7 @@ And then install the gem via Bundler:
 
 Parse your credentials as follows:
 
-	memcachedcloud_service = JSON.parse(ENV['VCAP_SERVICES'])["memcachedcloud-n/a"]
+	memcachedcloud_service = JSON.parse(ENV['VCAP_SERVICES'])["memcachedcloud"]
 	credentials = memcachedcloud_service.first["credentials"]
 
 Lastly, in your `config/environments/production.rb`:
@@ -83,7 +83,7 @@ Add this code snippet to your configure block:
 	configure do
         . . .
 		require 'dalli'
-		memcachedcloud_service = JSON.parse(ENV['VCAP_SERVICES'])["memcachedcloud-n/a"]
+		memcachedcloud_service = JSON.parse(ENV['VCAP_SERVICES'])["memcachedcloud"]
 		credentials = memcachedcloud_service.first["credentials"]
 		$cache = Dalli::Client.new(credentials.servers.split(','), :username => credentials.username, :password => credentials.password)
         . . .
@@ -135,7 +135,7 @@ Configure the connection to your Memcached Cloud service using the `VCAP_SERVICE
 		if (vcap_services != null && vcap_services.length() > 0) {
 			// parsing memcachedcloud credentials
 			JsonRootNode root = new JdomParser().parse(vcap_services);
-			JsonNode "memcachedcloudNode = root.getNode("memcachedcloud-n/a");
+			JsonNode "memcachedcloudNode = root.getNode("memcachedcloud");
 			JsonNode credentials = "memcachedcloudNode.getNode(0).getNode("credentials");
 
 			// building the memcached client
@@ -175,7 +175,7 @@ Configure the connection to your Memcached Cloud service using `VCAP_SERVICES` e
 	import bmemcached
 	import json
 
-	memcachedcloud_service = json.loads(os.environ['VCAP_SERVICES'])['memcachedcloud-n/a'][0]
+	memcachedcloud_service = json.loads(os.environ['VCAP_SERVICES'])['memcachedcloud'][0]
 	credentials = memcached_service['credentials']
 	mc = bmemcached.Client(credentials['servers'].split(','), credentials['username'], credentials['password'])
 
@@ -198,7 +198,7 @@ Next, configure your `CACHES` in the `settings.py` file:
 	import urlparse
 	import json
 
-	memcachedcloud_service = json.loads(os.environ['VCAP_SERVICES'])['memcachedcloud-n/a'][0]
+	memcachedcloud_service = json.loads(os.environ['VCAP_SERVICES'])['memcachedcloud'][0]
 	credentials = memcachedcloud_service['credentials']
 	CACHES = {
 		'default': {
@@ -228,7 +228,7 @@ Include the class in your project, and configure a connection to your Memcached 
 	include('MemcacheSASL.php');
 
 	$vcap_services = getenv("VCAP_SERVICES");
-	$"memcachedcloud_service = json_decode($vcap_services, true)["memcachedcloud-n/a"][0]
+	$"memcachedcloud_service = json_decode($vcap_services, true)["memcachedcloud"][0]
 	$credentials = $"memcachedcloud_service["credentials"]
 
 	$mc = new MemcacheSASL;

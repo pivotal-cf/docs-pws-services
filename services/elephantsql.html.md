@@ -12,10 +12,10 @@ Format of credentials in VCAP_SERVICES
 
 ~~~xml
 {
-  elephantsql-dev-n/a: [
+  elephantsql-dev: [
   {
     name: "elephantsql-dev-c6c60",
-    label: "elephantsql-dev-n/a",
+    label: "elephantsql-dev",
     plan: "turtle",
     credentials: {
       uri: "postgres://seilbmbd:PHxTPJSbkcDakfK4cYwXHiIX9Q8p5Bxn@babar.elephantsql.com:5432/seilbmbd"
