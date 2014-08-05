@@ -6,7 +6,7 @@ This doc is one of several doc repositories that go into a complete documentatio
 
 The contents here are structured as a topic repository intended to be
 compiled into a larger document with
-[Bookbinder](http://github.com/pivotal-cf/docs-bookbinder).
+[Bookbinder](https://github.com/cloudfoundry-incubator/bookbinder).
 
 ## Contributing to the Documentation
 
