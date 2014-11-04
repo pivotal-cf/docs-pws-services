@@ -1,6 +1,6 @@
 ---
 title: cine.IO
--------
+---
 
 cine.IO is an add-on that provides live streaming capabilities to any application.
 cine.IO allows developers to build live video-streaming capabilities into their apps with ease. Streaming can happen from any device to any web browser, iOS device, or Android device. All live-streams are backed by a global CDN with 5,000 interconnected networks across 5 continents.
@@ -14,9 +14,9 @@ Once cine.IO has been bound to your application you need to restart your applica
 
 ## <a id='within-application'></a>Using Cine.IO Within Your Application ##
 
-Once cine.IO is bound it updates the VCAP_SERVICES environment variable with an entry for 'cine-io' which contains the credentials as well as other information to access cine. 
+Once cine.IO is bound it updates the VCAP_SERVICES environment variable with an entry for 'cine-io' which contains the credentials as well as other information to access cine.
 
-The VCAP_SERVICES entry will look like: 
+The VCAP_SERVICES entry will look like:
 
 {"cine-io":[{"name":"cine-example1","label":"cine-io","tags":["Communication","Messaging and Queuing"],"plan":"starter","credentials":{"publicKey":"PUBLIC_KEY","secretKey":"SECRET_KEY"}}]}
 
@@ -50,7 +50,7 @@ To start using Cine.IO in your application, import the appropriate Cine.IO SDK a
 		publisher.start();
 
 	### Play a live stream ###
-	
+
 	Using the JS SDK, you’ll need to pass you project’s public key to the client. To play a stream using the JS SDK, you only need to send out the stream id. Only serve the stream id to users who have permission to view a stream. For example, in our aforementioned “virtual classroom” application, this endpoint would be useful when the current logged- in user has a “student” role.
 	Playing a live stream will launch the branded, open-source version of JWPlayer. If you have your own JWPlayer license, you can send it as one of the options (key: jwPlayerKey) to the init() function. Mobile devices will use native <video> elements rather than JWPlayer; this happens automatically.
 		var streamId = '<STREAM_ID>'
@@ -68,10 +68,10 @@ To start using Cine.IO in your application, import the appropriate Cine.IO SDK a
 	Using with Rails
 	----------------
 
-	We’ve built a small Ruby Sinatra example. 
+	We’ve built a small Ruby Sinatra example.
 	Source code (LINK: https://github.com/cine-io/cineio-sinatra-example-app)
 
-	Integrate with your Ruby app 
+	Integrate with your Ruby app
 	----------------------------
 
 	Ruby on Rails applications may to add the following entry into their Gemfile specifying the cine.IO client library.
@@ -101,7 +101,7 @@ To start using Cine.IO in your application, import the appropriate Cine.IO SDK a
 	Using with Node.js
 	------------------
 
-	We’ve built a small Node.js Express example. 
+	We’ve built a small Node.js Express example.
 	Source code  (LINK: https://github.com/cine-io/cineio-node-example-app)
 
 	Integrate with your Node app
@@ -112,7 +112,7 @@ To start using Cine.IO in your application, import the appropriate Cine.IO SDK a
 
 	var CineIO = require('cine-io');
 	var vcap_services = JSON.parse(process.env.VCAP_SERVICES)
-	var secretKey = vcap_services['cine-io'][0].credentials.secretKey 
+	var secretKey = vcap_services['cine-io'][0].credentials.secretKey
 	var client = CineIO.init({secretKey: secretKey});
 
 	Additional examples can be found at the repository’s homepage. (LINK: https://github.com/cine-io/cineio-node)
