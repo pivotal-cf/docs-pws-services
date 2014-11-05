@@ -1,26 +1,26 @@
 ---
-title: cine.IO
+title: Cine.io
 ---
 
-cine.IO is an add-on that provides live streaming capabilities to any application.
-cine.IO allows developers to build live video-streaming capabilities into their apps with ease. Streaming can happen from any device to any web browser, iOS device, or Android device. All live-streams are backed by a global CDN with 5,000 interconnected networks across 5 continents.
-cine.IO is accessible via a simple RESTful API and has supported client libraries for both Node.js and Ruby (with iOS and Android coming soon).
+cine.io is an add-on that provides live streaming capabilities to any application.
+cine.io allows developers to build live video-streaming capabilities into their apps with ease. Streaming can happen from any device to any web browser, iOS device, or Android device. All live-streams are backed by a global CDN with 5,000 interconnected networks across 5 continents.
+cine.io is accessible via a simple RESTful API and has supported client libraries for both Node.js and Ruby (with iOS and Android coming soon).
 
 ## <a id='managing'></a>Managing Services ##
 
-cine.IO can be added to your project and bound to your space by selecting cine.IO from the Pivotal Web Services Marketplace. Selecting the appropriate plan and configuring the instance name, the space to add it to as well as the application to bind cine.IO to.
+cine.io can be added to your project and bound to your space by selecting cine.io from the Pivotal Web Services Marketplace. Select the appropriate plan and configure the instance name, the space to add it to, as well as the application to bind cine.io to.
 
-Once cine.IO has been bound to your application you need to restart your application for it to be able to access the new VCAP_SERVICES environment variable. You can restart the application by clicking the "restart" button on the application page.
+Once cine.io has been bound to your application you need to restart your application for it to be able to access the new VCAP_SERVICES environment variable. You can restart the application by clicking the "restart" button on the application page.
 
-## <a id='within-application'></a>Using cine.IO Within Your Application ##
+## <a id='within-application'></a>Using cine.io within Your Application ##
 
-Once cine.IO is bound it updates the VCAP_SERVICES environment variable with an entry for 'cine-io' which contains the credentials as well as other information to access cine. 
+Once cine.io is bound it updates the VCAP_SERVICES environment variable with an entry for 'cine-io' which contains the credentials as well as other information to access cine.
 
-The VCAP_SERVICES entry will look like: 
+The VCAP_SERVICES entry will look like:
 
     {"cine-io":[{"name":"cine-example1","label":"cine-io","tags":["Communication","Messaging and Queuing"],"plan":"starter","credentials":{"publicKey":"PUBLIC_KEY","secretKey":"SECRET_KEY"}}]}
 
-To start using cine.IO in your application, import the appropriate cine.IO SDK and use it with the Public and Secret keys that are available in VCAP_SERVICES
+To start using cine.io in your application, import the appropriate cine.io SDK and use it with the Public and Secret keys that are available in VCAP_SERVICES
 
 ## <a id='request'></a>Common Request Lifecycle ##
 
@@ -65,19 +65,19 @@ Playing a live stream will launch the branded, open-source version of JWPlayer. 
 
 ### Additional API endpoints ###
 
-Additional API endpoints may be found at: cine.IO/docs.
+Additional API endpoints may be found at: http://www.cine.io/docs.
 
-## <a id='using'></a>Using cine.IO ##
+## <a id='using'></a>Using cine.io ##
 
 ### Using with Rails ###
 
-We’ve built a small Ruby Sinatra example. 
-Source code (LINK: https://github.com/cine-io/cineio-sinatra-example-app)
+We’ve built a small Ruby Sinatra example.
+[Source code](https://github.com/cine-io/cineio-sinatra-example-app)
 
 ### Integrate with your Ruby app ###
 
-Ruby on Rails applications may to add the following entry into their Gemfile specifying the cine.IO client library.
-	
+Ruby on Rails applications may to add the following entry into their Gemfile specifying the cine.io client library.
+
 	gem 'cine_io'
 
 Update application dependencies with bundler.
@@ -99,12 +99,12 @@ Initialize the client.
     end
 	client = CineIo::Client.new(secretKey: secretKey)
 
-Additional examples can be found at the repository’s homepage. (LINK: https://github.com/cine-io/cineio-ruby)
+Additional examples can be found at the repository’s [homepage](https://github.com/cine-io/cineio-ruby).
 
 ### Using with Node.js ###
 
-We’ve built a small Node.js Express example. 
-Source code  (LINK: https://github.com/cine-io/cineio-node-example-app)
+We’ve built a small Node.js Express example.
+[Source code](https://github.com/cine-io/cineio-node-example-app)
 
 Integrate with your Node app. The npm package may be installed with the following command.
 
@@ -114,15 +114,15 @@ Initialize the client.
 
 	var CineIO = require('cine-io');
 	var vcap_services = JSON.parse(process.env.VCAP_SERVICES)
-	var secretKey = vcap_services['cine-io'][0].credentials.secretKey 
+	var secretKey = vcap_services['cine-io'][0].credentials.secretKey
 	var client = CineIO.init({secretKey: secretKey});
 
-Additional examples can be found at the repository’s homepage. (LINK: https://github.com/cine-io/cineio-node)
+Additional examples can be found at the repository’s [homepage](https://github.com/cine-io/cineio-node).
 
 
 ## <a id='support'></a>Support ##
 
-Cine.io support resources: https://cineio.uservoice.com
+cine.io support resources: https://cineio.uservoice.com
 
 ## <a id='reources'></a>Additional Resources ##
 
