@@ -83,7 +83,7 @@ All three of these things can be found by logging into your New Relic account as
 1. Add a New Relic configuration file to your project. This file needs to be configured with your license key and application name, but we've modified New Relic's config file for Ruby to automatically read your application name and license key from environment variables which are set when the app is pushed. [Download our modified newrelic.yml here](./newrelic-ruby.yml) and save it to `config/newrelic.yml`.
 
 	<pre class="terminal">
-	$ wget -O config/newrelic.yml http://docs.cloudfoundry.com/docs/dotcom/marketplace/services/newrelic/newrelic-ruby.yml
+	$ wget -O config/newrelic.yml http://docs.run.pivotal.io/marketplace/services/newrelic/newrelic-ruby.yml
 	</pre>
 
 1. All you have left to do is push your app! If you don't already have a New Relic service instance in your space, choose to create one when prompted. If you already have a New Relic service instance in your space, choose to bind to an existing service when prompted.
@@ -102,6 +102,21 @@ All three of these things can be found by logging into your New Relic account as
 	$ cf push
 	</pre>
 1. Now generate some usage on your app and log into New Relic via SSO [as described above](#sso); you should see data coming through!
+
+### <a id='php'></a>PHP ###
+
+1. Push the app with -b option specifying the community PHP buildpack:
+	<pre class="terminal"> 
+	$ cf push -b https://github.com/dmikusa-pivotal/cf-php-build-pack 
+	</pre>
+2. Create New Relic instance
+3. Bind the service instance to the app instance
+4. Re-stage the app:
+	<pre class="terminal">
+	$ cf restage app
+	</pre>
+5. Go to the app uri and generate some usage data
+6. Go to console.run.pivotal.io, choose manage under your new relic service, and connect to your app data
 
 ---
 
