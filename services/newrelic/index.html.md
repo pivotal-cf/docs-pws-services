@@ -56,7 +56,6 @@ $ ./gradlew assemble
 $ cf push
 </pre>
 
----
 
 ## <a id='using'></a>Using New Relic with your Application ##
 
@@ -106,19 +105,17 @@ All three of these things can be found by logging into your New Relic account as
 ### <a id='php'></a>PHP ###
 
 1. Push the app with -b option specifying the community PHP buildpack:
-	<pre class="terminal"> 
-	$ cf push -b https://github.com/dmikusa-pivotal/cf-php-build-pack 
+	<pre class="terminal">
+	$ cf push -b https://github.com/dmikusa-pivotal/cf-php-build-pack
 	</pre>
-2. Create New Relic instance
-3. Bind the service instance to the app instance
+2. Create New Relic instance.
+3. Bind the service instance to the app instance.
 4. Re-stage the app:
 	<pre class="terminal">
 	$ cf restage app
 	</pre>
-5. Go to the app uri and generate some usage data
-6. Go to console.run.pivotal.io, choose manage under your new relic service, and connect to your app data
-
----
+5. Go to the app uri and generate some usage data.
+6. Go to console.run.pivotal.io, choose **Manage** under your New Relic service, and connect to your app data.
 
 ## <a id='vcap-services'></a>VCAP_SERVICES ##
 
@@ -142,8 +139,6 @@ Format of `VCAP_SERVICES` environment variable:
 }
 ~~~
 For more information, see [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
-
----
 
 ## <a id='support'></a>Support ##
 
