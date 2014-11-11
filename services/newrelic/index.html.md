@@ -103,6 +103,21 @@ All three of these things can be found by logging into your New Relic account as
 	</pre>
 1. Now generate some usage on your app and log into New Relic via SSO [as described above](#sso); you should see data coming through!
 
+### <a id='php'></a>PHP ###
+
+1. Push the app with -b option specifying the community PHP buildpack:
+	<pre class="terminal"> 
+	$ cf push -b https://github.com/dmikusa-pivotal/cf-php-build-pack 
+	</pre>
+2. Create New Relic instance
+3. Bind the service instance to the app instance
+4. Re-stage the app:
+	<pre class="terminal">
+	$ cf restage app
+	</pre>
+5. Go to the app uri and generate some usage data
+6. Go to console.run.pivotal.io, choose manage under your new relic service, and connect to your app data
+
 ---
 
 ## <a id='vcap-services'></a>VCAP_SERVICES ##
