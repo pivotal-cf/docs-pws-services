@@ -1,5 +1,5 @@
 ---
-title: Cine.io
+title: cine.io
 ---
 
 cine.io is an add-on that provides live streaming capabilities to any application.
