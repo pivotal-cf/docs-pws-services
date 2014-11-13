@@ -1,0 +1,114 @@
+---
+title: Adding and Binding Services Using the PWS Developer Console
+---
+
+This topic describes using the Pivotal Web Services (PWS) Developer Console to
+add and bind service instances through the Services Marketplace.
+The Services Marketplace provides PWS users with self-service, on-demand
+provisioning of add-on services.
+For more information about specific service providers, refer to the
+[Services](./services/index.html) topic.
+
+To use a service with your application, you must access the Services
+Marketplace, create and configure an instance of the service, then bind the
+service instance to your application.
+
+##<a id='access-marketplace'></a>Step 1: Accessing the Services Marketplace ##
+
+Log in to the PWS Developer Console,
+[https://console.run.pivotal.io](https://console.run.pivotal.io), then use one
+of the following methods to access the Service Marketplace.
+
+###<a id='left-panel'></a>Access from the Left Navigation Panel ###
+
+To access the Services Marketplace from the left navigation panel, click
+**Marketplace** in the left navigation panel.
+
+    <%= image_tag("images/console-service/mp-link.png") %>
+
+###<a id='space-page'></a>Access from a Space Page ###
+
+To access the Services Marketplace from a Space page:
+
+1. In the **Spaces** section of the left navigation panel, select a space.
+
+    <%= image_tag("images/console-service/space-link.png") %>
+
+1. In the **Services** section of the Space page, click **Add Service**.
+
+    <%= image_tag("images/console-service/space-panel.png") %>
+
+###<a id='app-dashboard'></a>Access from an App Dashboard ###
+
+To access the Services Marketplace from an application dashboard:
+
+1. In the **Spaces** section of the left navigation panel, select a space.
+
+    <%= image_tag("images/console-service/space-link.png") %>
+
+1. In the **Applications** section of the Space page, click the **Status** icon
+for an application to access the App Dashboard page.
+
+    <%= image_tag("images/console-service/select-app.png") %>
+
+1. On the App Dashboard page, select the **Services** tab.
+
+    <%= image_tag("images/console-service/app-panel.png") %>
+
+1. In the Services panel, click **Add from Marketplace**.
+
+    <%= image_tag("images/console-service/from-marketplace.png") %>
+
+##<a id='create-instance'></a>Step 2: Creating and Configuring a Service Instance ##
+
+1. In the Service Marketplaces, select a service.
+
+    <%= image_tag("images/console-service/marketplace.png") %>
+
+1. In the Service Plans panel, choose a plan and click **Select this plan**.
+
+    <%= image_tag("images/console-service/select-plan.png") %>
+
+1. Complete the **Configure Instance** form with the following information:
+    * **Instance Name**: Create a name for this instance of the service.
+	Service instance names must be unique within a space.
+    * **Add to Space**: From the drop-down list, select the space where you want
+	to add the service instance.
+    * **Bind to App**: From the drop-down list, select an app.
+	Select **[do not bind]** if you do not want to bind the service instance to 
+	any app at this time.
+
+    Click **Add** to add the service instance. PWS creates the service instance
+	in the selected space. If you specify an app, PWS binds the service instance
+	to the app.
+
+    <%= image_tag("images/console-service/configure-instance.png") %>
+
+##<a id='bind-instance'></a>Step 3: Binding a Service Instance to an Application ##
+
+Follow the steps below to bind an existing service instance to an application.
+
+1. In the **Spaces** section of the left navigation panel, select a space.
+
+    <%= image_tag("images/console-service/space-link.png") %>
+
+1. In the **Applications** section of the Space page, click the **Status** icon
+for an application to access the App Dashboard page.
+
+    <%= image_tag("images/console-service/select-app.png") %>
+
+1. On the App Dashboard, select the **Services** tab.
+
+    <%= image_tag("images/console-service/app-panel.png") %>
+
+1. In the Services panel, click **Bind a Service**.
+
+    <%= image_tag("images/console-service/bind-service.png") %>
+
+1. Select a service from the **Select a service** drop-down.
+
+    <%= image_tag("images/console-service/select-service.png") %>
+
+1. Click Bind.
+
+    <%= image_tag("images/console-service/bind.png") %>
