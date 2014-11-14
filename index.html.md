@@ -6,9 +6,11 @@ The Services Marketplace provides users of Pivotal Web Services with self-servic
 
 ## <a id='users'></a>For Users ##
 
-* [Marketplace services](./services/)
+* [Marketplace Services](./services/)
 * [Integrations](./integrations/)
-* [Contacting service providers for support](contacting-service-providers-for-support.html)
+* [Adding and Binding Services Using the PWS Developer Console](./use-console.html)
+
+* [Contacting Service Providers for Support](contacting-service-providers-for-support.html)
 
 ## <a id='providers'></a>For Providers ##
 
