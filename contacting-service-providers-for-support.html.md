@@ -15,9 +15,9 @@ The email address is of the form `space-guid-<guid>@email-proxy.run.pivotal.io`,
 
 ## Space GUID
 
-### Using web console
+### Using Apps Manager
 
-Navigate to the space in the Cloud Foundry web console. The space guid is the long string after `spaces/` in the URL. 
+Navigate to the space in Apps Manager. The space guid is the long string after `spaces/` in the URL. 
 
 Example: if your URL looks like `https://console.run.pivotal.io/organizations/c54bf317-d791-4d12-89f0-b56d0936cfdc/spaces/15d10713-847d-437e-9f04-ec0790dbb566` then the space guid is `15d10713-847d-437e-9f04-ec0790dbb566`.
 

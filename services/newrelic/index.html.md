@@ -26,7 +26,7 @@ where `APP` is the app you're binding and `INSTANCE` is the name you gave your s
 
 ### <a id='sso'></a>Single Sign On ###
 
-To log into your New Relic Account via SSO you only need to log into the [run.pivotal.io Web Console](http://console.run.pivotal.io). Find your New Relic service instance on the Space page in which you created it. Clicking the Manage button will log you into the New Relic account for your instance via SSO.
+To log into your New Relic Account via SSO you only need to log into the [Apps Manager](http://console.run.pivotal.io). Find your New Relic service instance on the Space page in which you created it. Clicking the Manage button will log you into the New Relic account for your instance via SSO.
 
 ## <a id='notes'></a>Important Notes ##
 

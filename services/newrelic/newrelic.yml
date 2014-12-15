@@ -19,9 +19,9 @@ common: &default_settings
 
   # Agent Enabled (Ruby/Rails Only)
   # Use this setting to force the agent to run or not run.
-  # Default is 'auto' which means the agent will install and run only
+  # Default is 'auto' which means the agent will install and run onlyApps Manager
   # if a valid dispatcher such as Mongrel is running.  This prevents
-  # it from running with Rake or the console.  Set to false to
+  # it from running with Rake or Apps Manager.  Set to false to
   # completely turn the agent off regardless of the other settings.
   # Valid values are true, false and auto.
   #
