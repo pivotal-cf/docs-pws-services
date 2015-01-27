@@ -251,4 +251,4 @@ print_r($res);
 
 ##<a id='support'></a>Support##
 
-All Statica support and runtime issues should be submitted via the PWS Support channels. Any non-support related issues or product feedback is welcome at feedback@teachmatic.com or by visiting [Statica.io](http://statica.io).
+All Statica support and runtime issues should be submitted via the PWS Support channels. Any non-support related issues or product feedback is welcome at feedback@teachmatic.com or by visiting [www.statica.io](http://www.statica.io).
