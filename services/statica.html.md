@@ -70,13 +70,17 @@ Requests is a great HTTP library for Python. It allows you to specify an authent
 import requests
 import os
 
+statica_service = json.loads(os.environ['VCAP_SERVICES'])['statica'][0]
+credentials = statica_service['credentials']
+
 proxies = {
-"http": <ATTENTION NEEDED TO CHANGE THIS!>
-"https": <ATTENTION NEEDED TO CHANGE THIS!>
+"http": credentials['STATICA_URL'],
+"https": credentials['STATICA_URL']
 }
 
 res = requests.get("http://ip.jsontest.com/", proxies=proxies)
 print res.text
+
 ```
 
 ### <a id='node'></a>Using with Node.js###
@@ -193,11 +197,13 @@ The IP address printed on screen will be one of your two static IP addresses. If
 ```php
 
 function lookup(){
-  $quotaguard_env = getenv("QUOTAGUARDSTATIC_URL"); <ATTENTION REQUIRED HERE>
-  $quotaguard = parse_url($quotaguard_env);
+  $vcap = json_decode(getenv("VCAP_SERVICES"),true);
+  $statica_env = $vcap["statica"][0]["credentials"]["STATICA_URL"];
 
-  $proxyUrl       = $quotaguard['host'].":".$quotaguard['port'];
-  $proxyAuth       = $quotaguard['user'].":".$quotaguard['pass'];
+  $statica = parse_url($statica_env);
+
+  $proxyUrl       = $statica['host'].":".$statica['port'];
+  $proxyAuth       = $statica['user'].":".$statica['pass'];
 
   $url = "http://ip.jsontest.com/";
 
@@ -213,6 +219,7 @@ function lookup(){
 
 $res = lookup();
 print_r($res);
+
 
 ```
 
