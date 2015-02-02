@@ -40,7 +40,7 @@ Once your Memcached Cloud service is bound to your app, the service credentials 
 	      credentials: {
 			servers: "pub-memcache-6379.us-east-1-1.1.ec2.redislabs.com:6379",
 			username: "memcachedcloud-42",
-	        password: "your_memcahced_password"
+	        password: "your_memcached_password"
 	      }
 	    }
 	  ]
