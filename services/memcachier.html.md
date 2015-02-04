@@ -2,7 +2,13 @@
 title: MemCachier
 ---
 
-[MemCachier](http://www.memcachier.com/) is an implementation of the [Memcache](http://memcached.org/) in-memory key-value store used for caching data. MemCachier is a key technology for scaling and reducing server loads in web applications. The MemCachier add-on manages and scales clusters of memcache servers so that operators can focus on their applications. Tell us how much memory you need and get started for free instantly. You can add capacity later as the need arises.
+[MemCachier](http://www.memcachier.com/) is an implementation of the [Memcache](http://memcached.org/) in-memory key-value store used for caching data. MemCachier is a key technology for scaling and reducing server loads in web applications. The MemCachier add-on manages and scales clusters of memcache servers so that operators can focus on their applications.
+
+MemCachier will work with any memcached binding that supports [SASL authentication](https://en.wikipedia.org/wiki/Simple_Authentication_and_Security_Layer) and the [binary protocol](https://code.google.com/p/memcached/wiki/MemcacheBinaryProtocol).
+
+MemCachier also supports integration with your New Relic dashboard if you are a customer of both MemCachier and New Relic and if your cache is 500MB or larger. For more information on this integration, refer to [this blog post](http://blog.memcachier.com/2014/03/05/memcachier-and-new-relic-together/).
+
+Tell us how much memory you need and get started for free instantly. You can add capacity later as the need arises.
 
 ## <a id='managing'></a>Managing Services ##
 
@@ -83,8 +89,6 @@ cache.set("foo", "bar")
 puts cache.get("foo")
 ~~~
 
-### <a id='ruby-testing'></a>Testing from Ruby ###
-
 ## <a id='rails'></a>Using MemCachier with Rails ##
 
 Rails supports three types of caching: automatic whole site, per-view, and fragment. Refer to the [Rails caching guide] for more information on using MemCachier with Rails.
@@ -104,7 +108,7 @@ config.cache_store = :dalli_store,
 
 <p class="note"><strong>Note</strong>: Rails.cache defaults to a simple in-memory store in your deployment environment, so it does not require a running memcached.</p>
 
-### <a id='rails-testing'></a>Testing from Rails ###
+### Testing from Rails ###
 
 To test locally you can simply use the rails console:
 
@@ -118,7 +122,7 @@ rails console
 
 ## <a id='python'></a>Using MemCachier with Python ##
 
-MemCachier has been tested with the `pylibmc` memcache client. This client relies on the C libmemcached library, which should be simple to install with your package manager on Linux or Windows. Once libmemcached is installed, install `pylibmc`:
+MemCachier has been tested with the `pylibmc` memcache client. This client relies on the `C libmemcached` library, which should be simple to install with your package manager on Linux or Windows. Once `libmemcached` is installed, install `pylibmc`:
 
 <pre class="terminal">
 $ pip install pylibmc
@@ -130,7 +134,7 @@ Be sure to update your `requirements.txt` file with the new `pylibmc` requiremen
 pylibmc==1.4.0
 </pre>
 
-<p class="note"><strong>Note</strong>: If you have difficulty installing the C libmemcached library or `pylibmc`, you can try python-binary-memcached. This is a pure python client that only supports Python 2 at this time.</p>
+<p class="note"><strong>Note</strong>: If you have difficulty installing the <code>C libmemcached</code> library or <code>pylibmc</code>, you can try <code>python-binary-memcached</code>. This is a pure python client that only supports Python 2 at this time.</p>
 
 Next, configure your `settings.py` file as the following example shows:
 
@@ -155,7 +159,7 @@ mc.set("foo", "bar")
 print mc.get("foo")
 </pre>
 
-<p class="note"><strong>Note</strong>: A confusing error message you may get from `pylibmc` is <strong>MemcachedError: error 37 from memcached_set: SYSTEM ERROR (Resource temporarily unavailable)</strong>. This indicates that you are trying to store a value larger than 1MB. MemCachier has a hard limit of 1MB for the size of key-value pairs. To work around this, either consider sharding the data or using a different technology. The benefit of an in-memory key-value store diminishes at 1MB and higher.
+<p class="note"><strong>Note</strong>: An error message you may get from <code>pylibmc</code> is <strong>MemcachedError: error 37 from memcached_set: SYSTEM ERROR (Resource temporarily unavailable)</strong>. This indicates that you are trying to store a value larger than 1 MB. MemCachier has a hard limit of 1 MB for the size of key-value pairs. To work around this, either consider sharding the data or using a different technology. The benefit of an in-memory key-value store diminishes at 1 MB and higher.
 </p>
 
 ##<a id='node'></a>Using MemCachier with Node.js ##
@@ -180,7 +184,7 @@ mc.get('hello', function(val) {
 
 We recommend using the [SpyMemcached](http://code.google.com/p/spymemcached/) client for Java. We also recommend using the [Apache Maven](http://maven.apache.org/) build manager for working with Java applications. If you are not using `maven` and are isntead using [Apache Ant](http://ant.apache.org/) or your own build system, then add the `spymemcached` jar file as a dependency of your application.
 
-<p class="note"><strong>Note</strong>: Please make sure to use version <strong>2.8.9</strong> of SpyMemcached. Versions 2.8.10 and later currently have an [issue](http://code.google.com/p/spymemcached/issues/detail?id=272) with SASL authentication that makes these versions unusable with MemCachier.</p>
+<p class="note"><strong>Note</strong>: Please make sure to use version <strong>2.8.9</strong> of SpyMemcached. Versions 2.8.10 and later currently have an <a href="http://code.google.com/p/spymemcached/issues/detail?id=272">issue</a> with SASL authentication that makes these versions unusable with MemCachier.</p>
 
 If you are using `maven`, start by configuring it to have the proper `spymemcached` repository:
 
@@ -289,13 +293,81 @@ class SASLConnectionFactoryBuilder extends ConnectionFactoryBuilder {
 }
 ~~~
 
-<p class="note"><strong>Note</strong>: It is possible that you might run into Java exceptions about the class loader. See Spymemcached [issue 155](http://code.google.com/p/spymemcached/issues/detail?id=155), which contains a suggested workaround.</p>
+<p class="note"><strong>Note</strong>: It is possible that you might run into Java exceptions about the class loader. See Spymemcached <a href="http://code.google.com/p/spymemcached/issues/detail?id=155">issue 155</a>, which contains a suggested workaround.</p>
+
+## <a id='local-usage'></a>Local Usage ##
+
+To test against your application locally, you will need to run a local memcached process. MemCachier is only available from the datacenter you signed up for. But because MemCachier and memcached speak the same protocol, you should not have any issues testing locally. Installation depends on your platform.
+
+For further information and resources, such as the memcached source code, refer to the [Memcache.org homepage](http://memcached.org/).
+
+Once memcached has been installed, run it by executing the following comand:
+
+<pre class="terminal">
+$ memcached -v
+</pre>
+
+<p class="note"><strong>Note</strong>: The below examples will install memcached without SASL authentication support. This is generally what you want as client code can still try to use SASL auth and memcached will simply ignore the requests which is the same as allowing any credentials. So your client code can run without modification locally.</p>
+
+### On OS X ###
+
+Installation on OS X uses Homebrew:
+
+<pre class="terminal">
+$ brew install memcached
+</pre>
+
+### On Ubuntu ###
+
+<pre class="terminal">
+$ sudo apt-get install memcached
+</pre>
+
+### On Windows ###
+
+Refer to [these instructions](http://www.heckler.com.br/blog/2013/05/10/memcached-on-windows/).
+
+## <a id='analytics'></a>Usage Analytics ##
+
+Our analytics dashboard is a tool that gives you more insight into how you are using memcache. Here is a screenshot of the dashboard:
+
+<img src="../images/memcache-dashboard.png">
+
+To access your application's analytics dashboard, log in to your [account](https://www.memcachier.com/caches) and view one of your caches. The analytics displayed are the following:
+
+* **Limit**: Your current cache size and memory limit. Once usage comes close to this amount, you will start seeing evictions.
+
+* **Live Connections**: Number of connections currently open to your cache.
+
+* **Total Connections**: Number of connections ever made to your cache.
+
+* **Items**: Number of items currently stored in your cache.
+
+* **Evictions**: Number of items ever evicted from your cache due to memory pressure. Items are evicted in a Least Recently Used (LRU) order.
+
+* **New Evictions**: Number of evictions that have occured since the last time we sampled your cache.
+
+* **Hit Rate**: The ratio of `get` commands that return an item (hit) versus the number that return nothing (miss). This ratio is for the period between now and when we last sampled your cache.
+
+* **Set Cmds**: Number of times you have ever performed a set command.
+
+* **Flush Cmds**: Number of times you have ever performed a flush command.
+
+With the analytics dashboard we sample your cache once per hour. For more information on anaylytics, visit the [MemCachier documentation](https://www.memcachier.com/documentation#analytics).
+
+## <a id='key-value'></a>Key-value Size Limit ##
+
+MemCachier supports key-value objects up to 1 MB. This applies to both key-value pairs created through a `set` command and to existing key-value pairs extended with either an `append` or `prepend` command. In the latter case, the size of the key-value pair with the new data added must still be less than 1 MB. This limit applies to the combined size of the key and the value. For example, a key-value pair with a 512 KB key and a 712 KB value exceeds the limit.
+
+A reason for this limit on key-value pair size is how MemCachier's high performance design impacts memory management. It is also not standard practice to store values larger than 1 MB in a high-performance key-value store because the network transfer time limits performance. We recommend using a disk cache or a database for values larger than 1 MB.
 
 ## <a id='support'></a>Support ##
 
-[Contacting Service Providers for Support](../contacting-service-providers-for-support.html)
+For support with your service instance, refer to the [Contacting Service Providers for Support](../contacting-service-providers-for-support.html) topic.
 
-[MemCachier Zendesk](https://memcachier.zendesk.com/)
+Submit all your MemCachier support or runtime issues to [support@memcachier.com](mailto:support@memcachier.com) or our [support site](http://support.memcchier.com/).
+
+Any issues related to MemCachier service are reported at [MemCachier Status](http://status.memcachier.com/).
 
 ## <a id='additional-documention'></a>Additional Resources ##
 
