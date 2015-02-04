@@ -64,11 +64,7 @@ Start by adding the [Dalli](https://github.com/mperham/dalli) gem to your Gemfil
 gem 'dalli'
 </pre>
 
-Then run `bundle install`:
-
-<pre class="terminal">
-$ bundle install
-</pre>
+Then run `bundle install`.
 
 Before writing code, you need to create a client object with the correct credentials and settings as the example below shows:
 
@@ -82,7 +78,7 @@ cache = Dalli::Client.new((ENV["MEMCACHIER_SERVERS"] || "").split(","),
                      :socket_failure_delay => 0.2})
 ~~~
 
-You can now use the cache through simply operations such as `get` and `set`, as the example shows:
+You can now use the cache through operations such as `get` and `set`, as the example shows:
 
 ~~~xml
 cache.set("foo", "bar")
@@ -91,9 +87,9 @@ puts cache.get("foo")
 
 ## <a id='rails'></a>Using MemCachier with Rails ##
 
-Rails supports three types of caching: automatic whole site, per-view, and fragment. Refer to the [Rails caching guide] for more information on using MemCachier with Rails.
+Rails supports three types of caching: automatic whole site, per-view, and fragment. Refer to the [Rails caching guide](http://guides.rubyonrails.org/caching_with_rails.html) for more information on using MemCachier with Rails.
 
-Add the Dalli gem and run `bundle install` as described in the above <a href="#ruby">Ruby</a> section. Once this gem is installed you will want to configure the Rails `cache_store` appropriately. Modify your `config/environments/production.rb` with the following:
+Add the Dalli gem and run `bundle install` as described in the above <a href="#ruby">Ruby</a> section. Once this gem is installed, configure the Rails `cache_store` appropriately. Modify your `config/environments/production.rb` with the following:
 
 ~~~xml
 config.cache_store = :dalli_store,
@@ -106,11 +102,11 @@ config.cache_store = :dalli_store,
                     }
 ~~~
 
-<p class="note"><strong>Note</strong>: Rails.cache defaults to a simple in-memory store in your deployment environment, so it does not require a running memcached.</p>
+<p class="note"><strong>Note</strong>: Rails.cache defaults to an in-memory store in your deployment environment, so it does not require a running memcached.</p>
 
 ### Testing from Rails ###
 
-To test locally you can simply use the rails console:
+To test locally you can use the rails console:
 
 <pre class="terminal">
 rails console
@@ -122,7 +118,7 @@ rails console
 
 ## <a id='python'></a>Using MemCachier with Python ##
 
-MemCachier has been tested with the `pylibmc` memcache client. This client relies on the `C libmemcached` library, which should be simple to install with your package manager on Linux or Windows. Once `libmemcached` is installed, install `pylibmc`:
+MemCachier has been tested with the `pylibmc` memcache client. This client relies on the `C libmemcached` library, which you can install with your package manager on Linux or Windows. Once `libmemcached` is installed, install `pylibmc`:
 
 <pre class="terminal">
 $ pip install pylibmc
@@ -159,7 +155,7 @@ mc.set("foo", "bar")
 print mc.get("foo")
 </pre>
 
-<p class="note"><strong>Note</strong>: An error message you may get from <code>pylibmc</code> is <strong>MemcachedError: error 37 from memcached_set: SYSTEM ERROR (Resource temporarily unavailable)</strong>. This indicates that you are trying to store a value larger than 1 MB. MemCachier has a hard limit of 1 MB for the size of key-value pairs. To work around this, either consider sharding the data or using a different technology. The benefit of an in-memory key-value store diminishes at 1 MB and higher.
+<p class="note"><strong>Note</strong>: An error message you might get from <code>pylibmc</code> is <strong>MemcachedError: error 37 from memcached_set: SYSTEM ERROR (Resource temporarily unavailable)</strong>. This indicates that you are trying to store a value larger than 1 MB. MemCachier has a hard limit of 1 MB for the size of key-value pairs. To work around this, either consider sharding the data or using a different technology. The benefit of an in-memory key-value store diminishes at 1 MB and higher.
 </p>
 
 ##<a id='node'></a>Using MemCachier with Node.js ##
@@ -243,7 +239,7 @@ public class Foo {
 }
 ~~~
 
-You may want to set the above code up as a new MemCachierClient class as shown in the following example:
+You might want to set the above code up as a new MemCachierClient class as shown in the following example:
 
 ~~~xml
 package com.memcachier.examples.java;
@@ -307,7 +303,7 @@ Once memcached has been installed, run it by executing the following comand:
 $ memcached -v
 </pre>
 
-<p class="note"><strong>Note</strong>: The below examples will install memcached without SASL authentication support. This is generally what you want as client code can still try to use SASL auth and memcached will simply ignore the requests which is the same as allowing any credentials. So your client code can run without modification locally.</p>
+<p class="note"><strong>Note</strong>: The examples below install memcached without SASL authentication support. This allows your client code to run without modification locally, since client code can still request SASL authentication. Memcached ignores the requests, effectively allowing any credentials.</p>
 
 ### On OS X ###
 
