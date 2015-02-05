@@ -36,18 +36,16 @@ Once your MemCachier service is bound to your app, the service credentials will 
 
 ~~~xml
 {
-  memcachier-n/a: [
+  "memcachier": [
     {
-      name: "memcachier-1234",
-      label: "memcachier-n/a",
-      tags: [
-        "caching"
-      ],
-      plan: "dev",
-      credentials: {
-        servers: "mc4.dev.ec2.memcachier.com:11211",
-        username: "3668cf",
-        password: "bf12d43795"
+      "name":"Memcachier1",
+      "label":"memcachier",
+      "tags":[ "Data Stores","Data Store","Caching","key-value","caching" ],
+      "plan":"dev",
+      "credentials":{
+        "servers":"mc5.dev.ec2.memcachier.com:11211",
+        "username":"username",
+        "password":"password"
       }
     }
   ]
@@ -70,9 +68,20 @@ Before writing code, you need to create a client object with the correct credent
 
 ~~~xml
 require 'dalli'
-cache = Dalli::Client.new((ENV["MEMCACHIER_SERVERS"] || "").split(","),
-                    {:username => ENV["MEMCACHIER_USERNAME"],
-                     :password => ENV["MEMCACHIER_PASSWORD"],
+credentials = memcachier_servers = memcachier_username = memcachier_password = ''
+if !ENV['VCAP_SERVICES'].blank?
+  JSON.parse(ENV['VCAP_SERVICES']).each do |k,v|
+    if !k.scan("memcachier").blank?
+      credentials = v.first.select {|k1,v1| k1 == "credentials"}["credentials"]
+      memcachier_servers = credentials["servers"]
+      memcachier_username = credentials["username"]
+      memcachier_password = credentials["password"]
+    end
+  end
+end
+cache = Dalli::Client.new((memcachier_servers || "").split(","),
+                    {:username => memcachier_username,
+                     :password => memcachier_password,
                      :failover => true,
                      :socket_timeout => 1.5,
                      :socket_failure_delay => 0.2})
@@ -92,10 +101,21 @@ Rails supports three types of caching: automatic whole site, per-view, and fragm
 Add the Dalli gem and run `bundle install` as described in the above <a href="#ruby">Ruby</a> section. Once this gem is installed, configure the Rails `cache_store` appropriately. Modify your `config/environments/production.rb` with the following:
 
 ~~~xml
+credentials = memcachier_servers = memcachier_username = memcachier_password = ''
+if !ENV['VCAP_SERVICES'].blank?
+  JSON.parse(ENV['VCAP_SERVICES']).each do |k,v|
+    if !k.scan("memcachier").blank?
+      credentials = v.first.select {|k1,v1| k1 == "credentials"}["credentials"]
+      memcachier_servers = credentials["servers"]
+      memcachier_username = credentials["username"]
+      memcachier_password = credentials["password"]
+    end
+  end
+end
 config.cache_store = :dalli_store,
-                    (ENV["MEMCACHIER_SERVERS"] || "").split(","),
-                    {:username => ENV["MEMCACHIER_USERNAME"].
-                     :password => ENV["MEMCACHIER_PASSWORD"],
+                    (memcachier_servers || "").split(","),
+                    {:username => memcachier_username,
+                     :password => memcachier_password,
                      :failover => true,
                      :socket_timeout => 1.5,
                      :socket_failure_delay => 0.2
@@ -135,11 +155,12 @@ pylibmc==1.4.0
 Next, configure your `settings.py` file as the following example shows:
 
 ~~~xml
-import pylibmc
+memcachier_service = json.loads(os.environ['VCAP_SERVICES'])['memcachier'][0]
+credentials = statica_service['credentials']
 
-servers = os.environ.get('MEMCACHIER_SERVERS', '').split(',')
-user = os.environ.get('MEMCACHIER_USERNAME', '')
-pass = os.environ.get('MEMCACHIER_PASSWORD', '')
+servers = credentials('servers').split(',')
+user = credentials('username')
+pass = credentials('password')
 
 mc = pylibmc.Client(servers, binary=True,
                     username=user, password=pass,
@@ -219,16 +240,30 @@ import net.spy.memcached.auth.AuthDescriptor;
 
 public class Foo {
   public static void main(String[] args) {
+    String vcap_services = System.getenv("VCAP_SERVICES");
+    String memcachier_servers = "";
+    String memcachier_username = "";
+    String memcachier_password = "";
+
+    if (vcap_services != null && vcap_services.length() > 0) {
+        // parsing memcachier credentials
+        JsonRootNode root = new JdomParser().parse(vcap_services);
+        JsonNode memcachierNode = root.getNode("memcachier");
+        JsonNode credentials = memcachierNode.getNode(0).getNode("credentials");
+        memcachier_servers = credentials.getStringValue("servers");
+        memcachier_username = credentials.getStringValue("username");
+        memcachier_password = credentials.getStringValue("password");
+    }
     AuthDescriptor ad = new AuthDescriptor(new String[] { "PLAIN" },
-        new PlainCallbackHandler(System.getenv("MEMCACHIER_USERNAME"),
-            System.getenv("MEMCACHIER_PASSWORD")));
+        new PlainCallbackHandler(memcachier_username,
+            memcachier_password));
 
     try {
       MemcachedClient mc = new MemcachedClient(
           new ConnectionFactoryBuilder()
               .setProtocol(ConnectionFactoryBuilder.Protocol.BINARY)
               .setAuthDescriptor(ad).build(),
-          AddrUtil.getAddresses(System.getenv("MEMCACHIER_SERVERS")));
+          AddrUtil.getAddresses(memcachier_servers));
       mc.set("foo", "bar");
       System.out.println(mc.get("foo"));
     } catch (IOException ioe) {
