@@ -156,7 +156,7 @@ Next, configure your `settings.py` file as the following example shows:
 
 ~~~xml
 memcachier_service = json.loads(os.environ['VCAP_SERVICES'])['memcachier'][0]
-credentials = statica_service['credentials']
+credentials = memcachier_service['credentials']
 
 servers = credentials('servers').split(',')
 user = credentials('username')
@@ -181,21 +181,27 @@ print mc.get("foo")
 
 ##<a id='node'></a>Using MemCachier with Node.js ##
 
-For Node.js we recommend the use of the [memjs](http://github.com/alevy/memjs) client library, which is written and supported by MemCachier. To install memjs, use [node package manager (npm)](http://npmjs.org/) as the following command shows:
+For Node.js, we recommend the use of the [memjs](http://github.com/alevy/memjs) client library, which is written and supported by MemCachier. To install memjs, use [node package manager (npm)](http://npmjs.org/) as the following command shows:
 
 <pre class="terminal">
 $ npm install memjs
 </pre>
 
-The memjs library understands the `MEMCACHIER_SERVERS`, `MEMCACHIER_USERNAME`, and `MEMCACHIER_PASSWORD` environment variables that the MemCachier add-on sets up, as the following example shows:
+A new memjs client should be created to connect with MemCachier as follows:
 
-<pre>
-var memjs = require('memjs')
-var mc = memjs.Client.create()
+```
+var memjs = require('memjs');
+var creds = JSON.parse(process.env.VCAP_SERVICES).memcachier[0].credentials;
+var mc = memjs.Client.create(creds.servers, creds);
+```
+
+You can then test whether it works as follows:
+
+```
 mc.get('hello', function(val) {
   alert(val)
 })
-</pre>
+```
 
 ##<a id='java'></a>Using MemCachier with Java ##
 
@@ -326,6 +332,46 @@ class SASLConnectionFactoryBuilder extends ConnectionFactoryBuilder {
 
 <p class="note"><strong>Note</strong>: It is possible that you might run into Java exceptions about the class loader. See Spymemcached <a href="http://code.google.com/p/spymemcached/issues/detail?id=155">issue 155</a>, which contains a suggested workaround.</p>
 
+##<a id='php'></a>Using MemCachier with PHP ##
+
+First, install the **PHPMemcacheSASL** client. You can either obtain the code directly or use **composer** for package management. We suggest using composer.
+
+If you are using composer, modify the `composer.json` file to include the module:
+
+<pre class="terminal">
+{
+    "require": {
+        "php": ">=5.3.2",
+        "memcachier/php-memcache-sasl": ">=1.0.1"
+    }
+}
+</pre>
+
+Then, you can connect to MemCachier using the client:
+
+<pre class="terminal">
+require 'vendor/autoload.php';
+use MemCachier\MemcacheSASL;
+$vcap_services = getenv("VCAP_SERVICES");
+$creds = json_decode($vcap_services, true)["memcachier"][0]["credentials"]
+// Create client
+$m = new MemcacheSASL();
+$servers = explode(",", $creds["servers"]);
+foreach ($servers as $s) {
+    $parts = explode(":", $s);
+    $m->addServer($parts[0], $parts[1]);
+}
+
+// Setup authentication
+$m->setSaslAuthData( getenv($creds["username"])
+                   , getenv($creds["password"]) );
+
+$m->add("foo", "bar");
+echo $m->get("foo");
+
+</pre>
+
+
 ## <a id='local-usage'></a>Local Usage ##
 
 To test against your application locally, you will need to run a local memcached process. MemCachier is only available from the datacenter you signed up for. But because MemCachier and memcached speak the same protocol, you should not have any issues testing locally. Installation depends on your platform.
@@ -391,6 +437,15 @@ With the analytics dashboard we sample your cache once per hour. For more inform
 MemCachier supports key-value objects up to 1 MB. This applies to both key-value pairs created through a `set` command and to existing key-value pairs extended with either an `append` or `prepend` command. In the latter case, the size of the key-value pair with the new data added must still be less than 1 MB. This limit applies to the combined size of the key and the value. For example, a key-value pair with a 512 KB key and a 712 KB value exceeds the limit.
 
 A reason for this limit on key-value pair size is how MemCachier's high performance design impacts memory management. It is also not standard practice to store values larger than 1 MB in a high-performance key-value store because the network transfer time limits performance. We recommend using a disk cache or a database for values larger than 1 MB.
+
+## <a id='new-relic'></a>New Relic integration ##
+
+MemCachier supports integration with your New Relic dashboard if you are a customer of both MemCachier and New Relic. Currently, this feature is only available to caches of 500MB or larger. A blog post showing the integration can be found [here](http://blog.memcachier.com/2014/03/05/memcachier-and-new-relic-together/).
+
+To set up the integration, you will need to find your New Relic license key. To do this, log in to New Relic, then click your New Relic username in the top right corner to access your **Account Settings** page. Your license key displays in the information column on the right side of the page. The key should be exactly 40 characters long. Please refer to the blog post for a visual walkthrough.
+
+Once you have your New Relic license key, it can be entered for your cache on the analytics dashboard page. Click the button in the bottom right corner to do this.
+
 
 ## <a id='support'></a>Support ##
 
