@@ -334,7 +334,7 @@ class SASLConnectionFactoryBuilder extends ConnectionFactoryBuilder {
 
 ##<a id='php'></a>Using MemCachier with PHP ##
 
-First, install the **PHPMemcacheSASL** client. You can either obtain the code directly or use **composer** for package management. We suggest using composer.
+First, install the [PHPMemcacheSASL](https://github.com/memcachier/PHPMemcacheSASL) client. You can either obtain the code directly or use **composer** for package management. We suggest using composer.
 
 If you are using composer, modify the `composer.json` file to include the module:
 
