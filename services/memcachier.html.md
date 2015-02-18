@@ -34,7 +34,7 @@ $ cf bind-service APP_NAME INSTANCE_NAME
 
 Once your MemCachier service is bound to your app, the service credentials will be stored in the `VCAP_SERVICES` environment variable in the following format:
 
-~~~xml
+<pre>
 {
   "memcachier": [
     {
@@ -50,7 +50,7 @@ Once your MemCachier service is bound to your app, the service credentials will 
     }
   ]
 }
-~~~
+</pre>
 
 For more information, see [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
@@ -58,15 +58,15 @@ For more information, see [Using Service Instances with your Application](/devgu
 
 Start by adding the [Dalli](https://github.com/mperham/dalli) gem to your Gemfile. Dalli is a high performance Ruby memcache client.
 
-<pre>
+```ruby
 gem 'dalli'
-</pre>
+```
 
 Then run `bundle install`.
 
 Before writing code, you need to create a client object with the correct credentials and settings as the example below shows:
 
-~~~xml
+```ruby
 require 'dalli'
 credentials = memcachier_servers = memcachier_username = memcachier_password = ''
 if !ENV['VCAP_SERVICES'].blank?
@@ -85,14 +85,14 @@ cache = Dalli::Client.new((memcachier_servers || "").split(","),
                      :failover => true,
                      :socket_timeout => 1.5,
                      :socket_failure_delay => 0.2})
-~~~
+```
 
 You can now use the cache through operations such as `get` and `set`, as the example shows:
 
-~~~xml
+```ruby
 cache.set("foo", "bar")
 puts cache.get("foo")
-~~~
+```
 
 ## <a id='rails'></a>Using MemCachier with Rails ##
 
@@ -100,7 +100,7 @@ Rails supports three types of caching: automatic whole site, per-view, and fragm
 
 Add the Dalli gem and run `bundle install` as described in the above <a href="#ruby">Ruby</a> section. Once this gem is installed, configure the Rails `cache_store` appropriately. Modify your `config/environments/production.rb` with the following:
 
-~~~xml
+```ruby
 credentials = memcachier_servers = memcachier_username = memcachier_password = ''
 if !ENV['VCAP_SERVICES'].blank?
   JSON.parse(ENV['VCAP_SERVICES']).each do |k,v|
@@ -120,7 +120,7 @@ config.cache_store = :dalli_store,
                      :socket_timeout => 1.5,
                      :socket_failure_delay => 0.2
                     }
-~~~
+```
 
 <p class="note"><strong>Note</strong>: Rails.cache defaults to an in-memory store in your deployment environment, so it does not require a running memcached.</p>
 
@@ -154,7 +154,7 @@ pylibmc==1.4.0
 
 Next, configure your `settings.py` file as the following example shows:
 
-~~~xml
+```python
 memcachier_service = json.loads(os.environ['VCAP_SERVICES'])['memcachier'][0]
 credentials = memcachier_service['credentials']
 
@@ -167,14 +167,14 @@ mc = pylibmc.Client(servers, binary=True,
                     behaviors={"tcp_nodelay": True,
                                "ketama": True,
                                "no_block": True,})
-~~~
+```
 
 After this, you can start writing cache code in your Python application:
 
-<pre>
+```python
 mc.set("foo", "bar")
 print mc.get("foo")
-</pre>
+```
 
 <p class="note"><strong>Note</strong>: An error message you might get from <code>pylibmc</code> is <strong>MemcachedError: error 37 from memcached_set: SYSTEM ERROR (Resource temporarily unavailable)</strong>. This indicates that you are trying to store a value larger than 1 MB. MemCachier has a hard limit of 1 MB for the size of key-value pairs. To work around this, either consider sharding the data or using a different technology. The benefit of an in-memory key-value store diminishes at 1 MB and higher.
 </p>
@@ -189,7 +189,7 @@ $ npm install memjs
 
 A new memjs client should be created to connect with MemCachier as follows:
 
-```
+```javascript
 var memjs = require('memjs');
 var creds = JSON.parse(process.env.VCAP_SERVICES).memcachier[0].credentials;
 var mc = memjs.Client.create(creds.servers, creds);
@@ -197,7 +197,7 @@ var mc = memjs.Client.create(creds.servers, creds);
 
 You can then test whether it works as follows:
 
-```
+```javascript
 mc.get('hello', function(val) {
   alert(val)
 })
@@ -236,7 +236,7 @@ Then add the `spymemcached` library to your dependencies:
 
 Once your build system is configured, you can start adding caching to your Java app as shown in the following example:
 
-~~~xml
+```java
 import java.io.IOException;
 import net.spy.memcached.AddrUtil;
 import net.spy.memcached.MemcachedClient;
@@ -278,11 +278,11 @@ public class Foo {
     }
   }
 }
-~~~
+```
 
 You might want to set the above code up as a new MemCachierClient class as shown in the following example:
 
-~~~xml
+```java
 package com.memcachier.examples.java;
 
 import java.io.IOException;
@@ -328,7 +328,7 @@ class SASLConnectionFactoryBuilder extends ConnectionFactoryBuilder {
        return this.build();
    }
 }
-~~~
+```
 
 <p class="note"><strong>Note</strong>: It is possible that you might run into Java exceptions about the class loader. See Spymemcached <a href="http://code.google.com/p/spymemcached/issues/detail?id=155">issue 155</a>, which contains a suggested workaround.</p>
 
@@ -338,18 +338,18 @@ First, install the [PHPMemcacheSASL](https://github.com/memcachier/PHPMemcacheSA
 
 If you are using composer, modify the `composer.json` file to include the module:
 
-<pre class="terminal">
+<pre>
 {
-    "require": {
-        "php": ">=5.3.2",
-        "memcachier/php-memcache-sasl": ">=1.0.1"
-    }
+  "require": {
+    "php": ">=5.3.2",
+    "memcachier/php-memcache-sasl": ">=1.0.1"
+  }
 }
 </pre>
 
 Then, you can connect to MemCachier using the client:
 
-<pre class="terminal">
+```php
 require 'vendor/autoload.php';
 use MemCachier\MemcacheSASL;
 $vcap_services = getenv("VCAP_SERVICES");
@@ -368,9 +368,7 @@ $m->setSaslAuthData( getenv($creds["username"])
 
 $m->add("foo", "bar");
 echo $m->get("foo");
-
-</pre>
-
+```
 
 ## <a id='local-usage'></a>Local Usage ##
 
