@@ -43,14 +43,14 @@ abusive bots and crawlers from wasting your bandwidth and server resources.
 CloudFlare's SSL termination proxy decrypts incoming SSL traffic and can pass on
 unencrypted or fully encrypted requests to the app server.
 Adding your website requires only a simple change to your domain's DNS settings.
-SSL Termination is an enhanced service and requires either a Pro account or a
-Business account.
+SSL Termination is available with any of the CloudFlare plans, including the
+Free plan. The Free and Pro plans always use a CloudFlare-generated certificate.
+Business and Enterprise plans add the option to use your own SSL certificate.
 
 ## <a id='sign-up'></a>Step 1 - Get CloudFlare Account ##
 
 1. Go to [https://www.cloudflare.com/plans](https://www.cloudflare.com/plans),
-select a CloudFlare Pro or higher account, and click **Sign up now**.
-Free accounts currently do not provide SSL termination services.
+select the desired account, and click **Sign up now**.
 
     <%= image_tag("../../images/cloudflare/sign-up.png") %>
 
@@ -92,11 +92,9 @@ When finished, click **I've added all missing records, continue**.
 ## <a id='choose-settings'></a>Step 4 - Choose Initial Settings ##
 
 1. On the **Choose initial settings** page, set the following options:
-    * **Choose a plan**: Select either **Pro** or **Business**.
-    Do not choose the free plan; you can only configure SSL for a domain if you
-    have a paid CloudFlare plan.
-    If you choose **Pro**, CloudFlare will generate an SSL certificate for
-    communications between browsers and the CloudFlare proxy.
+    * **Choose a plan**: Select **Free**, **Pro**, or **Business**.
+    If you choose **Free** or **Pro**, CloudFlare will generate an SSL
+    certificate for communications between browsers and the CloudFlare proxy.
     If you prefer to provide your own SSL certificate, choose **Business**.
     * **Performance**: This configures a profile that sets the values of
     multiple performance-related options.
