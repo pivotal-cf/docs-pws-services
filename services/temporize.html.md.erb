@@ -1,0 +1,146 @@
+---
+title: Temporize Scheduler
+---
+
+Temporize provides a flexible and secure web service for scheduling Cron jobs, saving
+you the development time and infrastructure costs of deploying and maintaining your
+own dedicated job-scheduling system. At the predetermined time, Temporalize makes a
+POST request to your application at the specified URL, providing any required data and
+triggering whatever task your app is set up to perform.
+
+Temporize offers a REST API that can be used with standard libraries in Java, Ruby, Python, Node.js, Clojure, Scala and more.
+
+To start using scheduling jobs with Temporize, you must:
+
+* [Create and bind](#managing) a Temporize service instance.
+* Set up an HTTP endpoint in your application to receive requests from Temporize.
+* Use the interactive API to schedule events. See Temporize REST API [documentation](http://docs.temporize.apiary.io/).
+
+##<a id='events'></a>Events##
+
+Temporize can schedule two different types of events, corresponding to tasks you want your application to perform:
+
+- **Single events** occur only once, at a time time that you specify using an  ISO8601 formatted date/time value.
+
+* **Recurring events** occur repeatedly, according to a schedule that you specify using Cron expression format.
+
+##<a id='failures'></a>Handling Failures##
+
+A Temporize event can fail to trigger the appropriate action from your application for many different reasons. For example, the HTTP request might fail due to network connectivity problems, or your application may be down. Temporize treats an attempted action as a failure if the request takes longer than 30 seconds or the application returns any response code other than 2xx.
+
+In case of failure, Temporize re-sends the request at one-hour intervals until one of the following happens:
+
+* The application responds with a success code (2xx)
+
+* Temporize reaches the limit of five attempts
+
+* The event recurs as scheduled (applies only to recurring events).
+
+If a recurring event fails five times in a row, its execution is automatically suspended. You must first fix the problem with your application, then manually restart the event.
+
+##<a id='managing'></a>Managing your Temporize Service##
+
+Run the following command to create a Temporize service instance.
+
+PLAN\_NAME is the name of the desired plan and INSTANCE\_NAME is a name meaningful to you.
+
+<pre class='terminal'>$ cf create-service temporize PLAN_NAME INSTANCE_NAME</pre>
+
+Run the following command to bind your Temporize service instance to your app:
+
+<pre class='terminal'>$ cf bind-service APP_NAME INSTANCE_NAME</pre>
+
+Once your Temporize service is bound to your app, the service credentials are stored in the [VCAP_SERVICES](../../devguide/deploy-apps/environment-variable.html#VCAP-SERVICES) environment variable in the following format:
+
+```
+{
+      "temporize": [
+        {
+          "name": "Temporize1",
+          "label": "temporize",
+          "tags": [ "Staff Picks", "Deutsche Telekom", "Staples", "Comcast", "Deals", "Bundles" ],
+          "plan": "small",
+          "credentials": {
+            "url": "https://username:password@api.temporize.net"
+          }
+        }
+      ]
+    }
+```
+
+Refer to the [Using Service Instances with your Application](../../devguide/services/adding-a-service.html#using) and [Managing Service Instances with the CLI](../../devguide/services/managing-services.html) topics for more general information on managing services.
+
+
+##<a id='example-ruby'></a>Example: Using Temporize with Ruby##
+
+Ruby applications can use the service with freely available libraries. The following example uses the HTTParty gem to consume the Temporize REST API.
+
+```ruby
+require 'rubygems'
+require 'httparty'
+require 'cgi'
+require 'time'
+
+class Temporize
+        include HTTParty
+        base_uri 'https://api.temporize.net/v1'
+        format :json
+        attr_accessor :credentials
+
+        def initialize(username, password)
+                @credentials = {:username =&gt; username, :password =&gt; password}
+        end
+
+# Check that we can call web service
+        def test
+                Temporize.get("/test")
+        end
+
+# Check authentication
+        def auth
+                Temporize.get("/auth", :basic_auth =&gt; credentials)
+        end
+
+# Schedule a test event to run right away
+        def single
+                date = Time.now.utc.iso8601
+                url = CGI::escape("http://example.com/callback") # Replace with your callback URL
+                Temporize.post("/events/#{date}/#{url}", :basic_auth =&gt; credentials)
+        end
+
+# Schedule a test event to run once a day at 10:05AM GMT
+        def recurring
+                cron = CGI::escape("5 10 * * ?")
+                url = CGI::escape("http://example.com/callback") # Replace with your callback URL
+                Temporize.post("/events/#{cron}/#{url}", :basic_auth =&gt; credentials)
+        end
+end
+```
+
+##<a id='example-cli'></a>Example: Using Temporize from the command line##
+
+The Temporize API is fully accessible from the command line using an HTTP client such as cURL:
+
+<pre class='terminal'>
+$ curl https://user:pass@api.temporize.net/v1/events
+["QUzSPKFxTiWb48EZeQ4KUv","htN8esKtQKqgfpNA5rcDbQ"]
+
+$ curl https://user:pass@api.temporize.net/v1/events/QUzSPKFxTiWb48EZeQ4KUv
+{
+"id": "QUzSPKFxTiWb48EZeQ4KUv",
+"account": "eiKKvxfVSmyqHcV4E6xYvQ",
+"user": "eiKKvxfVSmyqHcV4E6xYvQ",
+"status": "Active",
+"retries": 5,
+"url": "http://api.temporize.net/v1/test",
+"when": "2014-02-13T20:12:43Z"
+}
+</pre>
+
+
+##<a id='support'></a>Support##
+
+[Contacting Service Providers for Support](../contacting-service-providers-for-support.html)
+
+
+
