@@ -247,7 +247,7 @@ Our dashboard presents all performance and usage metrics of your Memcached Cloud
 
 ![Dashboard](https://s3.amazonaws.com/paas-docs/memcached-cloud/CF+-+mem.png)
 
-To access your Memcached Cloud dashboard, simply click the 'Manage' button next to the Memcached Cloud service on your Apps Manager console.
+To access your Memcached Cloud dashboard, simply click the 'Manage' button next to the Memcached Cloud service in the Apps Manager user interface.
 
 You can then find your dashboard under the `MY DATABASES` menu.
 
