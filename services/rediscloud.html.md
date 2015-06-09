@@ -263,9 +263,9 @@ Our dashboard presents all performance and usage metrics of your Redis Cloud ser
 
 ![Dashboard](https://s3.amazonaws.com/paas-docs/redis-cloud/CF+-+redis.png)
 
-To access your Redis Cloud dashboard, simply click the 'Manage' button next to the Redis Cloud service in the Apps Manager user interface.
-
-You can then find your dashboard under the `MY DATABASES` menu.
+To access your Redis Cloud dashboard, click the 'Manage' button next to the
+Redis Cloud service in Apps Manager.
+You can find your dashboard under the `MY DATABASES` menu.
 
 ## <a id='support'></a>Support ##
 

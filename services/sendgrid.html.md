@@ -208,7 +208,8 @@ SendGrid offers statistics for a number of different metrics to report on what i
 
 ![Dashboard](http://static.sendgrid.com.s3.amazonaws.com/images/delivery_metrics.png)
 
-To access your SendGrid dashboard, simply click the 'Manage' button next to the SendGrid service in the Apps Manager user interface.
+To access your SendGrid dashboard, click the 'Manage' button next to the
+SendGrid service in Apps Manager.
 
 ## <a id='support'></a>Support ##
 
