@@ -2,8 +2,8 @@
 title: 3scale
 ---
 
-[3scale](http://www.3scale.net/) is a service that lets you manage API keys, 
-apply rate limits, monitor analytics, and control developer accounts. 
+[3scale](http://www.3scale.net/) is a service that lets you manage API keys,
+apply rate limits, monitor analytics, and control developer accounts.
 3scale features include the following:
 
 * API Access Control and Security
@@ -16,7 +16,7 @@ apply rate limits, monitor analytics, and control developer accounts.
   * Set custom rate limits per developer and per application
 * API Analytics and Reporting
   * Track API usage by transaction or other metrics
-  * Create reports per account and per application 
+  * Create reports per account and per application
   * Report on API usage trends
 * Developer Portal CMS and Interactive Documentation
   * Full-featured CMS with version control
@@ -25,51 +25,51 @@ apply rate limits, monitor analytics, and control developer accounts.
   * Automated email sign-up and developer management
   * Developer on-boarding and sign-up workflows
 
-3scale API plugins provide connectivity to the 3scale architecture. 
-Supported client libraries exist for Java, .NET, Node.js, Ruby, Perl, PHP, and 
+3scale API plugins provide connectivity to the 3scale architecture.
+Supported client libraries exist for Java, .NET, Node.js, Ruby, Perl, PHP, and
 Python.
 
 ## <a id='managing'></a>Managing Services ##
 
-Follow the steps below to add 3scale to your org and bind it to a space by 
-selecting 3scale from the Pivotal Web Services Marketplace. 
+Follow the steps below to add 3scale to your org and bind it to a space by
+selecting 3scale from the Pivotal Web Services Marketplace.
 
 1. Log in to the [PWS Console](https://console.run.pivotal.io/).
 1. Select **Marketplace** from the left navigation menu.
 1. Click the **3scale** tile.
-1. Select a plan that meets your needs. Configure the instance name, the space, 
+1. Select a plan that meets your needs. Configure the instance name, the space,
   and select an application to bind 3scale to.
 
 To create and bind a service instance from the command line, see [Managing services from the command line](/devguide/services/managing-services.html).
 
 ## <a id='using-instances'></a>Using Service Instances with Your Application ##
 
-After subscribing to the 3scale service, log in to your 3scale dashboard. 
-Navigate to the **Account** area and record your API Key, also known as your 
-_provider key_. 
+After subscribing to the 3scale service, log in to your 3scale dashboard.
+Navigate to the **Account** area and record your API Key, also known as your
+_provider key_.
 Services use the provider key to authenticate when communicating with 3scale.
 
 <%= image_tag("../images/3scale-api-key.png") %>
 
-Pivotal recommends that you set this key as an environment variable to use in 
-your integration code. 
-The deployment instructions below assume that you have set your provider key to 
+Pivotal recommends that you set this key as an environment variable to use in
+your integration code.
+The deployment instructions below assume that you have set your provider key to
 an environment variable named `THREESCALE_PROVIDER_KEY`.
 
 ### <a id='deployment'></a>Deployment Overview ###
 
-3scale works using plugin agents that you can deployed anywhere that you want to 
-enforce API control. 
-3scale provides plugins in multiple application languages for deployment in the 
+3scale works using plugin agents that you can deploye anywhere that you want to
+enforce API control.
+3scale provides plugins in multiple application languages for deployment in the
 application stack.
 
-Once installed, agents authorize transactions on the API for valid keys, enforce 
-rate limits, and report traffic back to the management system. 
-A wide range of plugin/agent configuration options exist to meet different 
-architectural needs. 
+Once installed, agents authorize transactions on the API for valid keys, enforce
+rate limits, and report traffic back to the management system.
+A wide range of plugin/agent configuration options exist to meet different
+architectural needs.
 Alternately, you can call the 3scale traffic management APIs directly.
 
-Below are instructions for deploying the Java, Node.js, and Ruby plugins. 
+Below are instructions for deploying the Java, Node.js, and Ruby plugins.
 You can find information for other plugins in their [GitHub repositories](https://github.com/3scale/?query=3scale_ws_api) and in the [3scale support portal](https://support.3scale.net/reference/libraries).
 
 ### <a id='ruby'></a>Ruby ###
@@ -78,40 +78,194 @@ You can find information for other plugins in their [GitHub repositories](https:
 
 1. Add the 3scale gem to your Gemfile:
 
-`gem '3scale_client'`
+    `gem '3scale_client'`
 
 1. Update application dependencies with bundler:
 
-  <pre class='terminal'>
-	$ bundle install
-	</pre>
+    <pre class='terminal'>
+	  $ bundle install
+	  </pre>
 
-<p class='note'><strong>Note</strong>: If you are using Rails config.gems, you can insert <code>config.gem '3scale_client'</code>` in your <code>config/environment.rb</code> file instead of modifying the Gemfile.</p>
+<p class='note'><strong>Note</strong>: If you are using Rails config.gems, you
+  can insert <code>config.gem '3scale_client'</code> in your
+  <code>config/environment.rb</code> file instead of modifying the Gemfile.
+</p>
 
 **Usage**
 
-Create an instance of the client, referencing your provider key. 
-Pivotal recommends assigning your provider key to an environment variable.
+Create an instance of the client, referencing your provider key.
+Pivotal recommends that you assign your provider key to an environment variable.
 
-`client = ThreeScale::Client.new(:provider_key => ENV['THREESCALE_PROVIDER_KEY'])`
+Example: `client = ThreeScale::Client.new(:provider_key => ENV['THREESCALE_PROVIDER_KEY'])`
 
-Use your 3scale client to authorize incoming calls to your API. 
+Use your 3scale client to authorize incoming calls to your API.
 This plugin supports the following calls to the 3scale backend:
 
 * `authorize`: Grants access to your API
 * `report`: Reports traffic on your API
 * `authrep`: Grants access to your API and reports the traffic on it
 
-3scale supports three authentication modes: 
+3scale supports three authentication modes:
+
 * App ID
 * User Key
 * OAuth
 
-App Id and User Key support `authrep`. OAuth requires separate `authorize` and `report` calls.
+App ID and User Key support `authrep`. OAuth requires separate `authorize` and
+`report` calls.
 
 The following example uses the `authrep` call in App ID authentication mode.
 
+```ruby
+response = client.authrep(:app_id => "APP ID", :app_key => "APP KEY")
+if response.success?
+  # Success. Usage will be reported automatically
+else
+  # Failure.
+end
+```
 
+For more information, see the complete reference for the [Ruby plugin](https://github.com/3scale/3scale_ws_api_for_ruby) in GitHub.
 
+### <a id='nodejs'></a>Node.js ###
 
+**Installation**
 
+Use [npm](https://www.npmjs.com/) to install the 3scale Node.js library:
+
+<pre class='terminal'>
+$ npm install 3scale
+</pre>
+
+**Usage**
+
+Create an instance of the client, referencing your provider key.
+Pivotal recommends that you assign your provider key to an environment variable.
+
+Use your 3scale client to authorize incoming calls to your API.
+This plugin supports the following calls to the 3scale backend:
+
+* `authorize`: Grants access to your API
+* `report`: Reports traffic on your API
+* `authrep`: Grants access to your API and reports the traffic on it
+
+3scale supports three authentication modes:
+
+* App ID
+* User Key
+* OAuth
+
+App ID and User Key support `authrep`. OAuth requires separate `authorize` and
+`report` calls.
+
+The following example uses the `authrep` call in App ID authentication mode.
+
+```nodejs
+var Client = require('3scale').Client;
+
+client = new Client(THREESCALE_PROVIDER_KEY);
+
+client.authrep({"app_id": "your application id", "app_key": "your application key", "usage": { "hits": 1 } }, function(response){
+  sys.log(sys.inspect(response));
+});
+```
+
+For more information, see the complete reference for the [Node.js plugin](https://github.com/3scale/3scale_ws_api_for_nodejs) in GitHub.
+
+### <a id='java'></a>Java ###
+
+**Installation**
+
+1. Download the [3scale Java Maven project](https://github.com/3scale/3scale_ws_api_for_java).
+1. Add a dependency to this artifact inside the application `pom.xml` file as 
+follows:
+  1. Within the downloaded 3scale artifact, open the `pom.xml` file.
+  1. Retrieve the **GroupID**, **ArtifactID**, and **Version** from lines 5,6,
+    and 9 of this `pom.xml` file.
+1. Use the **GroupID**, **ArtifactID**, and **Version** to install the
+  artifact to your repository as described in the [Maven Guide to installing 3rd party JARs](http://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html).
+
+**Usage**
+
+Create an instance of the client, referencing your provider key.
+Pivotal recommends that you assign your provider key to an environment variable.
+
+Use your 3scale client to authorize incoming calls to your API.
+This plugin supports the following calls to the 3scale backend:
+
+* `authorize`: Grants access to your API
+* `report`: Reports traffic on your API
+* `authrep`: Grants access to your API and reports the traffic on it
+
+3scale supports three authentication modes:
+
+* App ID
+* User Key
+* OAuth
+
+App ID and User Key support `authrep`. OAuth requires separate `authorize` and
+`report` calls.
+
+The following example uses the `authrep` call in App ID authentication mode.
+
+```java
+package threescale.v3.api.example;
+
+import threescale.v3.api.AuthorizeResponse;
+import threescale.v3.api.ParameterMap;
+import threescale.v3.api.ServerError;
+import threescale.v3.api.ServiceApi;
+import threescale.v3.api.impl.ServiceApiDriver;
+
+/**
+ * Simple Example of using the API
+ */
+public class Example {
+
+    public void performAuthRep() {
+
+        ServiceApi serviceApi = new ServiceApiDriver(THREESCALE_PROVIDER_KEY);    // Create the API object
+
+        ParameterMap params = new ParameterMap();                           // Create top level ParameterMap
+        params.add("app_id", "appid");                                      // Set the Users App Id
+
+        ParameterMap usage = new ParameterMap();                            // Create 1st Level PM for usage
+        usage.add("hits", "3");                                             // Add number of hits metric
+        params.add("usage", usage);                                         // Add 1st level to top level as "usage"
+
+        try {
+            final AuthorizeResponse response = serviceApi.authrep(params);  // Perform the AuthRep and get the response
+
+            if (response.success()) {                                       // Check if the AuthRep succeeded
+                // Perform your calls there
+            } else {
+                // Handle failure here
+            }
+        } catch (ServerError serverError) {
+            // Thrown if there is a communications error with the server.
+            serverError.printStackTrace();
+        }
+    }
+}
+```
+
+For more information, see the complete reference for the [Java plugin](https://github.com/3scale/3scale_ws_api_for_java) in GitHub.
+
+## <a id='dashboard'></a>Dashboard ##
+
+To access your 3scale dashboard, click **Manage** next to the 3scale service in
+[Apps Manager](https://console.run.pivotal.io).
+
+For more information on the 3scale dashboard, see the 3scale [support documentation](https://support.3scale.net/).
+
+## <a id='documentation'></a>Additional Documentation ##
+
+* General Documentation: [https://support.3scale.net/](https://support.3scale.net/)
+
+* Help: [https://support.3scale.net/help](https://support.3scale.net/help)
+
+## <a id='support'></a>Support ##
+
+Report issues or provide product feedback to: [support@3scale.net](support@3scale.net).
+
+For more information, see [Contacting Service Providers for Support](../contacting-service-providers-for-support.html).
