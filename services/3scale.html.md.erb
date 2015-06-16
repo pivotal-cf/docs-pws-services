@@ -37,10 +37,10 @@ selecting 3scale from the Pivotal Web Services Marketplace.
 1. Log in to the [PWS Console](https://console.run.pivotal.io/).
 1. Select **Marketplace** from the left navigation menu.
 1. Click the **3scale** tile.
-1. Select a plan that meets your needs. Configure the instance name, the space,
-  and select an application to bind 3scale to.
+1. Select a plan that meets your needs.
+1. Configure the instance name and the space, and select an application to bind 3scale to from the **Bind to App** dropdown menu.
 
-To create and bind a service instance from the command line, see [Managing services from the command line](/devguide/services/managing-services.html).
+To create and bind a service instance from the command line, see [Managing Service Instances with the CLI](/devguide/services/managing-services.html).
 
 ## <a id='using-instances'></a>Using Service Instances with Your Application ##
 
@@ -58,7 +58,7 @@ an environment variable named `THREESCALE_PROVIDER_KEY`.
 
 ### <a id='deployment'></a>Deployment Overview ###
 
-3scale works using plugin agents that you can deploye anywhere that you want to
+3scale works using plugin agents that you can deploy anywhere that you want to
 enforce API control.
 3scale provides plugins in multiple application languages for deployment in the
 application stack.
@@ -67,7 +67,7 @@ Once installed, agents authorize transactions on the API for valid keys, enforce
 rate limits, and report traffic back to the management system.
 A wide range of plugin/agent configuration options exist to meet different
 architectural needs.
-Alternately, you can call the 3scale traffic management APIs directly.
+Alternatively, you can call the 3scale traffic management APIs directly.
 
 Below are instructions for deploying the Java, Node.js, and Ruby plugins.
 You can find information for other plugins in their [GitHub repositories](https://github.com/3scale/?query=3scale_ws_api) and in the [3scale support portal](https://support.3scale.net/reference/libraries).
@@ -80,7 +80,7 @@ You can find information for other plugins in their [GitHub repositories](https:
 
     `gem '3scale_client'`
 
-1. Update application dependencies with bundler:
+1. Update application dependencies with Bundler:
 
     <pre class='terminal'>
 	  $ bundle install
@@ -180,7 +180,7 @@ For more information, see the complete reference for the [Node.js plugin](https:
 1. Add a dependency to this artifact inside the application `pom.xml` file as 
 follows:
   1. Within the downloaded 3scale artifact, open the `pom.xml` file.
-  1. Retrieve the **GroupID**, **ArtifactID**, and **Version** from lines 5,6,
+  1. Retrieve the **GroupID**, **ArtifactID**, and **Version** from lines 5, 6,
     and 9 of this `pom.xml` file.
 1. Use the **GroupID**, **ArtifactID**, and **Version** to install the
   artifact to your repository as described in the [Maven Guide to installing 3rd party JARs](http://maven.apache.org/guides/mini/guide-3rd-party-jars-local.html).
