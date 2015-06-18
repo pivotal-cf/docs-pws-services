@@ -42,12 +42,12 @@ selecting 3scale from the Pivotal Web Services Marketplace.
 
 To create and bind a service instance from the command line, see [Managing Service Instances with the CLI](/devguide/services/managing-services.html).
 
-## <a id='using-instances'></a>Using Service Instances with Your Application ##
+## <a id='using-instances'></a>Using 3scale with Your Application ##
 
 After subscribing to the 3scale service, log in to your 3scale dashboard.
 Navigate to the **Account** area and record your API Key, also known as your
 _provider key_.
-Services use the provider key to authenticate when communicating with 3scale.
+3scale uses the provider key to authenticate when communicating with your application.
 
 <%= image_tag("../images/3scale-api-key.png") %>
 
@@ -177,7 +177,7 @@ For more information, see the complete reference for the [Node.js plugin](https:
 **Installation**
 
 1. Download the [3scale Java Maven project](https://github.com/3scale/3scale_ws_api_for_java).
-1. Add a dependency to this artifact inside the application `pom.xml` file as 
+1. Add a dependency to this artifact inside the application `pom.xml` file as
 follows:
   1. Within the downloaded 3scale artifact, open the `pom.xml` file.
   1. Retrieve the **GroupID**, **ArtifactID**, and **Version** from lines 5, 6,
