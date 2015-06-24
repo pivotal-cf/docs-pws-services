@@ -2,7 +2,7 @@
 title: Flashreport
 ---
 
-Generating reports in PDF from your systems has never been so easy and cost effective.
+Generating reports as PDFs from your systems has never been so easy and cost effective.
 No need to provision hardware or acquire costly and complex report generation solutions. Simply:
 
 * Use our API to send us your data in JSON or XML
@@ -12,15 +12,15 @@ No need to provision hardware or acquire costly and complex report generation so
 
 ## <a id='managing'></a>Creating and Managing Services Instances ##
 
-Flashreport service can be bound to your application in the usual way, please refer to [Managing services from the command line](/devguide/services/managing-services.html).
+Refer to [Managing Service Instances with the CLI](/devguide/services/managing-services.html) for help binding the Flashreport service to your application.
 
-Our [sample java app] (https://github.com/flashreport-io/flashreport-cf-spring) contains a step by step guide to bind a flashreport service to an application.
+Our [sample Java app](https://github.com/flashreport-io/flashreport-cf-spring) contains a step-by-step guide to binding a Flashreport service instance to an application.
 
 ## <a id='using'></a>Using Service Instances with your Application ##
 
-Once the service has been bound to your application (and your application pushed again or restaged), the [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html) contains your API key.
+Once you have bound the service to your application and pushed your app again or restaged, the [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html) contains your API key.
 
-Format of credentials in `VCAP_SERVICES` environment variable.
+The following example shows the format of credentials in `VCAP_SERVICES` environment variable:
 
 ~~~xml
 {
@@ -37,24 +37,24 @@ Format of credentials in `VCAP_SERVICES` environment variable.
 }
 ~~~
 
-Please refer to [Using Service Instances with your Application](/devguide/services/adding-a-service.html#use) for additional information.
+Refer to [Using Service Instances with your Application](/devguide/services/adding-a-service.html#use) for additional information.
 
 ## <a id='sample-app'></a>Sample Applications ##
 
-Please check our [sample java app] (https://github.com/flashreport-io/flashreport-cf-spring) on GitHub.
+See our [sample Java app](https://github.com/flashreport-io/flashreport-cf-spring) on GitHub.
 
 ## <a id='dashboard'></a>Dashboard ##
 
-Flashreport's dashboard lets you consult your generated reports and manage your templates. Access your dashboard by clicking the 'Manage' button next to the Flashreport service in the Services section of your space.
+The Flashreport dashboard lets you consult your generated reports and manage your templates. Access your dashboard by clicking **Manage** next to the Flashreport service in the Services section of your space.
 
 
 ## <a id='addl-docs'></a>Additional Documentation
 
-Please consult our detailed documentation on [http://flashreport.io/docs.html](http://flashreport.io/docs.html).
+Consult our detailed documentation on [http://flashreport.io/docs.html](http://flashreport.io/docs.html).
 
 ## <a id='support'></a>Support ##
 
 [Contacting Service Providers for Support](/marketplace/contacting-service-providers-for-support.html)
 
-Please consult our support page [http://flashreport.io/support.html](http://flashreport.io/support.html).
+Consult our support page [http://flashreport.io/support.html](http://flashreport.io/support.html).
 
