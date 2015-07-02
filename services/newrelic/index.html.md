@@ -47,7 +47,7 @@ $ cf push
 
 ### <a id='sample-java'></a>Java ###
 
-[This sample Java app](https://github.com/cloudfoundry-samples/spring-music/tree/newrelic) takes advantage of the Java buildpack's zero-touch New Relic support.  The included `manifest.yml` contains configuration to automatically create and bind a new instance of the New Relic service to your application.  All you need to do is clone, build, and push!
+[This sample Java app](https://github.com/cloudfoundry-samples/spring-music/tree/newrelic) takes advantage of the Java buildpack's zero-touch New Relic support. Create a NewRelic service instance on your Apps Manager dashboard. Use the included `manifest.yml` to indicate which services you want bound to your application. All you need to do is clone, create the service instance, build, and push!
 
 <pre class="terminal">
 $ git clone -b newrelic https://github.com:cloudfoundry-samples/spring-music.git
@@ -104,9 +104,9 @@ All three of these things can be found by logging into your New Relic account as
 
 ### <a id='php'></a>PHP ###
 
-1. Push the app with -b option specifying the community PHP buildpack:
+1. Push the app:
 	<pre class="terminal">
-	$ cf push -b https://github.com/dmikusa-pivotal/cf-php-build-pack
+	$ cf push
 	</pre>
 2. Create New Relic instance.
 3. Bind the service instance to the app instance.
