@@ -30,8 +30,8 @@ To log into your New Relic Account via SSO you only need to log into the [Apps M
 
 ## <a id='notes'></a>Important Notes ##
 
-* To opt-out of marketing emails from New Relic, log into their dashboard via SSO as described above and click the account dropdown in the top-right. In User Preferences, unselect "I want to receive information emails", then click "Save email preferences".
-* Also on the User Preferences page of New Relic's site is a field to change the email address for the account. *Do not change this field*. Doing so with break the SSO integration and prevent you from logging into your account.
+* To opt out of marketing emails from New Relic, log into their dashboard via SSO as described above and click the account dropdown in the top-right. In User Preferences, unselect **I want to receive information emails**, then click **Save email preferences**.
+* Also on the User Preferences page of New Relic's site is a field to change the email address for the account. *Do not change this field*. Doing so will break the SSO integration and prevent you from logging into your account.
 
 ## <a id='sample-app'></a>Sample Applications ##
 
@@ -108,14 +108,14 @@ All three of these things can be found by logging into your New Relic account as
 	<pre class="terminal">
 	$ cf push
 	</pre>
-2. Create New Relic instance.
-3. Bind the service instance to the app instance.
-4. Re-stage the app:
+1. Create a New Relic service instance.
+1. Bind the service instance to the app instance.
+1. Re-stage the app:
 	<pre class="terminal">
 	$ cf restage app
 	</pre>
-5. Go to the app uri and generate some usage data.
-6. Go to console.run.pivotal.io, choose **Manage** under your New Relic service, and connect to your app data.
+1. Go to the app URI and generate some usage data.
+1. Go to console.run.pivotal.io, choose **Manage** under your New Relic service, and connect to your app data.
 
 ## <a id='vcap-services'></a>VCAP_SERVICES ##
 
