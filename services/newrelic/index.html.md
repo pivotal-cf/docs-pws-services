@@ -117,6 +117,36 @@ All three of these things can be found by logging into your New Relic account as
 1. Go to the app URI and generate some usage data.
 1. Go to console.run.pivotal.io, choose **Manage** under your New Relic service, and connect to your app data.
 
+## <a id='existing-license'></a>Using an Existing New Relic License Key
+
+If you have an existing New Relic license key instead of one provided by the Services Marketplace, refer to the language-specific instructions below:
+
+### <a id='license-ruby'></a>Ruby
+
+1. Run the following command:
+
+	<pre class='terminal'>
+	cf set-env <YOUR-APP-NAME> NEWRELIC_LICENSE <LICENSE-KEY>
+	</pre>
+
+1. Edit the `newrelic-ruby.yml` file obtained [earlier](#ruby) as shown below. The following change allows the `license_key` key to find your license key from the environment:
+
+	```
+	license_key: '<%= ENV["NEWRELIC_LICENSE"] %>'
+	```
+
+### <a id='license-java'></a>Java
+
+Ensure that your existing New Relic service has `newrelic` in one of its names or tags. This enables the New Relic Agent Framework to automatically configure your application to work with the service.
+
+### <a id='license-php'></a>PHP
+
+Run the following command:
+
+<pre class='terminal'>
+cf set-env <YOUR-APP-NAME> NEWRELIC_LICENSE <LICENSE-KEY>
+</pre>
+
 ## <a id='vcap-services'></a>VCAP_SERVICES ##
 
 When you bind your New Relic service instance with your application, Cloud Foundry makes a request to New Relic for the license key for your account. When you restart your application, we write this key to the `VCAP_SERVICES` environment variable.
