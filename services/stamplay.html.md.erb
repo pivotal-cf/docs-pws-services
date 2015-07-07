@@ -1,0 +1,62 @@
+---
+title: Stamplay
+---
+
+Stamplay is an API-first development platform that enables developers to build applications by piecing together APIs as building blocks. It consists of the following three parts:
+
+  * Backend as a service to manage data and infrastructure in the cloud
+  * Library of components that allows you to integrate external APIs, such as [Sendgrid](https://sendgrid.com), [Mailchimp](https://mailchimp.com), or [Stripe](https://stripe.com/)
+  * Rule engine that you can use to configure the server-side business logic of the applications
+
+## <a id='overview'></a>Overview
+
+A Stamplay app is organized in five layers, as shown in the image below:
+
+<img src="../images/stamplay/app-organization.png">
+
+  * **User management**: Stamplay provides an out of the box solution with support for all common user operations. Examples of these operations include registration with email and password or with a social login, authentication and authorization, role management, and recovering user accounts.
+  * **Components**: The building blocks that help you accomplish tasks. They perform three kinds of jobs: 
+    * Data management
+    * API integration
+    * Feature adding, such as Webhooks or Email
+  * **Tasks**: You can quickly define the business logic of your applications without writing a single line of code or having to read documentation for a particular API. You just have to combine the components with tasks in an ‘if, then’ format. For example, if a user registers, then send her an email or if a user saves some data, then send a realtime notification.
+  * **APIs**: As you configure components and tasks, Stamplay generates a complete layer of APIs that you can use to manipulate data and interact with the backend.
+  * **Web hosting**: If you are developing a web application, you can host your application on Stamplay’s CDN-backed infrastructure and use your own domain.
+
+## <a id='managing-users'></a>Managing Users
+
+Most applications require the identity of a user. Knowing a user's identity allows an application to provide a customized experience and grant the user permissions to access the application’s data. The process of proving a user's identity to an application is called authentication. 
+
+Stamplay provides an out of the box solution with support for all common user operations. This allows you to securely control data access on a per user basis. Once a user authenticates to your application, Stamplay manages his or her session. Additionally, Stamplay and ensures that the application remembers the user across browser or application restarts.
+
+Refer to the [Stamplay documentation](https://stamplay.com/docs/users) to learn about managing users. 
+
+## <a id='managing-data-objects'></a>Managing Data with Objects
+
+Storing data on Stamplay is built around Objects. Create one or more objects to store the data you need for your application. Each Object contains key-value pairs of data of any type.
+
+Refer to the [Stamplay documentation](https://stamplay.com/docs/customobject) to learn about creating and managing custom objects.
+
+## <a id='add-logic-tasks'></a>Adding business logic with Tasks
+
+At the heart of Stamplay is the concept of a modular system made of components that can be combined to create the server-side business logic of an application.
+
+Components give you all you need to design, implement, and manage your backend:
+
+  * Users and Custom Objects are used to manage data.
+  * Integration components allow connection to external platforms via APIs to add functionalities to your application and synchronize data with other systems.
+
+Every component has a set of predefined triggers and actions so that components can be connected with events. Whenever a trigger occurs in one component, Stamplay automatically performs an action in another component. This integration between two components is called a task.
+
+Refer to the [Stamplay documentation](https://stamplay.com/docs/businesslogic) to learn about creating and managing tasks.
+
+## <a id='additional-documentation'></a>Additional documentation
+
+  * [Javascript SDK](https://stamplay.com/docs/jssdk)
+  * [Web hosting](https://stamplay.com/docs/hosting)
+  * [REST API reference](https://stamplay.com/docs/rest-api)
+
+## <a id='support'></a>Support
+
+Report issues or provide product feedback to: support@stamplay.com
+
