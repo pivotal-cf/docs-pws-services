@@ -4,16 +4,18 @@ title: New Relic
 
 ## <a id='managing'></a>Managing Services ##
 
-[Managing services from the command line](/devguide/services/managing-services.html)
+To create and bind a service instance from the command line, see [Managing Service Instances with the CLI](/devguide/services/managing-services.html).
 
 ### <a id='create'></a>Creating a Service Instance ###
 
-An instance of this service can be provisioned via the CLI with the following command:
+An instance of this service can be provisioned via the CLI with the following
+command:
 
 <pre class="terminal">
 $ cf create-service newrelic standard INSTANCE
 </pre>
-where `INSTANCE` is a name meaningful to you.
+
+Replace `INSTANCE` with a name that is meaningful to you.
 
 ### <a id='bind'></a>Binding Your Service Instance ###
 
@@ -22,16 +24,26 @@ Bind the service instance to your app with the following command:
 <pre class="terminal">
 $ cf bind-service APP INSTANCE
 </pre>
-where `APP` is the app you're binding and `INSTANCE` is the name you gave your service instance.
+
+Replace `APP` with the app that you are binding and `INSTANCE` with the name
+that you gave your service instance.
 
 ### <a id='sso'></a>Single Sign On ###
 
-To log into your New Relic Account via SSO you only need to log into the [Apps Manager](http://console.run.pivotal.io). Find your New Relic service instance on the Space page in which you created it. Clicking the Manage button will log you into the New Relic account for your instance via SSO.
+Follow the steps below to log into your New Relic Account via SSO:
+
+1. Log into the [Apps Manager](http://console.run.pivotal.io).
+
+1. Find your New Relic service instance on the **Space** page in which you
+created it.
+
+1. Click **Manage** to log into the New Relic account for your instance via SSO.
 
 ## <a id='notes'></a>Important Notes ##
 
-* To opt out of marketing emails from New Relic, log into their dashboard via SSO as described above and click the account dropdown in the top-right. In User Preferences, unselect **I want to receive information emails**, then click **Save email preferences**.
-* Also on the User Preferences page of New Relic's site is a field to change the email address for the account. *Do not change this field*. Doing so will break the SSO integration and prevent you from logging into your account.
+* To opt out of marketing emails from New Relic, log into the New Relic dashboard via SSO as described above and click the account drop-down in the top-right. In User Preferences, de-select **I want to receive information emails**, then click **Save email preferences**.
+
+* On the User Preferences page of the New Relic site is a field to change the email address for the account. <strong>Do not change the information in this field</strong>. Changing this information breaks SSO integration and prevents you from logging in to your account.
 
 ## <a id='sample-app'></a>Sample Applications ##
 
