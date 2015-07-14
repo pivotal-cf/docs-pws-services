@@ -135,10 +135,10 @@ If you have an existing New Relic license key instead of one provided by the Ser
 
 ### <a id='license-ruby'></a>Ruby
 
-1. Run the following command:
+1. Run the following command to set the `NEWRELIC_LICENSE` environment variable to your license key:
 
 	<pre class='terminal'>
-	cf set-env <YOUR-APP-NAME> NEWRELIC_LICENSE <LICENSE-KEY>
+	cf set-env &lt;YOUR-APP-NAME&gt; NEWRELIC_LICENSE &lt;LICENSE-KEY&gt;
 	</pre>
 
 1. Edit the `newrelic-ruby.yml` file obtained [earlier](#ruby) as shown below. The following change allows the `license_key` key to find your license key from the environment:
@@ -153,10 +153,10 @@ Ensure that your existing New Relic service has `newrelic` in one of its names o
 
 ### <a id='license-php'></a>PHP
 
-Run the following command:
+Run the following command to set the `NEWRELIC_LICENSE` environment variable to your license key:
 
 <pre class='terminal'>
-cf set-env <YOUR-APP-NAME> NEWRELIC_LICENSE <LICENSE-KEY>
+cf set-env &lt;YOUR-APP-NAME&gt; NEWRELIC_LICENSE &lt;LICENSE-KEY&gt;
 </pre>
 
 ## <a id='vcap-services'></a>VCAP_SERVICES ##
