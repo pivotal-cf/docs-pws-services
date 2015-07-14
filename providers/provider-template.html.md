@@ -14,7 +14,7 @@ Is your service bindable? If not, you should say so.
 
 Include this section only if your service is bindable. What is the format of the credentials stored in the VCAP_SERVICES environment variable?
 
-See [Using Service Instances with your Application](/devguide/services/adding-a-service.html#use) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
+See [Using Service Instances with your Application](/devguide/services/managing-services.html#use) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
 Format of credentials in `VCAP_SERVICES` environment variable.
 

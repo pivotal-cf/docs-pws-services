@@ -46,7 +46,7 @@ Once your Memcached Cloud service is bound to your app, the service credentials 
 	  ]
 	}
 
-For more information, see [Using Service Instances with your Application](/devguide/services/adding-a-service.html#using) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
+For more information, see [Using Service Instances with your Application](/devguide/services/managing-services.html#use) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
 * [Ruby](#ruby)
 * [Sinatra](#sinatra)

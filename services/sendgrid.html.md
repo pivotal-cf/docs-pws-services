@@ -52,7 +52,7 @@ Once a SendGrid service instance has been bound to your application, the [VCAP_S
       ]
     }
 
-The getting started guide has more background on [using service instances with your application](/devguide/services/adding-a-service.html#use).
+The getting started guide has more background on [using service instances with your application](/devguide/services/managing-services.html#use).
 
 
 ## <a id='sample-app'></a>Sample Applications ##
