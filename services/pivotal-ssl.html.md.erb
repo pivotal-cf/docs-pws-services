@@ -1,0 +1,178 @@
+---
+title: Pivotal SSL
+---
+
+This topic contains instructions for using the Pivotal SSL service.
+
+## <a id='prepare'></a>Step 1: Obtain a Cert and Prepare for Upload
+
+The SSL service does not provide certs. Purchase an SSL cert online from many different vendors. You can use a wildcard cert or a cert for a specific domain with our service.
+
+<p class='note'><strong>Note</strong>: Our service requires your cert to have a minimum of SHA-2 encryption for your security and the security of the platform. Most vendors provide this by default.</p>
+
+1. You create a private key during the purchase process. Do not discard or lose this key.
+1. Further action depends on what your cert vendor provides you with, as the following table shows:
+
+<table border="1" class="nice">
+  <tr>
+    <th><strong>VENDOR-PROVIDED FILES</strong></th>
+    <th><strong>ACTION</strong></th>
+  </tr>
+  <tr>
+    <td>Single <code>.crt</code> or <code>.pem</code> file containing the entire chain
+    of trust
+    <br><br>OR<br><br>
+    an email containing the plain text representation of your cert and the chain of trust
+    </td>
+    <td>Nothing - you only need this file or text in addition to the private key you used to create your cert.</td>
+  </tr>
+  <tr>
+    <td>Single <code>.crt</code> or <code>.pem</code> file containing only your domain cert
+    <br><br>OR<br><br>
+    an email containing the plain text representation of only your cert</td>
+    <td>Obtain the intermediate chain files for your cert from your cert vendor. Then combine the chain files with your cert to make one file containing the entire chain of trust.</td>
+  </tr>
+  <tr>
+    <td>A <code>.zip</code> file or multiple files containing your domain cert, and the chain of trust</td>
+    <td>Unzip the files and combine the chain files with your cert to make one file with the entire chain of trust.
+  </tr>
+</table>
+
+Refer to the [How to Concatenate Certs](#concatenate-certs) section for instructions on how to combine chain files into one file with the entire chain of trust.
+
+## <a id='create-instance'></a>Step 2: Create the Service Instance
+
+You can create the SSL service instance using either the [cf CLI](../../devguide/installcf/index.html) or the Apps Manager Console.
+
+<p class='note'><strong>Note</strong>: The service instance does not have to be in the same space as the app(s) your cert will protect. However, we recommend creating a new space for your SSL service instances. This allows you to control access to the dashboard and your certs by adding Space Developers or Space Managers to the spaces.</p>
+
+### <a id='create-using-cli'></a>cf CLI
+
+If you are using the cf CLI, target the org and space in which you want to create your SSL service instance and run the `cf create-service` command.
+
+For example:
+
+<pre class='terminal'>
+$ cf create-service ssl basic ssl-mycoolapp.mywebsite.com
+</pre>
+
+### <a id='create-using-appsman'></a>Apps Manager Console
+
+If you are creating the service instance using the Apps Manager Console, follow the procedure below:
+
+  1. Navigate to the org and space in which you want to create your SSL service instance in the Apps Manager dashboard.
+  1. Click **Marketplace** from the left navigation.
+  1. In the **Services Marketplace** section, click the **SSL** tile.
+  1. Click **Select this plan** to proceed with the basic plan.
+  1. Enter a name for your service instance in the **Instance Name** field. An example might be "ssl-mycoolapp.mywebsite.com".
+  1. If the space where you intend to create the service instance is not selected already, select it in the **Add to Space** dropdown menu.
+  1. Click **Add**.
+
+## <a id='access-dashboard'></a>Step 3: Access the Dashboard
+
+To access your Pivotal SSL dashboard from the cf CLI, run the following command:
+
+<pre class='terminal'>
+$ cf service mysite.com-ssl
+</pre>
+
+Copy the dashboard URL and open in a browser.
+
+To access your Pivotal SSL dashboard from Apps Manager, click **Manage Service** on the service listing.
+
+  <%= image_tag('ssl/appsman-manage.png') %>
+
+## <a id='upload-cert'></a>Step 4: Upload your Cert
+
+Carry out the following steps in your Apps Manager Console:
+
+  1. Provide your cert. If you have a cert file, which has either a `.pem` or `.crt` extension, click **Upload .crt or .pem file** and select your cert file. Otherwise if your cert is in plain text, click **Paste plain text certificate**. Paste the plain text cert into the window and click **Save**.
+
+    <%= image_tag('ssl/upload-cert.png') %>
+
+  1. Provide your private key by clicking **Upload .key** or **Paste plain text key**.
+  1. Click **Submit**. Refer to the [Troubleshooting](#troubleshooting) section if you receive an error.
+
+## <a id='config-dns'></a>Step 5: Configure your DNS
+Upon the successful upload of your cert, the dashboard will display an alias for your SSL ELB and instructions for associating the alias with your website.
+
+  <%= image_tag('ssl/ssl-alias.png') %>
+
+  1. Go to your DNS and create a CNAME entry for the same domain your cert covers. Point the CNAME record to the alias you are provided. The following is an example from AWS:
+
+    <%= image_tag('ssl/aws-dns-cname.png') %>
+
+  1. Confirm you have secure traffic by visiting your application’s secure URL and verifying that you see the green lock in your browser.
+
+## <a id='concatenate-certs'></a>Concatenating Certs
+
+If you are using the Linux or OSX Command Line, refer to [this document](https://support.comodo.com/index.php?/Default/Knowledgebase/Article/View/789/37/certificate-installation-nginx) for instructions.
+
+<pre class='terminal'>cat mywebsite.com.crt mycervendorCA.crt > mywebsite.com-chain.crt</pre>
+
+If you are using a GUI text editor on Windows, OSX, or Linux: 
+
+Open a text editor and paste the entire body of both certificates into one text file in the following order:
+
+  1. The Primary Certificate: `<YOUR-DOMAIN-NAME>.crt`
+  1. The Intermediate Certificate: `DigiCertCA.crt`
+
+<p class='note'><strong>Note</strong>: Make sure to include the beginning and end tags on each certificate.</p>
+
+The result should look like this:
+
+```
+-----BEGIN CERTIFICATE----- 
+(Your Primary SSL certificate: <YOUR-DOMAIN-NAME>.crt) 
+-----END CERTIFICATE----- 
+-----BEGIN CERTIFICATE----- 
+(Your Intermediate certificate: DigiCertCA.crt) 
+-----END CERTIFICATE-----
+```
+Save the combined file as `your_domain_name.pem`. This file is now ready to use.
+
+## <a id='dig-tool-dns'></a>Using the Dig Tool for DNS Verification
+
+For additional verification that your DNS is properly configured, you can use the Google Dig tool. Enter the domain protected by your app [here](https://toolbox.googleapps.com/apps/dig/).
+
+The following is an example of the answer section in the output:
+
+<pre>
+;; ANSWER SECTION:
+&lt;YOUR-APP-DOMAIN&gt;. 300 IN CNAME &lt;YOUR-PIVOTAL-SSL-ALIAS&gt;
+</pre>
+
+## <a id='troubleshooting'></a>Troubleshooting
+
+### Problems at your Application's Secure URL
+
+Consult the following table to diagnose problems you might see when you visit your application's secure URL:
+
+<table border="1" class="nice">
+  <tr>
+    <th><strong>PROBLEM</strong></th>
+    <th><strong>SOLUTION</strong></th>
+  </tr>
+  <tr>
+    <td>You cannot see anything when visiting your application's secure URL.
+    </td>
+    <td>Ensure that your DNS is configured correctly. Refer to the <a href='#config-dns'>Configuring your DNS</a> section.</td>
+  </tr>
+  <tr>
+    <td>You see a yellow or orange lock when you visit your application's secure URL.
+    </td>
+    <td>You are missing the full chain of trust in your cert. You must provide the full chain of trust by concatenating all of the certs you have obtained into one file. Refer to the <a href='#concatenate-certs'>Concatenating Certs</a> section. If you still have problems, contact your cert provider.</td>
+  </tr>
+  <tr>
+    <td>You see a red lock and a SSL warning when you visit your application's secure URL.</td>
+    <td>Ensure you have properly created a CNAME entry to your ELB alias in your DNS in <a href='#config-dns'>Step 5: Configure your DNS</a>. You can further verify that you have correctly created a CNAME entry by following the procedure in the <a href='#dig-tool-dns'>Using the Dig Tool for DNS Verification</a>.
+    <br><br>OR<br><br>
+    You might be missing the full chain of trust for your cert. Refer to the <a href='#concatenate-certs'>Concatenating Certs</a> section for instructions on combining your certs into the full chain of trust.
+    </td>
+  </tr>
+</table>
+
+### Encryption Warning
+
+If you get an encryption warning when uploading your cert, ensure that you are using a cert that is at least SHA-2 encrypted. Contact your cert provider or visit https://shaaaaaaaaaaaaa.com/ for more information.
+
