@@ -8,8 +8,6 @@ Redis Cloud offers true high-availability with its in-memory dataset replication
 
 ## <a id="managing-services"></a>Managing Services ##
 
-[Managing your services from the command line](/devguide/services/managed.html).
-
 ### <a id="create-service"></a>Creating a Redis Cloud Service Instance ###
 
 Create a Redis Cloud service instance with the following command:

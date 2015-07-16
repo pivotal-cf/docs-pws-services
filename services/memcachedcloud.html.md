@@ -9,8 +9,6 @@ A Memcached bucket is created in seconds and from that moment on, all operations
 
 ## <a id="managing-services"></a>Managing Services ##
 
-[Managing your services from the command line](/devguide/services/managed.html).
-
 ### <a id="create-service"></a>Creating A Memcached Cloud Service ###
 
 Create a Memcached Cloud service with the following command:
