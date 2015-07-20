@@ -144,9 +144,26 @@ The following is an example of the answer section in the output:
 
 ## <a id='troubleshooting'></a>Troubleshooting
 
-### Problems at your Application's Secure URL
+Consult the following tables to diagnose problems you might encounter.
 
-Consult the following table to diagnose problems you might see when you visit your application's secure URL:
+### Problems Uploading your Certificate
+
+<table border="1" class="nice">
+  <tr>
+    <th><strong>PROBLEM</th>
+    <th><strong>SOLUTION</th>
+  </tr>
+  <tr>
+    <td>Invalid Certificate - SHA1 Error</td>
+    <td>You must use a certificate that is at least SHA-2 encrypted. Contact your certificate provider or visit <a href="https://shaaaaaaaaaaaaa.com/">https://shaaaaaaaaaaaaa.com/</a> for more information.</td>
+  </tr>
+  <tr>
+    <td>Provisioning Error - AWS 400</td>
+    <td>This error is most commonly caused by a problem with your certificate or a certificate/key mismatch. See <a href="#prepare">Step 1: Obtain a Cert and Prepare for Upload</a> for tips on preparing your certificate and key. If you continue to have problems, please contact <a href="mailto:support@run.pivotal.io">support</a>.</td>
+  </tr>
+</table>
+
+### Problems at your Application's Secure URL
 
 <table border="1" class="nice">
   <tr>
@@ -171,8 +188,4 @@ Consult the following table to diagnose problems you might see when you visit yo
     </td>
   </tr>
 </table>
-
-### Encryption Warning
-
-If you get an encryption warning when uploading your certificate, ensure that you are using a certificate that is at least SHA-2 encrypted. Contact your certificate provider or visit https://shaaaaaaaaaaaaa.com/ for more information.
 
