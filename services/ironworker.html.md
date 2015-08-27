@@ -10,7 +10,7 @@ To create and bind a service instance, see [Managing services from the command l
 
 ## <a id='using'></a>Using Service Instances with your Application ##
 
-See [Using Service Instances with your Application](/devguide/services/managing-services.html#use) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
+See [Binding Applications to Service Instances](/devguide/services/application-binding.html#use) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
 
 Format of credentials in `VCAP_SERVICES` environment variable:
 

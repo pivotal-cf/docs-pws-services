@@ -37,7 +37,7 @@ The following example shows the format of credentials in `VCAP_SERVICES` environ
 }
 ~~~
 
-Refer to [Using Service Instances with your Application](/devguide/services/managing-services.html#use) for additional information.
+Refer to [Binding Applications to Service Instances](/devguide/services/application-binding.html#use) for additional information.
 
 ## <a id='sample-app'></a>Sample Applications ##
 
