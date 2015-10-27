@@ -10,7 +10,7 @@ To create and bind a service instance, see [Managing services from the command l
 
 ## <a id="using"></a>Using Service Instances with your Application ##
 
-See [Binding Applications to Service Instances](/devguide/services/application-binding.html#use) and [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
+See [Binding Applications to Service Instances](/devguide/services/application-binding.html#use) and [VCAP_SERVICES Environment Variables](/devguide/deploy-apps/environment-variable.html).
 
 Format of credentials in `VCAP_SERVICES` environment variable:
 
@@ -50,6 +50,7 @@ $ curl -sSL https://cli.iron.io/install | sh
 IronWorker promotes a Docker-based workflow so that the local environment is the same as the production environment. The following example Ruby file contains the simple task code that takes email addresses as a payload, and then sends an email using Sendgrid. Note that we will vendor the dependencies with our code package, so require the bundler on the first line. 
 
 `email.rb`
+
 ~~~xml
 require_relative 'bundle/bundler/setup'
 require 'json'
@@ -73,6 +74,7 @@ puts res.body
 Include a Gemfile for our Ruby dependencies.
 
 `Gemfile`
+
 ~~~xml
 source 'https://rubygems.org'
 
@@ -84,6 +86,7 @@ gem 'sendgrid-ruby'
 Our simple Dockerfile will use the base Ruby image from Iron.io and set the executable.
 
 `Dockerfile`
+
 ~~~xml
 FROM iron/ruby
 
@@ -103,6 +106,7 @@ $ docker run --rm -v "$PWD":/worker -w /worker iron/ruby:dev bundle install --st
 Now run the task local via Docker. Choosing the `iron/ruby` base image will ensure the same environment running in production. The task takes in a payload to set the To: and From: fields in the email, so place in a json file to test.
 
 `email.payload.json`
+
 ~~~xml
 {
     "from": "FROM_EMAIL",
@@ -156,7 +160,7 @@ Additional configuration items include the ability to set the concurrency levels
 
 To create a regular occurring job from one of your uploaded Tasks, select ‘Scheduled Tasks’, and then select the Calendar icon to add a new schedule. In the window, select the Task Code from the list and set the desired schema. Note that Iron.io offers various priority queues to set the importance of some jobs over others. The queue is a key component to IronWorker as it persists the job throughout its entire lifecycle, and acts as the core dispatcher to the execution runtime.
 
-<img src="../images/iron/ironworker-add-schedule.png">
+<img src="../images/iron/ironworker-addschedule.png">
 
 ### <a id="task-activity"></a>View Task Activity ###
 
@@ -197,7 +201,7 @@ iron_worker = IronWorker::Client.new
 get '/job' do
   task = client.tasks.create('email')
 end
-~~~xml
+~~~
 
 This is just the tip of the iceberg. IronWorker has a [robust API](http://dev.iron.io/worker/reference/api/) that allows for a lot more interaction with your workers.
 
