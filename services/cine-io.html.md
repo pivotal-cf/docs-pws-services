@@ -2,6 +2,8 @@
 title: cine.io
 ---
 
+<strong><%= modified_date %></strong>
+
 cine.io is an add-on that provides live streaming capabilities to any application.
 cine.io allows developers to build live video-streaming capabilities into their apps with ease. Streaming can happen from any device to any web browser, iOS device, or Android device. All live-streams are backed by a global CDN with 5,000 interconnected networks across 5 continents.
 cine.io is accessible via a simple RESTful API and has supported client libraries for both Node.js and Ruby (with iOS and Android coming soon).

@@ -2,6 +2,8 @@
 title: Searchly
 ---
 
+<strong><%= modified_date %></strong>
+
 Search made simple.
 
 ## <a id='managing'></a>Managing Services ##

@@ -2,6 +2,8 @@
 title: IronWorker
 ---
 
+<strong><%= modified_date %></strong>
+
 Every cloud native application needs to do work in the background. [IronWorker](http://www.iron.io/worker) gives you a reliable way to run tens, hundreds, or thousands of asynchronous tasks at once. Queue tasks from your app, schedule jobs to run later, or fire off code from webhooks. No need to stand up servers or manage queues. IronWorker scales out the processing to let you focus on building apps at scale.
 
 ## <a id="managing"></a>Managing Services ##
@@ -35,7 +37,7 @@ Format of credentials in `VCAP_SERVICES` environment variable:
 
 Tasks within IronWorker are individual microservices packaged as a Docker image. Iron.io offers lightweight Docker images that provide the base language dependencies for Java, Ruby, PHP, Python, .NET, Node.js, or Go.
 
-This quick example is a Ruby task that sends an email using [Sendgrid](http://docs.run.pivotal.io/marketplace/services/sendgrid.html), another Marketplace service add-on. Sending emails are a great example of an asynchronous task as they fall outside the critical path. 
+This quick example is a Ruby task that sends an email using [Sendgrid](http://docs.run.pivotal.io/marketplace/services/sendgrid.html), another Marketplace service add-on. Sending emails are a great example of an asynchronous task as they fall outside the critical path.
 
 ### <a id="cli"></a>Installing the CLI ###
 
@@ -47,7 +49,7 @@ $ curl -sSL https://cli.iron.io/install | sh
 
 ### <a id="build"></a>Building the Job ###
 
-IronWorker promotes a Docker-based workflow so that the local environment is the same as the production environment. The following example Ruby file contains the simple task code that takes email addresses as a payload, and then sends an email using Sendgrid. Note that we will vendor the dependencies with our code package, so require the bundler on the first line. 
+IronWorker promotes a Docker-based workflow so that the local environment is the same as the production environment. The following example Ruby file contains the simple task code that takes email addresses as a payload, and then sends an email using Sendgrid. Note that we will vendor the dependencies with our code package, so require the bundler on the first line.
 
 `email.rb`
 
@@ -164,13 +166,13 @@ To create a regular occurring job from one of your uploaded Tasks, select ‘Sch
 
 ### <a id="task-activity"></a>View Task Activity ###
 
-The Task view shows all recent activity. This is a real-time view that will show current state for running and completed jobs. The calendar icon indicates a scheduled job. Queue time, start time, duration and end time are lifecycle metrics for the individual job container. 
+The Task view shows all recent activity. This is a real-time view that will show current state for running and completed jobs. The calendar icon indicates a scheduled job. Queue time, start time, duration and end time are lifecycle metrics for the individual job container.
 
 <img src="../images/iron/ironworker-tasklist.png">
 
 ### <a id="inspect"></a>Inspect a Job ###
 
-Each job container outputs the process STDOUT for inspection. Additionally, logging and monitoring tools can be integrated with various 3rd party tools or a syslog endpoint. [Contact Us](http://www.iron.io/contact) if you'd like to enable that feature. 
+Each job container outputs the process STDOUT for inspection. Additionally, logging and monitoring tools can be integrated with various 3rd party tools or a syslog endpoint. [Contact Us](http://www.iron.io/contact) if you'd like to enable that feature.
 
 <img src="../images/iron/ironworker-tasklog.png">
 

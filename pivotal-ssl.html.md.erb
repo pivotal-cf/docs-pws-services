@@ -2,21 +2,23 @@
 title: Using the Pivotal SSL Service
 ---
 
-This topic contains instructions for using the Pivotal Secure Sockets Layer 
+<strong><%= modified_date %></strong>
+
+This topic contains instructions for using the Pivotal Secure Sockets Layer
 (SSL) Service.
 
 <p class='note'><strong>Note</strong>: Pivotal SSL Service is only available to <a href="https://network.pivotal.io/products/pivotal-cf">Pivotal Cloud Foundry&reg;</a> (PCF) customers using Pivotal Web Services. Other customers needing SSL services should use <a href="/marketplace/integrations/cloudflare/index.html">CloudFlare</a>.</p>
 
 ## <a id='prepare'></a>Step 1: Obtain a Certificate and Prepare for Upload ##
 
-The Pivotal SSL Service does not provide certificates. 
-Obtain an SSL certificate issued by a known Certificate Authority (CA) 
-vendor. 
+The Pivotal SSL Service does not provide certificates.
+Obtain an SSL certificate issued by a known Certificate Authority (CA)
+vendor.
 The SSL Service supports both wildcard and domain-specific certificates.
 
-<p class='note'><strong>Note</strong>: The Pivotal SSL Service requires that 
-  your certificate uses a minimum of SHA-2 encryption to help ensure security 
-  for you and the platform. 
+<p class='note'><strong>Note</strong>: The Pivotal SSL Service requires that
+  your certificate uses a minimum of SHA-2 encryption to help ensure security
+  for you and the platform.
   Most vendors provide this level of encryption by default.
 </p>
 
@@ -29,52 +31,52 @@ The SSL Service supports both wildcard and domain-specific certificates.
         <th><strong>PREPARATION</strong></th>
       </tr>
       <tr>
-        <td>A single <code>.crt</code> or <code>.pem</code> file containing the 
+        <td>A single <code>.crt</code> or <code>.pem</code> file containing the
           entire chain of trust
           <br><br>OR<br><br>
-          An email containing the plain text representation of your certificate 
+          An email containing the plain text representation of your certificate
           and the chain of trust
         </td>
-        <td>No preparation needed. You need this file or text in addition to 
+        <td>No preparation needed. You need this file or text in addition to
           the private key that you used to create your certificate.
         </td>
       </tr>
       <tr>
-        <td>A single <code>.crt</code> or <code>.pem</code> file containing 
+        <td>A single <code>.crt</code> or <code>.pem</code> file containing
           only your domain certificate
           <br><br>OR<br><br>
-          An email containing the plain text representation of only your 
+          An email containing the plain text representation of only your
           certificate
         </td>
-        <td>Obtain the intermediate chain files for your certificate from your 
-          certificate vendor. Combine these chain files with your certificate 
+        <td>Obtain the intermediate chain files for your certificate from your
+          certificate vendor. Combine these chain files with your certificate
           to create a single file containing the entire chain of trust.
         </td>
       </tr>
       <tr>
-        <td>A <code>.zip</code> file or multiple files containing your domain 
+        <td>A <code>.zip</code> file or multiple files containing your domain
           certificate, and the chain of trust
         </td>
-        <td>Unzip the files and combine the chain files with your certificate 
+        <td>Unzip the files and combine the chain files with your certificate
           to  create a single file containing the entire chain of trust.
         </td>
       </tr>
     </table>
     <br>
-    Refer to the [Concatenating Certificates](#concatenate-certificates) 
+    Refer to the [Concatenating Certificates](#concatenate-certificates)
     section for instructions on combining chain files.
 
 ## <a id='create-instance'></a>Step 2: Create the Service Instance ##
 
 You can create the SSL Service instance using either the [cf CLI](../../devguide/installcf/index.html) or the [Apps Manager Console](../../console/index.html).
 
-<p class='note'><strong>Note</strong>: Pivotal recommends that you create a new 
-  space for your SSL Service instance. 
-  Separating the SSL Service instance from your other applications allows you  
-  to control access to your certificates by managing <a 
-  href="../../concepts/roles.html#space-roles">Space Roles</a> in the <a 
+<p class='note'><strong>Note</strong>: Pivotal recommends that you create a new
+  space for your SSL Service instance.
+  Separating the SSL Service instance from your other applications allows you
+  to control access to your certificates by managing <a
+  href="../../concepts/roles.html#space-roles">Space Roles</a> in the <a
   href="../../console/index.html">Apps Manager Console</a>.
-</p>	
+</p>
 
 ### <a id='cli-create'></a>cf CLI ###
 
@@ -90,14 +92,14 @@ $ cf create-service ssl basic ssl-myapp.example.com
 
 If you are creating the SSL Service instance using the Apps Manager Console, follow the procedure below:
 
-  1. Navigate to the org and space in which you want to create your SSL Service 
+  1. Navigate to the org and space in which you want to create your SSL Service
      instance in the Apps Manager dashboard.
   1. Click **Marketplace** from the left navigation.
   1. In the **Services Marketplace** section, click the **SSL** tile.
   1. Click **Select this plan** to proceed with the basic plan.
-  1. Enter a name for your SSL Service instance in the **Instance Name** field. 
+  1. Enter a name for your SSL Service instance in the **Instance Name** field.
      For example, `ssl-myapp.example.com`.
-  1. If the space where you intend to create the SSL Service instance is not 
+  1. If the space where you intend to create the SSL Service instance is not
      already selected, select it in the **Add to Space** dropdown menu.
   1. Click **Add**.
 
@@ -145,7 +147,7 @@ If you are using the Linux or OSX Command Line, refer to [this document](https:/
 $ cat example.com.crt mycervendor/CA.crt > example.com-chain.crt
 </pre>
 
-If you are using a GUI text editor on Windows, OSX, or Linux, follow the 
+If you are using a GUI text editor on Windows, OSX, or Linux, follow the
 instructions below:
 
 1. Open a text editor.
@@ -154,7 +156,7 @@ instructions below:
   1. The Intermediate Certificate: `YOUR-VENDOR/CA.crt`
 <p class='note'><strong>Note</strong>: You must include the beginning and end     tags on each certificate.</p>
 
-1. Save the combined file as `YOUR-DOMAIN-NAME.pem`. 
+1. Save the combined file as `YOUR-DOMAIN-NAME.pem`.
 
 The result should look like this:
 
@@ -207,14 +209,14 @@ Consult the following tables to diagnose problems that you might encounter.
     <th><strong>SOLUTION</strong></th>
   </tr>
   <tr>
-    <td>You cannot see anything when visiting your application's secure 
+    <td>You cannot see anything when visiting your application's secure
       URL.
     </td>
     <td>Ensure that your DNS is configured correctly. Refer to <a href='#config-dns'>Step 5: Configure your DNS</a> for more information.
     </td>
   </tr>
   <tr>
-    <td>You see a yellow or orange lock when you visit your application's  
+    <td>You see a yellow or orange lock when you visit your application's
       secure URL.
     </td>
     <td>You are missing the full chain of trust in your certificate. You must provide the full chain of trust by concatenating all of the certificates that you have obtained into a single file. Refer to the <a href='#concatenate-certificates'>Concatenate Certificates</a> section for more information. If you continue to see this issue, contact your certificate provider.

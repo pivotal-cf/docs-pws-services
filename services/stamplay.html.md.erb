@@ -2,6 +2,8 @@
 title: Stamplay
 ---
 
+<strong><%= modified_date %></strong>
+
 Stamplay is an API-first development platform that enables developers to build applications by piecing together APIs as building blocks. It consists of the following three parts:
 
   * Backend as a service to manage data and infrastructure in the cloud
@@ -15,7 +17,7 @@ A Stamplay app is organized in five layers, as shown in the image below:
 <img src="../images/stamplay/app-organization.png">
 
   * **User management**: Stamplay provides an out of the box solution with support for all common user operations. Examples of these operations include registration with email and password or with a social login, authentication and authorization, role management, and recovering user accounts.
-  * **Components**: The building blocks that help you accomplish tasks. They perform three kinds of jobs: 
+  * **Components**: The building blocks that help you accomplish tasks. They perform three kinds of jobs:
     * Data management
     * API integration
     * Feature adding, such as Webhooks or Email
@@ -25,11 +27,11 @@ A Stamplay app is organized in five layers, as shown in the image below:
 
 ## <a id='managing-users'></a>Managing Users
 
-Most applications require the identity of a user. Knowing a user's identity allows an application to provide a customized experience and grant the user permissions to access the application’s data. The process of proving a user's identity to an application is called authentication. 
+Most applications require the identity of a user. Knowing a user's identity allows an application to provide a customized experience and grant the user permissions to access the application’s data. The process of proving a user's identity to an application is called authentication.
 
 Stamplay provides an out of the box solution with support for all common user operations. This allows you to securely control data access on a per user basis. Once a user authenticates to your application, Stamplay manages his or her session. Additionally, Stamplay and ensures that the application remembers the user across browser or application restarts.
 
-Refer to the [Stamplay documentation](https://stamplay.com/docs/users) to learn about managing users. 
+Refer to the [Stamplay documentation](https://stamplay.com/docs/users) to learn about managing users.
 
 ## <a id='managing-data-objects'></a>Managing Data with Objects
 
