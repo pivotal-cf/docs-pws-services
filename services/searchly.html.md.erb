@@ -1,5 +1,6 @@
 ---
 title: Searchly
+owner: Partners
 ---
 
 <strong><%= modified_date %></strong>

@@ -1,5 +1,6 @@
 ---
 title: SendGrid
+owner: Partners
 ---
 
 <strong><%= modified_date %></strong>
@@ -38,21 +39,22 @@ Once SendGrid has been added a username and password will be available. These ar
 
 Once a SendGrid service instance has been bound to your application, the [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html) will be automatically updated to include your credentials. The section of `VCAP_SERVICES` that pertains to SendGrid will look like this:
 
-
+```ruby
+{
+  sendgrid: [
     {
-      sendgrid: [
-        {
-          name: "mysendgrid",
-          label: "sendgrid",
-          plan: "free",
-          credentials: {
-            hostname: "smtp.sendgrid.net",
-            username: "QvsXMbJ3rK",
-            password: "HCHMOYluTv"
-          }
-        }
-      ]
+      name: "mysendgrid",
+      label: "sendgrid",
+      plan: "free",
+      credentials: {
+        hostname: "smtp.sendgrid.net",
+        username: "QvsXMbJ3rK",
+        password: "HCHMOYluTv"
+      }
     }
+  ]
+}
+```
 
 The getting started guide has more background on [Delivering Service Credentials to an Application](/devguide/services/application-binding.html#use).
 
@@ -111,9 +113,9 @@ If you prefer to use Java's built in libraries to send emails you can do the fol
 
     public class SimpleMail {
 
-        private static final String SMTP_HOST_NAME = “smtp.sendgrid.net”;
-        private static final String SMTP_AUTH_USER = “<sendgrid_username>”;
-        private static final String SMTP_AUTH_PWD  = “<sendgrid_password>”;
+        private static final String SMTP_HOST_NAME = "smtp.sendgrid.net";
+        private static final String SMTP_AUTH_USER = "<sendgrid_username>";
+        private static final String SMTP_AUTH_PWD  = "<sendgrid_password>";
 
         public static void main(String[] args) throws Exception{
            new SimpleMail().test();
@@ -121,10 +123,10 @@ If you prefer to use Java's built in libraries to send emails you can do the fol
 
         public void test() throws Exception{
             Properties props = new Properties();
-            props.put(“mail.transport.protocol”, “smtp”);
-            props.put(“mail.smtp.host”, SMTP_HOST_NAME);
-            props.put(“mail.smtp.port”, 587);
-            props.put(“mail.smtp.auth”, “true”);
+            props.put("mail.transport.protocol", "smtp");
+            props.put("mail.smtp.host", SMTP_HOST_NAME);
+            props.put("mail.smtp.port", 587);
+            props.put("mail.smtp.auth", "true");
 
             Authenticator auth = new SMTPAuthenticator();
             Session mailSession = Session.getDefaultInstance(props, auth);
@@ -134,22 +136,22 @@ If you prefer to use Java's built in libraries to send emails you can do the fol
 
             MimeMessage message = new MimeMessage(mailSession);
 
-            Multipart multipart = new MimeMultipart(“alternative”);
+            Multipart multipart = new MimeMultipart("alternative");
 
             BodyPart part1 = new MimeBodyPart();
-            part1.setText(“This is multipart mail and u read part1……”);
+            part1.setText("This is multipart mail and u read part1……");
 
             BodyPart part2 = new MimeBodyPart();
-            part2.setContent(”<b>This is multipart mail and u read part2……</b>”, “text/html”);
+            part2.setContent("<b>This is multipart mail and u read part2……</b>", "text/html");
 
             multipart.addBodyPart(part1);
             multipart.addBodyPart(part2);
 
             message.setContent(multipart);
-            message.setFrom(new InternetAddress(“me@myhost.com”));
-            message.setSubject(“This is the subject”);
+            message.setFrom(new InternetAddress("me@myhost.com"));
+            message.setSubject("This is the subject");
             message.addRecipient(Message.RecipientType.TO,
-                 new InternetAddress(“someone@somewhere.com”));
+                 new InternetAddress("someone@somewhere.com"));
 
             transport.connect();
             transport.sendMessage(message,

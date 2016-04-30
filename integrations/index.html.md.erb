@@ -1,5 +1,6 @@
 ---
 title: Integrations
+owner: London Services
 ---
 
 These partners have single sign-on integrations with Pivotal Web Services. Users are responsible for manual account provisioning and application integration, and billing is handled by the provider.

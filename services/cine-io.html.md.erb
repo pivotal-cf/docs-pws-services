@@ -1,5 +1,6 @@
 ---
 title: cine.io
+owner: Partners
 ---
 
 <strong><%= modified_date %></strong>
