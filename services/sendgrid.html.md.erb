@@ -148,10 +148,10 @@ If you prefer to use Java's built in libraries to send emails you can do the fol
             multipart.addBodyPart(part2);
 
             message.setContent(multipart);
-            message.setFrom(new InternetAddress("me@myhost.com"));
+            message.setFrom(new InternetAddress("me@myhost.example.com"));
             message.setSubject("This is the subject");
             message.addRecipient(Message.RecipientType.TO,
-                 new InternetAddress("someone@somewhere.com"));
+                 new InternetAddress("someone@example.org"));
 
             transport.connect();
             transport.sendMessage(message,
