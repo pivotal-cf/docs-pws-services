@@ -18,7 +18,7 @@ To create and bind a new SendGrid service, see [Managing Services from the Comma
 SendGrid can be provisioned with the following command:
 
 <pre class="terminal">
-$ cf create-service sendgrid [service-name] [plan-level]
+$ cf create-service sendgrid [plan-level] [service-name]
 </pre>
 
 The service name can be anything you want and the plan level is one of these options: free, bronze, silver, gold, platinum.
@@ -28,7 +28,7 @@ The service name can be anything you want and the plan level is one of these opt
 Bind your SendGrid service to your app, using the following command:
 
 <pre class="terminal">
-$ cf bind-service [service-name] [app-name]
+$ cf bind-service [app-name] [service-name] 
 </pre>
 
 The service name should match the one you provisioned above and the app name should be an existing Cloud Foundry app.
