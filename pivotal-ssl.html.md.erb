@@ -5,8 +5,12 @@ owner: Core Services
 
 <strong><%= modified_date %></strong>
 
-This topic contains instructions for using the Pivotal Secure Sockets Layer
-(SSL) Service.
+This topic contains instructions for using the Pivotal Secure Sockets Layer (SSL) Service.
+
+## <a id='prepare'></a>Updating a Certificate##
+<strong> NOTE: If you are updating a certificate in an existing instance of the Pivotal SSL Service, you must include ALL intermediate chain certificates in the correct order even if they are not changing, then start at Step 3. </strong>
+Refer to the [Concatenating Certificates](#concatenate-certificates)
+    section for instructions on combining chain files.
 
 ## <a id='prepare'></a>Step 1: Obtain a Certificate and Prepare for Upload ##
 
@@ -196,7 +200,12 @@ Consult the following tables to diagnose problems that you might encounter.
   </tr>
   <tr>
     <td>Provisioning Error - AWS 400</td>
-    <td>This error is most commonly caused by a problem with your certificate or a certificate/key mismatch. See <a href="#prepare">Step 1: Obtain a Certificate and Prepare for Upload</a> for tips on preparing your certificate and key. If you continue to see this issue, contact <a href="mailto:support@run.pivotal.io">Pivotal Support</a>.</td>
+    <td>This error is most commonly caused by a problem with your certificate, the wrong order or failure to include concatenated certificates or a certificate/key mismatch. See <a href="#prepare">Step 1: Obtain a Certificate and Prepare for Upload</a> for tips on preparing your certificate and key. <br> If you continue to have this error during uploading your certificate, you can delete your service instance and create a new one. 
+For example:
+
+<pre class='terminal'>
+$ cf delete-service ssl basic ssl-myapp.example.com
+</pre>Note that this will trigger a billing charge and you will need to contact customer support for a refund. Also, the new or updated DNS name will need time to propagate. <br><br>If you continue to have this issue, contact <a href="mailto:support@run.pivotal.io">Pivotal Support</a>.</td>
   </tr>
 </table>
 
