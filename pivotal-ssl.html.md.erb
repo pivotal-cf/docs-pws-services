@@ -8,9 +8,11 @@ owner: Core Services
 This topic contains instructions for using the Pivotal Secure Sockets Layer (SSL) Service.
 
 ## <a id='prepare'></a>Updating a Certificate##
-<strong> NOTE: If you are updating a certificate in an existing instance of the Pivotal SSL Service, you must include ALL intermediate chain certificates in the correct order even if they are not changing, then start at Step 3. </strong>
+<strong> NOTE: If you are updating a certificate in an existing instance of the Pivotal SSL Service, you must include ALL intermediate chain certificates in the correct order even if they are not changing, then proceed to [this step](#access-dashboard). </strong>
 Refer to the [Concatenating Certificates](#concatenate-certificates)
     section for instructions on combining chain files.
+
+## <a id='prepare'></a>Installing a Certificate##
 
 ## <a id='prepare'></a>Step 1: Obtain a Certificate and Prepare for Upload ##
 
@@ -125,6 +127,11 @@ To access your Pivotal SSL dashboard from Apps Manager, click **Manage Service**
 Complete the following steps in your Apps Manager Console to upload your certificate:
 
   1. Provide your certificate. If you have a certificate file, which has either a `.pem` or `.crt` extension, click **Upload .crt or .pem file** and select your certificate file. Otherwise, if your certificate is in plain text, click **Paste plain text certificate**. Paste the plain text certificate into the window and click **Save**.
+
+NOTE: If you are uploading a new certificate to an existing instance of the Pivotal SSL Service, you must include ALL intermediate chain certificates in the correct order even if they are not changing.
+Refer to the [Concatenating Certificates](#concatenate-certificates)
+    section for instructions on combining chain files.
+
 
     <%= image_tag('ssl/upload-cert.png') %>
 
