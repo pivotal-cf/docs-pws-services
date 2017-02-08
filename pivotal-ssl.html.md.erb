@@ -9,14 +9,12 @@ This topic contains instructions for using the Pivotal Secure Sockets Layer (SSL
 
 
 ## <a id='prepare'></a>Updating a Certificate##
-<strong> NOTE: If you are updating a certificate in an existing instance of the Pivotal SSL Service, you must include ALL intermediate chain certificates in the correct order even if they are not changing, then proceed to [this step](#access-dashboard). </strong>
-Refer to the [Concatenating Certificates](#concatenate-certificates)
-    section for instructions on combining chain files.
+
+<p class="note"><strong>Note</strong>: If you are updating a certificate in an existing instance of the Pivotal SSL Service, you must include all intermediate chain certificates in the correct order even if they are not changing, then proceed to <a href="#access-dashboard">this step</a>. Refer to the <a href="#concatenate-certificates">Concatenating Certificates</a> section for instructions on combining chain files.</p>
 
 ## <a id='prepare'></a>Installing a Certificate##
 
-
-### <a id='prepare'></a>Step 1: Obtain a Certificate and Prepare for Upload 
+### <a id='prepare-step1'></a>Step 1: Obtain a Certificate and Prepare for Upload 
 
 The Pivotal SSL Service does not provide certificates.
 Obtain an SSL certificate issued by a known Certificate Authority (CA)
@@ -129,10 +127,7 @@ Complete the following steps in your Apps Manager Console to upload your certifi
 
   1. Provide your certificate. If you have a certificate file, which has either a `.pem` or `.crt` extension, click **Upload .crt or .pem file** and select your certificate file. Otherwise, if your certificate is in plain text, click **Paste plain text certificate**. Paste the plain text certificate into the window and click **Save**.
 
-NOTE: If you are uploading a new certificate to an existing instance of the Pivotal SSL Service, you must include ALL intermediate chain certificates in the correct order even if they are not changing.
-Refer to the [Concatenating Certificates](#concatenate-certificates)
-    section for instructions on combining chain files.
-
+    <p class="note"><strong>Note</strong>: If you are uploading a new certificate to an existing instance of the Pivotal SSL Service, you must include all intermediate chain certificates in the correct order even if they are not changing. Refer to the <a href="#concatenate-certificates">Concatenating Certificates</a> section for instructions on combining chain files.</p>
 
     <%= image_tag('ssl/upload-cert.png') %>
 
