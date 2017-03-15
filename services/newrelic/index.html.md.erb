@@ -50,16 +50,6 @@ created it.
 
 ## <a id='sample-app'></a>Sample Applications ##
 
-### <a id='sample-rails'></a>Rails ###
-
-[This sample Rails app](https://github.com/cloudfoundry-samples/rails_sample_app/tree/newrelic) already has the New Relic agent included in `Gemfile`, as well as our modified configuration file in `config/newrelic.yml`. We've even configured `manifest.yml` to create and bind to a New Relic service instance on push. All you need to do is clone and push!
-
-<pre class="terminal">
-$ git clone -b newrelic git@github.com:cloudfoundry-samples/rails_sample_app.git
-$ cd rails_sample_app
-$ cf push
-</pre>
-
 ### <a id='sample-java'></a>Java ###
 
 [This sample Java app](https://github.com/cloudfoundry-samples/spring-music/tree/newrelic) takes advantage of the Java buildpack's zero-touch New Relic support. Create a NewRelic service instance on your Apps Manager dashboard. Use the included `manifest.yml` to indicate which services you want bound to your application. All you need to do is clone, create the service instance, build, and push!
