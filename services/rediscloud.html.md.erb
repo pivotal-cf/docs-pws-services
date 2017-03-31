@@ -5,15 +5,15 @@ owner: Partners
 
 <strong><%= modified_date %></strong>
 
-[Redis Cloud](http://redislabs.com/redis-cloud) is a fully-managed cloud service for hosting and running your Redis dataset in a highly-available and scalable manner, with predictable and stable top performance. You can quickly and easily get your apps up and running with Redis Cloud through its add-on for Cloud Foundry, just tell us how much memory you need and get started instantly with your first Redis database.
+[Redis Cloud](https://redislabs.com/products/redis-cloud/) is a fully-managed cloud service for hosting and running your Redis dataset in a highly-available and scalable manner, with predictable and stable top performance. You can quickly and easily get your apps up and running with Redis Cloud through its add-on for Cloud Foundry, just tell us how much memory you need and get started instantly with your first Redis database.
 
 Redis Cloud offers true high-availability with its in-memory dataset replication and instant auto-failover mechanism, combined with its fast storage engine. You can easily import an existing dataset to any of your Redis Cloud databases, from your S3 account or from any other Redis server. Daily backups are performed automatically and in addition, you can backup your dataset manually at any given time. The service guarantees high performance, as if you were running the strongest cloud instances.
 
 ## <a id="managing-services"></a>Managing Services ##
 
-### <a id="create-service"></a>Creating a Redis Cloud Service Instance ###
+### <a id="create-service"></a>Creating a Redis<sup>e</sup> Cloud Service Instance ###
 
-Create a Redis Cloud service instance with the following command:
+Create a Redis<sup>e</sup> Cloud service instance with the following command:
 
 <pre class="terminal">
 $ cf create-service rediscloud PLAN_NAME INSTANCE_NAME
@@ -21,9 +21,9 @@ $ cf create-service rediscloud PLAN_NAME INSTANCE_NAME
 
 where `PLAN_NAME` is the desired plan's name, and `INSTANCE_NAME` is a name meaningful to you.
 
-### <a id="bind-service"></a>Binding Your Redis Cloud Service Instance ###
+### <a id="bind-service"></a>Binding Your Redis<sup>e</sup> Cloud Service Instance ###
 
-Bind your Redis Cloud service to your app, using the following command:
+Bind your Redis<sup>e</sup> Cloud service to your app, using the following command:
 
 <pre class="terminal">
 $ cf bind-service APP_NAME INSTANCE_NAME
@@ -90,7 +90,7 @@ Add this code snippet to your configure block:
 
 #### <a id="unicorn"></a>Using Redis on Unicorn
 
-No special setup is required when using Redis Cloud with a Unicorn server. For Rails apps on Unicorn, follow the instructions in the [Configuring Redis from Rails](#rails) section and for Sinatra apps on Unicorn see [Configuring Redis on Sinatra](#sinatra) section.
+No special setup is required when using Redis<sup>e</sup> Cloud with a Unicorn server. For Rails apps on Unicorn, follow the instructions in the [Configuring Redis from Rails](#rails) section and for Sinatra apps on Unicorn see [Configuring Redis on Sinatra](#sinatra) section.
 
 #### <a id='testing-ruby'></a>Testing (Ruby)
 
@@ -111,7 +111,7 @@ No special setup is required when using Redis Cloud with a Unicorn server. For R
 		<scope>compile</scope>
 	</dependency>
 
-Configure the connection to your Redis Cloud service using the `VCAP_SERVICES` environment variable and the following code snippet:
+Configure the connection to your Redis<sup>e</sup> Cloud service using the `VCAP_SERVICES` environment variable and the following code snippet:
 
 	try {
 		String vcap_services = System.getenv("VCAP_SERVICES");
@@ -149,7 +149,7 @@ Use pip to install it:
 
 	sudo pip install redis
 
-Configure the connection to your Redis Cloud service using `VCAP_SERVICES` environment variable and the following code snippet:
+Configure the connection to your Redis<sup>e</sup> Cloud service using `VCAP_SERVICES` environment variable and the following code snippet:
 
 	import os
 	import urlparse
@@ -214,7 +214,7 @@ Loading the library to your project should be straightforward:
 	require 'Predis/Autoloader.php';
 	Predis\Autoloader::register();
 
-Configure the connection to your Redis Cloud service using `VCAP_SERVICES` environment variable and the following code snippet:
+Configure the connection to your Redis<sup>e</sup> Cloud service using `VCAP_SERVICES` environment variable and the following code snippet:
 
 	// parsing rediscloud credentials
 	$vcap_services = getenv("VCAP_SERVICES");
@@ -240,7 +240,7 @@ You can install it with:
 
 	npm install redis
 
-Configure the connection to your Redis Cloud service using `VCAP_SERVICES` environment variable and the following code snippet:
+Configure the connection to your Redis<sup>e</sup> Cloud service using `VCAP_SERVICES` environment variable and the following code snippet:
 
 	// parsing rediscloud credentials
 	var vcap_services = process.env.VCAP_SERVICES;
@@ -262,7 +262,7 @@ Configure the connection to your Redis Cloud service using `VCAP_SERVICES` envir
 
 Our dashboard presents all performance and usage metrics of your Redis Cloud service on a single screen, as shown below:
 
-![Dashboard](https://s3.amazonaws.com/paas-docs/redis-cloud/CF+-+redis.png)
+![Dashboard](/images/redis-cloud-metrics-dashboard.png)
 
 To access your Redis Cloud dashboard, click the 'Manage' button next to the
 Redis Cloud service in Apps Manager.
@@ -275,5 +275,5 @@ Please make sure you are familiar with the CloudFoundry method of [contacting se
 
 ## <a id='additional'></a>Additional Resources ##
 
-* [Developers Resources](http://redislabs.com/redis-cloud)
+* [Developers Resources](https://redislabs.com/products/redis-cloud/)
 * [Redis Documentation](http://redis.io/documentation)
