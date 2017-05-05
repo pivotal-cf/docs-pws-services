@@ -10,7 +10,7 @@ This topic contains instructions for using the Pivotal Secure Sockets Layer (SSL
 
 ## <a id='prepare'></a>Updating a Certificate##
 
-<p class="note"><strong>Note</strong>: If you are updating a certificate in an existing instance of the Pivotal SSL Service, you must include all intermediate chain certificates in the correct order even if they are not changing, then proceed to <a href="#access-dashboard">this step</a>. Refer to the <a href="#concatenate-certificates">Concatenating Certificates</a> section for instructions on combining chain files.</p>
+<p class="note"><strong>Note</strong>: If you update a certificate in an existing instance of the Pivotal SSL Service, you must include all intermediate chain certificates in the correct order, even if they are not changing, then proceed to the <a href="#access-dashboard">Access the Dashboard</a> step in this topic. Refer to the <a href="#concatenate-certificates">Concatenating Certificates</a> section of this topic for instructions about combining chain files.</p>
 
 ## <a id='prepare'></a>Installing a Certificate##
 
@@ -68,23 +68,17 @@ The SSL Service supports both wildcard and domain-specific certificates.
       </tr>
     </table>
     <br>
-    For instructions on combining chain files, see [Concatenating Certificates](#concatenate-certificates) below.
+    For instructions about combining chain files, see [Concatenating Certificates](#concatenate-certificates) below.
 
 ### <a id='create-instance'></a>Step 2: Create the Service Instance 
 
-You can create the SSL Service instance using either the [cf CLI](../../cf-cli/index.html) or the [Apps Manager Console](../../console/index.html).
+You can create the SSL Service instance using either the [Cloud Foundry Command Line Interface](../../cf-cli/index.html) (cf CLI) or the [Apps Manager](../../console/index.html).
 
-<p class='note'><strong>Note</strong>: Pivotal recommends that you create a new
-  space for your SSL Service instance.
-  Separating the SSL Service instance from your other apps allows you
-  to control access to your certificates by managing <a
-  href="../../concepts/roles.html#roles">Space Roles</a> in the <a
-  href="../../console/index.html">Apps Manager Console</a>.
-</p>
+<p class='note'><strong>Note</strong>: Pivotal recommends that you create a new space for your SSL Service instance. Separating the SSL Service instance from your other apps allows you to control access to your certificates by managing <a href="../../concepts/roles.html#roles">Space Roles</a> in the <a href="../../console/index.html">Apps Manager</a>.</p>
 
-#### <a id='cli-create'></a>cf CLI 
+#### <a id='cli-create'></a>Create with the cf CLI 
 
-If you are creating the SSL Service instance using the cf CLI, target the org and space in which you want to create your SSL Service instance and run the `cf create-service` command.
+To create the SSL Service instance using the cf CLI, target the org and space where you want to create your SSL Service instance, then run the `cf create-service` command.
 
 For example:
 
@@ -92,16 +86,17 @@ For example:
 $ cf create-service ssl basic ssl-myapp.example.com
 </pre>
 
-#### <a id='console-create'></a>Apps Manager Console 
+#### <a id='console-create'></a>Create with Apps Manager 
 
-If you are creating the SSL Service instance using the Apps Manager Console, follow the procedure below:
+To create the SSL Service instance using the Apps Manager, follow the procedure below:
 
-  1. Navigate to the org and space in which you want to create your SSL Service
-     instance in the Apps Manager dashboard.
-  1. Click **Marketplace** from the left navigation.
+  1. In a browser, open the App Manager dashboard.  
+  1. In the Apps Manager dashboard, navigate to the org and space where you 
+     want to create your SSL Service.
+  1. In the left navigation panel, click **Marketplace**.
   1. In the **Services Marketplace** section, click the **SSL** tile.
   1. Click **Select this plan** to proceed with the basic plan.
-  1. Enter a name for your SSL Service instance in the **Instance Name** field.
+  1. in the **Instance Name** field, enter a name for your SSL Service instance.
      For example, `ssl-myapp.example.com`.
   1. If the space where you intend to create the SSL Service instance is not
      already selected, select it in the **Add to Space** dropdown menu.
@@ -109,45 +104,56 @@ If you are creating the SSL Service instance using the Apps Manager Console, fol
 
 ### <a id='access-dashboard'></a>Step 3: Access the Dashboard 
 
-To access your Pivotal SSL dashboard from the cf CLI, run the following command:
+#### <a id='cli-access'></a>Access from the cf CLI 
 
+Follow the steps below to access your Pivotal SSL dashboard from the cf CLI.
+
+1. Run `cf service SSL-SERVICE`. Replace `SSL-SERVICE` with the name of your SSL Service instance. 
+<br><br>
+For example: 
 <pre class='terminal'>
 $ cf service ssl-myapp.example.com
 </pre>
 
-Copy the dashboard URL and open it in a browser.
+1. Copy the dashboard URL and open it in a browser.
 
-To access your Pivotal SSL dashboard from Apps Manager, click **Manage Service** on the service listing.
+#### <a id='consol-access'></a>Access from Apps Manager 
+
+Follow the steps below to access your Pivotal SSL dashboard from the Apps Manager.
+
+1. In a browser, open the App Manager dashboard.  
+
+1. Click **Manage Service** on the service listing.
 
   <%= image_tag('ssl/appsman-manage.png') %>
 
 ### <a id='upload-certificate'></a>Step 4: Upload your Certificate 
 
-Complete the following steps in your Apps Manager Console to upload your certificate:
+Complete the following steps in Apps Manager to upload your certificate:
 
-  1. Provide your certificate. If you have a certificate file, which has either a `.pem` or `.crt` extension, click **Upload .crt or .pem file** and select your certificate file. Otherwise, if your certificate is in plain text, click **Paste plain text certificate**. Paste the plain text certificate into the window and click **Save**.
-
-    <p class="note"><strong>Note</strong>: If you are uploading a new certificate to an existing instance of the Pivotal SSL Service, you must include all intermediate chain certificates in the correct order even if they are not changing. Refer to the <a href="#concatenate-certificates">Concatenating Certificates</a> section for instructions on combining chain files.</p>
+1. Provide your certificate. If you have a certificate file, which has either a `.pem` or `.crt` extension, click **Upload .crt or .pem file** and select your certificate file. Otherwise, if your certificate is in plain text, click **Paste plain text certificate**. Copy the plain text certificate into the window and click **Save**.
+    <p class="note"><strong>Note</strong>: If you upload a new certificate to an existing instance of the Pivotal SSL Service, you must include all intermediate chain certificates in the correct order, even if they are not changing. Refer to the <a href="#concatenate-certificates">Concatenating Certificates</a> section for instructions about combining chain files.</p>
 
     <%= image_tag('ssl/upload-cert.png') %>
 
-  1. Provide your private key by clicking **Upload .key** or **Paste plain text key**.
-  1. Click **Submit**. If you get an error, see [Troubleshooting](#troubleshooting) below. 
+1. Provide your private key. If you have a key file, click **Upload .key**  and select your key file. Otherwise, if your key is in plain text, click **Paste plain text key**. Copy the plain text key into the window and click **Save**.
+
+1. Click **Submit**. If you see an error message, refer to the [Troubleshooting](#troubleshooting) section of this topic.
 
 ### <a id='config-dns'></a>Step 5: Configure your DNS 
-When your certificate uploads successfully, the dashboard displays an alias for your SSL ELB and instructions for associating the alias with your website.
+When your certificate uploads successfully, the dashboard displays an alias for your SSL Elastic Load Balancer (ELB) and instructions for associating the alias with your website.
 
   <%= image_tag('ssl/ssl-alias.png') %>
 
-  1. In your DNS, create a CNAME entry for the same domain that your certificate covers. Point the CNAME record to the alias that you are provided. The following is an example from AWS:
+1. In your DNS, create a CNAME entry for the same domain that your certificate covers. Point the CNAME record to the alias that you are provided. The following is an example from AWS:
 
     <%= image_tag('ssl/aws-dns-cname.png') %>
 
-  1. Confirm that you have secure traffic by visiting your app's secure URL and verifying that you see the green lock in your browser.
+1. Confirm that you have secure traffic by visiting your app's secure URL and verifying that you see the green lock in your browser.
 
 ## <a id='concatenate-certificates'></a>Concatenate Certificates 
 
-If you are using the Linux or OSX Command Line, see [this document](https://support.comodo.com/index.php?/Default/Knowledgebase/Article/View/789/37/cert-installation-nginx) for instructions on using the `cat` command.
+If you are using the Linux or OSX Command Line, see [this document](https://support.comodo.com/index.php?/Default/Knowledgebase/Article/View/789/37/cert-installation-nginx) for instructions about using the `cat` command.
 
 <pre class='terminal'>
 $ cat example.com.crt mycervendor/CA.crt > example.com-chain.crt
@@ -156,7 +162,7 @@ $ cat example.com.crt mycervendor/CA.crt > example.com-chain.crt
 If you are using a GUI text editor on Windows, OSX, or Linux, follow the
 instructions below:
 
-1. Open a text editor.
+1. Open your text editor.
 1. Copy and paste the entire body of both certificates into a single text file in the following order:
   1. The Primary Certificate: `YOUR-DOMAIN-NAME.crt`
   1. The Intermediate Certificate: `YOUR-VENDOR/CA.crt`
@@ -164,7 +170,7 @@ instructions below:
 
 1. Save the combined file as `YOUR-DOMAIN-NAME.pem`.
 
-The result should look like this:
+The result should be in the following format:
 
 ```
 -----BEGIN CERTIFICATE-----
@@ -177,7 +183,7 @@ The result should look like this:
 
 ## <a id='dig-tool'></a>Dig Tool DNS Verification
 
-For additional verification that your DNS is properly configured, you can use the Google Dig tool. Enter the domain protected by your app on the [Google Apps Toolbox](https://toolbox.googleapps.com/apps/dig/) web page.
+For additional verification that you have properly configured your DNS, you can use the Google Dig tool. Enter the domain protected by your app on the [Google Apps Toolbox](https://toolbox.googleapps.com/apps/dig/) web page.
 
 The following is an example of the answer section in the output:
 
@@ -203,7 +209,7 @@ Consult the following tables to diagnose problems that you might encounter.
   </tr>
   <tr>
     <td>Provisioning Error - AWS 400</td>
-    <td>This error is commonly caused by a problem with your certificate, the wrong order or failure to include concatenated certificates or a certificate/key mismatch. See <a href="#prepare">Step 1: Obtain a Certificate and Prepare for Upload</a> for tips on preparing your certificate and key. <br> If you continue to have this error during uploading your certificate, delete your service instance and create a new one. 
+    <td>This error is commonly caused by a problem with your certificate, the wrong order or failure to include concatenated certificates, or a certificate/key mismatch. See <a href="#prepare">Step 1: Obtain a Certificate and Prepare for Upload</a> section of this topic for instruction about preparing your certificate and key. <br> If you continue to see this error during the upload of your certificate, delete your service instance and create a new one. 
 For example:
 
 <pre class='terminal'>
@@ -214,7 +220,7 @@ If you continue to have this issue, contact <a href="mailto:support@run.pivotal.
   </tr>
 </table>
 
-### Problems at your App's Secure URL 
+### Problems at the Secure URL of your App
 
 <table border="1" class="nice">
   <tr>
@@ -225,7 +231,7 @@ If you continue to have this issue, contact <a href="mailto:support@run.pivotal.
     <td>You cannot see anything when visiting your app's secure
       URL.
     </td>
-    <td>Ensure that your DNS is configured correctly. For more information, see <a href='#config-dns'>Step 5: Configure your DNS</a>.
+    <td>Ensure you have configured your DNS correctly. For more information, see <a href='#config-dns'>Step 5: Configure your DNS</a>.
     </td>
   </tr>
   <tr>
@@ -240,7 +246,7 @@ If you continue to have this issue, contact <a href="mailto:support@run.pivotal.
     </td>
     <td>Ensure that you have properly created a CNAME entry to your ELB alias in your DNS as described in <a href='#config-dns'>Step 5: Configure your DNS</a>. You can further verify that you have correctly created a CNAME entry by following the procedure in the <a href='#dig-tool'>Dig Tool DNS Verification</a>.
     <br><br>OR<br><br>
-    You might be missing the full chain of trust for your certificate. For instructions on combining your certificates into the full chain of trust, see <a href='#concatenate-certificates'>Concatenate Certificates</a> below.
+    You might be missing the full chain of trust for your certificate. For instructions about combining your certificates into the full chain of trust, see <a href='#concatenate-certificates'>Concatenate Certificates</a> section of this topic.
     </td>
   </tr>
 </table>

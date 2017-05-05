@@ -9,36 +9,20 @@ owner: Partners
 
 Pivotal has partnered with AppDirect for marketplace services on [Pivotal Web Services](http://run.pivotal.io), Pivotal's public Cloud Foundry instance. 
 
-Documentation on AppDirect's API for Cloud Foundry can be found here:
-[http://info.appdirect.com/developer/docs/cloud-foundry/](http://info.appdirect.com/developer/docs/cloud-foundry/)
-
 ## <a id='docs'></a>Documentation ##
 
-Service providers should feel enabled to manage their own documentation.
-Fork the docs-pws-services repo ([https://github.com/pivotal-cf/docs-pws-services](https://github.com/pivotal-cf/docs-pws-services)) and issue pull
-requests to update your Marketplace Services documentation page.
+Service providers can manage their own documentation.
+Fork the [docs-pws-services](https://github.com/pivotal-cf/docs-pws-services) GitHub repository and issue pull requests to update your Marketplace Services documentation page.
 
-Your documentation page should reside at
-`marketplace/services/yourservice.html.md`.
+Your documentation page should reside at `marketplace/services/YOURSERVICE.html.md.erb`, where `YOURSERVICE` is the name of your service.
 
-There is a template available to get you started.
-Please include the Managing Services and Support sections with links included;
-feel free to add additional information as appropriate.
-If your service is bindable, you should include the section on Environment
-Variables.
-
-[Provider Documentation Template](provider-template.html)
+The [Provider Documentation Template](provider-template.html) exists to help you get started. When using this template, include the **Managing Services** and **Support** sections with links. If your service is bindable, you should also include the **Environment Variables** section.
 
 ## <a id='sample-apps'></a>Sample Apps ##
 
-Providing a sample application that works out of the box provides an excellent
-user experience.
-Developers can validate that your service works as expected, and the sample app
-should provide a code example for how to integrate an application with your
-service.
-There are two ways we recommend publishing your sample application:
+Sample apps that work out-of-the box can provide an excellent user experience. With a sample app, developers can validate that your service works as expected. Your sample app should provide a code example that shows how to integrate an application with your service.
 
-1. You can host your sample app in your own repo, and we can fork it into
-https://github.com/cloudfoundry-samples
-2. You can send us the code for your app and we can add a new repo to
-https://github.com/cloudfoundry-samples
+We recommend publishing your sample application in one of two ways:
+
+* You can provide your sample app in your own GitHub repository, and we can include it in the [https://github.com/cloudfoundry-samples](https://github.com/cloudfoundry-samples) GitHub repository.
+* You can send us the code for your app and we can add it directly to the [https://github.com/cloudfoundry-samples](https://github.com/cloudfoundry-samples) GitHub repository.

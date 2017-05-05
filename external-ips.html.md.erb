@@ -5,17 +5,13 @@ owner: Cloud Ops
 
 <strong><%= modified_date %></strong>
 
-Pivotal Web Services no longer supports _static_ external IP addresses.
+Pivotal Web Services (PWS) no longer supports static external IP addresses. Instead, PWS uses a BOSH feature that automatically assigns public IP addresses to VMs. This feature assigns public IPs to the Diego cell VMs, which host all the app instances running on PWS. 
 
-Instead, PWS uses a BOSH feature that automatically assigns public IP addresses to VMs. This feature assigns public IPs to the Diego cell VMs, which host all the app instances running on PWS. 
+<p class='note warning'><strong>Note</strong>: The IP address assigned to a particular VM is ephemeral and may change at any time.</p>
 
-The IP address assigned to a particular VM is ephemeral and may change at any time. 
+You may need a list of possible source IP addresses. For example, you might need such a list to integrate your app with a log management service. 
 
-You can obtain a list of possible external IP address ranges for apps hosted on PWS.
-
-For example, you might need a list of possible source IP addresses in order to integrate your app with a log management service.
-
-If you need to obtain a range possible PWS IP addresses, then execute the following `curl` command.
+To generate a a list of possible external IP address ranges for apps hosted on PWS, run the following `curl` command:
 
 <pre class="terminal">
 curl https://ip-ranges.amazonaws.com/ip-ranges.json | \
