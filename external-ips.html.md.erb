@@ -9,9 +9,9 @@ Pivotal Web Services (PWS) no longer supports static external IP addresses. Inst
 
 <p class='note warning'><strong>Note</strong>: The IP address assigned to a particular VM is ephemeral and may change at any time.</p>
 
-You may need a list of possible source IP addresses. For example, you might need such a list to integrate your app with a log management service. 
+However, you can obtain a list of possible source IP address ranges. For example, you might need source IP address ranges to integrate your app with a log management service. 
 
-To generate a a list of possible external IP address ranges for apps hosted on PWS, run the following `curl` command:
+To generate a list of possible external IP address ranges for apps hosted on PWS, run the following `curl` command:
 
 <pre class="terminal">
 curl https://ip-ranges.amazonaws.com/ip-ranges.json | \
