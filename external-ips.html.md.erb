@@ -14,12 +14,14 @@ However, you can obtain a list of possible source IP address ranges. For example
 To generate a list of possible external IP address ranges for apps hosted on PWS, run the following `curl` command:
 
 <pre class="terminal">
-curl https://ip-ranges.amazonaws.com/ip-ranges.json | \
-  ruby -rjson -e 'json = JSON.parse(STDIN.read); \
-  puts json["prefixes"].select {|v| v["region"] \
-  == "us-east-1" && v["service"] == "EC2"}.map{|v| v["ip_prefix"]}.to_json' \
-  | jq .
+$ curl https://ip-ranges.amazonaws.com/ip-ranges.json | \
+  ruby -rjson -e \
+  'puts JSON.pretty_generate( \
+  JSON.parse(STDIN.read)["prefixes"].select {|v| \
+  v["region"] == "us-east-1" && v["service"] == \
+  "EC2"}.map{|v| v["ip_prefix"]} )'
 </pre>
+
 
 <p class="note"><b>Note</b>: PWS is currently hosted on the <code>us-east-1</code> region.</p>
 
