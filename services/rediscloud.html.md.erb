@@ -218,8 +218,8 @@ Configure the connection to your Redis<sup>e</sup> Cloud service using `VCAP_SER
 
 	// parsing rediscloud credentials
 	$vcap_services = getenv("VCAP_SERVICES");
-	$rediscloud_service = json_decode($vcap_services, true)["rediscloud"][0]
-	$credentials = $rediscloud_service["credentials"]
+	$rediscloud_service = json_decode($vcap_services, true)["rediscloud"][0];
+	$credentials = $rediscloud_service["credentials"];
 
 	$redis = new Predis\Client(array(
 		'host' => $credentials["hostname"],
