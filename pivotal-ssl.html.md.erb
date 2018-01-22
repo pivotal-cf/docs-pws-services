@@ -8,17 +8,16 @@ owner: Core Services
 This topic contains instructions for using the Pivotal Secure Sockets Layer (SSL) Service.
 
 
-## <a id='prepare'></a>Updating a Certificate##
+## <a id='prepare'></a>Updating a Certificate
 
 <p class="note"><strong>Note</strong>: If you update a certificate in an existing instance of the Pivotal SSL Service, you must include all intermediate chain certificates in the correct order, even if they are not changing, then proceed to the <a href="#access-dashboard">Access the Dashboard</a> step in this topic. Refer to the <a href="#concatenate-certificates">Concatenating Certificates</a> section of this topic for instructions about combining chain files.</p>
 
-## <a id='prepare'></a>Installing a Certificate##
+## <a id='prepare'></a>Installing a Certificate
 
 ### <a id='prepare-step1'></a>Step 1: Obtain a Certificate and Prepare for Upload 
 
-The Pivotal SSL Service does not provide certificates.
-Obtain an SSL certificate issued by a known Certificate Authority (CA)
-vendor.
+The Pivotal SSL Service does not provide certificates. Obtain an SSL certificate issued by a known Certificate Authority (CA) vendor. If you are managing services for a Pivotal-owned site, including on PWS, please request an SSL certificate by emailing [ask@pivotal.io](mailto:ask@pivotal.io). Internal Pivotal projects can also send requests to the `#iops` channel in the [Pivotal Slack](http://pivotal.slack.com) workspace.
+
 The SSL Service supports both wildcard and domain-specific certificates.
 
 <p class='note'><strong>Note</strong>: The Pivotal SSL Service requires that
