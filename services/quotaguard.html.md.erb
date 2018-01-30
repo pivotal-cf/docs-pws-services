@@ -5,35 +5,32 @@ owner: Partners
 
 <strong><%= modified_date %></strong>
 
-QuotaGuard Static allows a PWS application to route outbound traffic through a static IP. You can provide this IP address to an API partner for IP based whitelisting and open your own firewall to access internal resources. 
+QuotaGuard Static enables a PWS app to route outbound traffic through a static IP. You can provide this IP address to an API partner for IP-based whitelisting and open your own firewall to access internal resources. 
 
-QuotaGuard Static is language and platform agnostic. There is native support for Ruby, Python, Node.js, Scala, Java and every other mainstream language.
+QuotaGuard Static is language and platform agnostic. It supports Ruby, Python, Node.js, Scala, Java, and other languages.
+QuotaGuard Static comes in three flavors:
 
-QuotaGuard Static comes in three flavours:
+**Outbound. Included in all plans.**
 
-**Outbound - Included in all plans**
+1. An HTTP proxy for accessing HTTP and HTTPS web services 
+2. A SOCKS5 proxy for TCP-level routing such as accessing a database or LDAP server
 
-1. An HTTP proxy for accessing HTTP & HTTPS web services 
-2. A SOCKS5 proxy for TCP level routing such as accessing a database or LDAP server
+**Inbound. Included in the Micro plan and above.**
 
-**Inbound - Included in Micro plan & above**
+3. HTTP or HTTPS reverse proxy for accessing your PWS app on a static IP
 
-3. HTTP/HTTPS reverse proxy for accessing your PWS app on a Static IP 
+## <a id='create-service'></a> Managing Services
 
-There is native support across Ruby, Python, Node.js, PHP, Scala, Java and every other language.
+To create and bind a service instance, see [Managing Service Instances with the cf CLI](http://docs.run.pivotal.io/devguide/services/managing-services.html).
 
-## Managing Services
+## <a id='ips'></a> What are My IPs?
+You are provided with two static IP addresses as part of our fault-tolerant, load-balanced service. Traffic may route through either one at any time.
 
-To create and bind a service instance, see [Managing services from the command line](http://docs.run.pivotal.io/devguide/services/managing-services.html).
-
-## What are my IPs?
-You are provided with two static IP addresses as part of our fault tolerant, load balanced service. Traffic may route through either one at any time.
-
-Once QuotaGuard Static is bound, it updates the `VCAP_SERVICES` environment variable with an entry that contains the credentials as well as other information needed to access your proxy. See [Delivering Service Credentials to an Application](http://docs.run.pivotal.io/devguide/services/application-binding.html#use) and [VCAP_SERVICES Environment Variable](http://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html).
+Once QuotaGuard Static is bound to your app, it updates the `VCAP_SERVICES` environment variable with an entry that contains the credentials as well as other information needed to access your proxy. See [Delivering Service Credentials to an Application](http://docs.run.pivotal.io/devguide/services/application-binding.html#use) and [VCAP_SERVICES Environment Variable](http://docs.run.pivotal.io/devguide/deploy-apps/environment-variable.html).
 
 The `VCAP_SERVICES` entry looks like the following:
 
-```js
+```
 {
   "quotaguard": [
     {
@@ -49,9 +46,9 @@ The `VCAP_SERVICES` entry looks like the following:
 }
 ```
 
-To start using QuotaGuard Static in your application, set up your application to use the proxy URL available in the `QUOTAGUARDSTATIC_URL` parameter.
+To start using QuotaGuard Static, configure your application to use the proxy URL in the `QUOTAGUARDSTATIC_URL` parameter.
 
-## HTTP vs. SOCKS5 proxy
+## <a id='http-socks5'></a> HTTP vs. SOCKS5 proxy
 The first decision you must make as a developer is whether to target our HTTP or SOCKS proxy. SOCKS is more versatile as it handles TCP level traffic but the setup steps are more involved than the HTTP proxy. Our general rule of thumb is use HTTP if accessing a web service otherwise use SOCKS.
 
 >note
@@ -61,7 +58,7 @@ The first decision you must make as a developer is whether to target our HTTP or
 1. Accessing an HTTP or HTTPS API (e.g. https://api.github.com/users/octocat/orgs) ==> **HTTP Proxy**
 1. Accessing a MySQL database ==> **SOCKS**
 
-## Using with Ruby/Rails
+## <a id='ruby'></a> Using with Ruby/Rails
 Ruby has an excellent REST client that easily allows you to specify an HTTP proxy. You can run the below example in an irb session and verify that the final IP returned is one of your two static IPs.
 
 ```ruby
@@ -74,7 +71,7 @@ res = RestClient.get("http://ip.quotaguard.com")
 puts "Your Static IP is: #{res.body}"
 ```
 
-## Using with Python/Django
+## <a id='python'></a> Using with Python/Django
 ### Using with the Requests library
 [Requests](http://docs.python-requests.org/en/latest/) is a great HTTP library for Python. It allows you to specify an authenticated proxy on a per request basis so you can pick and choose when to route through your static IP.
 
@@ -114,7 +111,7 @@ res = in_.read()
 print res
 ```
 
-## Using with Node.js
+## <a id='node-js'></a> Using with Node.js
 ### Accessing an HTTP API with Node.js
 To access an HTTP API you can use the standard HTTP library in Node.js but must ensure you correctly set the "Host" header to your target hostname, not the proxy hostname.
 
@@ -247,7 +244,7 @@ print_r($res);
 
 ```
 
-## Using with Java
+## <a id='java'></a> Using with Java
 The JVM  allows you to configure a `socksProxyHost`. The example below uses Apache HttpClient, but the same configuration applies to other JVM-based clients.
 
 ```java
@@ -286,7 +283,7 @@ public class HelloWorld {
 
 You can check available proxy related JVM settings [here](https://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html).
 
-## Using with Clojure
+## <a id='clojure'></a> Using with Clojure
 
 The Clojure [clj-http](https://github.com/dakrone/clj-http) library allows you to configure a [proxy for an HTTP request](https://github.com/dakrone/clj-http#proxies). 
 The example below shows you how to use this with the add-on:
@@ -310,7 +307,7 @@ On receipt of this CONNECT request the proxy will open a tunnel between your cli
 
 We are also testing HTTPS proxy endpoints, please [contact us](mailto:support@quotaguard.com) if you want to trial it. With HTTPS endpoint your initial CONNECT request will be also encrypted, this protects proxy credentials and remote hostname but will require additional TLS handshake. Please note that HTTPS endpoints are only supported by libcurl based HTTP client libraries, we recommend to check if your language has bindings for it.
 
-## SOCKS proxy setup
+## <a id='socks'></a> SOCKS proxy setup
 
 QuotaGuard Static provides two ways to setup SOCKS5 proxy integration within your app: SOCKS5 tunnels and a wrapper script.
 
@@ -421,7 +418,7 @@ All outbound traffic to 100.30.68.* would be routed via your Static IPs. Multipl
 $ export QUOTAGUARDSTATIC_MASK="100.30.68.0/24,99.29.68.0/24"
 ```
 
-## Inbound Proxy Setup
+## <a id='inbound-proxy'></a> Inbound Proxy Setup
 The Inbound Proxy allows you to always access your app on a Static IP address. This feature is available on our Micro plan and above.
 
 >warning
@@ -445,15 +442,15 @@ In your firewall you can now just open access to the two QuotaGuard Static IPs i
 ### SSL setup
 Our self-service automated setup supports SSL by default. For custom domains you have to upload valid certificate to enable SSL. In both cases SSL will be terminated on QuotaGuard proxies.
 
-## Monitoring & logging
+## <a id='monitoring'></a> Monitoring & logging
 
 Real-time and historical usage stats can be displayed on the QuotaGuard Static Dashboard accessible from your PWS Service Page.
 
-## Dashboard
+## <a id='dashboard'></a> Dashboard
 
 The QuotaGuard Static dashboard allows you to view your real-time and historical usage of every API.
 
-## FAQs
+## <a id='faqs'></a> FAQs
 ### Do you offer dedicated Static IPs?
 Yes - dedicated IP addresses are available on request for subscriptions on the Enterprise plan and above. As they require dedicated infrastructure we only provision these on request so please contact us if you want a dedicated Static IP address.
 
@@ -471,6 +468,6 @@ We believe all apps should be built for scalability and high availability. Our c
 ### Can I access MySQL or Postgres through this?
 Yes we have many users doing this. The easiest way for most languages is to use our SOCKS proxy wrapper(installation details higher up the page). If you are using Node.js you can also configure the SOCKS proxy in your Javascript code without using the wrapper (details also on this page).
 
-## Support
+## <a id='support'></a> Support
 
 All QuotaGuard Static support and runtime issues should be submitted via the PWS Support channels. Any non-support related issues or product feedback is welcome at [support@quotaguard.com](mailto:support@quotaguard.com) or by visiting [QuotaGuard.com](https://www.quotaguard.com).
