@@ -48,7 +48,7 @@ The `VCAP_SERVICES` entry looks like the following:
 
 To start using QuotaGuard Static, configure your app to use the proxy URL in the `QUOTAGUARDSTATIC_URL` parameter.
 
-## <a id='http-socks5'></a> HTTP vs. SOCKS5 proxy
+## <a id='http-socks5'></a> HTTP vs. SOCKS5 Proxy
 
 The first decision you must make as a developer is whether to target our HTTP or SOCKS proxy. SOCKS handles TCP-level traffic, but the setup of SOCKS is more complex. As a general rule of thumb, use HTTP if accessing a web service; otherwise, use SOCKS.
 
@@ -222,7 +222,7 @@ dbConnection.query('SELECT 1+1 as test1;', function(err, rows, fields) {
 dbConnection.end();
 ```
 
-### <a id='php'></a> Using with PHP
+### <a id='php'></a> PHP
 
 PHP cURL is the easiest way to make HTTP requests through QuotaGuard Static. The example below assumes that you have set the `QUOTAGUARDSTATIC_URL` environment variable, which is automatically set for you when you provision the add-on.
 
