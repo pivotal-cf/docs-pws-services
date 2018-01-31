@@ -46,21 +46,24 @@ The `VCAP_SERVICES` entry looks like the following:
 }
 ```
 
-To start using QuotaGuard Static, configure your application to use the proxy URL in the `QUOTAGUARDSTATIC_URL` parameter.
+To start using QuotaGuard Static, configure your app to use the proxy URL in the `QUOTAGUARDSTATIC_URL` parameter.
 
 ## <a id='http-socks5'></a> HTTP vs. SOCKS5 proxy
-The first decision you must make as a developer is whether to target our HTTP or SOCKS proxy. SOCKS is more versatile as it handles TCP level traffic but the setup steps are more involved than the HTTP proxy. Our general rule of thumb is use HTTP if accessing a web service otherwise use SOCKS.
 
-<p class="note"><strong>Note</strong>: Please note the SOCKS server is accessible on port 1080, not the port specified in your QUOTAGUARDSTATIC_URL variable (port 9293).</p>
+The first decision you must make as a developer is whether to target our HTTP or SOCKS proxy. SOCKS handles TCP-level traffic, but the setup of SOCKS is more complex. As a general rule of thumb, use HTTP if accessing a web service; otherwise, use SOCKS.
+
+<p class="note"><strong>Note</strong>: The SOCKS server is accessible on port 1080, not the port specified in your <code>QUOTAGUARDSTATIC_URL</code> variable (port 9293).</p>
 
 ### Example use cases
-1. Accessing an HTTP or HTTPS API (e.g. https://api.github.com/users/octocat/orgs) ==> **HTTP Proxy**
-1. Accessing a MySQL database ==> **SOCKS**
+
+* For accessing an HTTP or HTTPS API (for example, `https://api.github.com/users/octocat/orgs`), use HTTP Proxy.
+* For accessing a MySQL database, use SOCKS.
 
 ## <a id='ips'></a> Using QuotaGuard Static with Your App
 
 ### <a id='ruby'></a> Ruby and Rails
-Ruby has an excellent REST client that easily allows you to specify an HTTP proxy. You can run the below example in an irb session and verify that the final IP returned is one of your two static IPs.
+
+Ruby has an excellent REST client that allows you to specify an HTTP proxy. You can run the below example in an IRB session and verify that the final IP returned is one of your two static IPs.
 
 ```ruby
 require "rest-client"
@@ -75,7 +78,8 @@ puts "Your Static IP is: #{res.body}"
 ### <a id='python'></a> Python and Django
 
 #### Using with the Requests library
-[Requests](http://docs.python-requests.org/en/latest/) is a great HTTP library for Python. It allows you to specify an authenticated proxy on a per request basis so you can pick and choose when to route through your static IP.
+
+[Requests](http://docs.python-requests.org/en/latest/) is a great HTTP library for Python. It allows you to specify an authenticated proxy on a per request basis, which means that you can choose when to route traffic through your static IP.
 
 ```python
 import requests
@@ -91,16 +95,17 @@ print res.text
 ```
 
 #### Using with urllib2
-urllib2 is a more basic library used for HTTP communication in Python and uses environment variables to set a proxy service.
 
-In your application initialization you should set the `http_proxy` variable to match the `QUOTAGUARDSTATIC_URL`.
+urllib2 is a more basic library used for HTTP communication in Python that uses environment variables to set a proxy service.
+
+In your app initialization, you should set the `http_proxy` variable to match the `QUOTAGUARDSTATIC_URL`.
 
 ```python
 # Assign QuotaGuard to your environment's http_proxy variable
 os.environ['http_proxy'] = os.environ['QUOTAGUARDSTATIC_URL']
 ```
 
-To test in the Python interpreter:
+To test in the Python interpreter, do the following:
 
 ```python
 import urllib2, os
@@ -116,7 +121,8 @@ print res
 ### <a id='node-js'></a> Node.js
 
 #### Accessing an HTTP API with Node.js
-To access an HTTP API you can use the standard HTTP library in Node.js but must ensure you correctly set the "Host" header to your target hostname, not the proxy hostname.
+
+To access an HTTP API, you can use the standard HTTP library in Node.js. Ensure that you correctly set the `Host` header to your target hostname, not the proxy hostname.
 
 ```javascript
 var http, options, proxy, url;
@@ -145,7 +151,8 @@ http.get(options, function(res) {
 ```
 
 #### Accessing an HTTPS API with Node.js
-The standard Node.js HTTPS module does not handle making requests through a proxy very well. If you need to access an HTTPS API we recommend using the Request module (npm install request).
+
+The standard Node.js HTTPS module does not handle making requests through a proxy very well. If you need to access an HTTPS API, we recommend using the Request module. To install this module, run the `npm install request` command.
 
 ```javascript
 var request = require('request');
@@ -167,14 +174,15 @@ function callback(error, response, body) {
 request(options, callback);
 ```
 
-#### Accessing a MySQL Database using SOCKS Proxy in Node.js
-To use a SOCKS proxy for any reason in Node.js we recommend [socksjs](https://github.com/M2Ys4U/socksjs) as this is one of the only Node.js SOCKS modules to support authentication.
+#### Accessing a MySQL Database Using SOCKS Proxy in Node.js
+
+If you want to use a SOCKS proxy in Node.js, we recommend installing [socksjs](https://github.com/M2Ys4U/socksjs) because this SOCKS module supports authentication:
 
 <pre class='terminal'>
 npm install socksjs
 </pre>
 
-This sample creates a connection to a SOCKS connection to our proxy and uses that for all MySQL requests.
+This example shows how to create a connection to a SOCKS connection to our proxy and use it for all MySQL requests.
 
 ```javascript
 var mysql = require('mysql2'),
@@ -213,10 +221,12 @@ dbConnection.query('SELECT 1+1 as test1;', function(err, rows, fields) {
 });
 dbConnection.end();
 ```
-### <a id='php'></a> Using with PHP
-PHP cURL is the easiest way to make HTTP requests via QuotaGuard Static. This example assumes that you have set the QUOTAGUARDSTATIC_URL environment variable which is automatically set for you when you provision the add-on.
 
-The IP address printed on screen will be one of your two static IP addresses, run it a couple of times and you'll probably see the other one too.
+### <a id='php'></a> Using with PHP
+
+PHP cURL is the easiest way to make HTTP requests through QuotaGuard Static. The example below assumes that you have set the `QUOTAGUARDSTATIC_URL` environment variable, which is automatically set for you when you provision the add-on.
+
+The IP address printed on screen will be one of your two static IP addresses. If you run it a few times, you will probably see the other one too.
 
 ```php
 <?php
@@ -248,7 +258,8 @@ print_r($res);
 ```
 
 ### <a id='java'></a> Java
-The JVM  allows you to configure a `socksProxyHost`. The example below uses Apache HttpClient, but the same configuration applies to other JVM-based clients.
+
+The JVM allows you to configure `socksProxyHost`. The example below uses Apache HttpClient. The same configuration applies to other JVM-based clients.
 
 ```java
 import java.net.*;
@@ -284,7 +295,7 @@ public class HelloWorld {
 }
 ```
 
-You can check available proxy related JVM settings [here](https://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html).
+You can check available proxy-related JVM settings [here](https://docs.oracle.com/javase/8/docs/technotes/guides/net/proxies.html).
 
 ### <a id='clojure'></a> Clojure
 
@@ -304,102 +315,103 @@ The example below shows you how to use this with the add-on:
 ```
 
 ## <a id='security'></a> Is the HTTP Proxy Secure When Accessing HTTPS Services?
-Yes. You can access HTTPS services via the HTTP proxy whilst still getting full SSL/TLS security. When you make a request via the proxy to an HTTPS endpoint your client should transparently issue a CONNECT request rather than a basic GET request.
 
-On receipt of this CONNECT request the proxy will open a tunnel between your client and the endpoint, allowing your client to negotiate a standard SSL session with the endpoint. Once negotiated all traffic sent between your client and the endpoint will be encrypted as if you had connected directly with them.  
+Yes. You can access HTTPS services through the HTTP proxy whilst still getting full SSL and TLS security. When you make a request using the proxy to an HTTPS endpoint, your client should transparently issue a `CONNECT` request rather than a basic `GET` request.
 
-We are also testing HTTPS proxy endpoints, please [contact us](mailto:support@quotaguard.com) if you want to trial it. With HTTPS endpoint your initial CONNECT request will be also encrypted, this protects proxy credentials and remote hostname but will require additional TLS handshake. Please note that HTTPS endpoints are only supported by libcurl based HTTP client libraries, we recommend to check if your language has bindings for it.
+On receipt of this `CONNECT` request, the proxy opens a tunnel between your client and the endpoint, allowing your client to negotiate a standard SSL session with the endpoint. Once negotiated, all traffic sent between your client and the endpoint will be encrypted as if you had connected directly with it.
+
+We are also testing HTTPS proxy endpoints. Please [contact us](mailto:support@quotaguard.com) if you want to trial it. With an HTTPS endpoint your initial `CONNECT` request is also encrypted. This protects proxy credentials and remote hostname but requires an additional TLS handshake. Please note that HTTPS endpoints are supported only by libcurl-based HTTP client libraries. We recommend checking if your language has bindings for it.
 
 ## <a id='socks'></a> SOCKS Proxy Setup
 
-QuotaGuard Static provides two ways to setup SOCKS5 proxy integration within your app: SOCKS5 tunnels and a wrapper script.
+QuotaGuard Static provides two ways for setting up SOCKS5 proxy integration in  your app: SOCKS5 tunnels and a wrapper script.
 
 SOCKS5 tunnels:
 
-- Work on per host basis
-- Compatible with all programming environments
-- Support advanced configurations: transparent mode and encryption
+* Work on per host basis
+* Compatible with all programming environments
+* Support advanced configurations such as transparent mode and encryption
 
 Wrapper script:
 
-- Proxies all connections, with optional constraints by IP
-- Incompatible with some threaded environments and environments with event loops. Notably doesn't support Java and Node.js
+* Proxies all connections, with optional constraints by IP
+* Incompatible with some threaded environments and environments with event loops. Does not support Java and Node.js.
 
 We recommend using SOCKS5 tunnels unless you need to route all traffic within the app through the SOCKS5 proxy.
 
-### Setting Up SOCKS5 Tunnel
+### Setting Up a SOCKS5 Tunnel
 
-SOCKS5 tunnel application allows you to create a local tunnels for your app, all traffic to the local port will be forwarded through the QuotaGuard proxies. You have to setup separate tunnel configuration for every host you want to proxy. To get started with the tunnel please follow these steps:
+The SOCKS5 tunnel app allows you to create a local tunnel for your app. All traffic to the local port will be forwarded through QuotaGuard proxies. You must set up a separate tunnel configuration for every host you want to proxy. To get started with the tunnel, follow these steps:
 
-- Download and extract the `qgtunnel` in your app directory:
+1. Download and extract `qgtunnel` in your app directory:
 
-<pre class='terminal'>
-$ curl https://s3.amazonaws.com/quotaguard/qgtunnel-latest.tar.gz | tar xz
-</pre>
+    <pre class='terminal'>
+    $ curl https://s3.amazonaws.com/quotaguard/qgtunnel-latest.tar.gz | tar xz
+    </pre>
 
-- Add the tunnel application to your standard startup commands, for example:
+1. Add the tunnel app to your standard startup commands as follows:
 
-Before:
+    Before:
 
-<pre class='terminal'>
-bundle exec unicorn -p $PORT -c ./config/unicorn.rb
-</pre>
+    <pre class='terminal'>
+    bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+    </pre>
 
-After:
+    After:
 
-<pre class='terminal'>
-bin/qgtunnel bundle exec unicorn -p $PORT -c ./config/unicorn.rb
-</pre>
+    <pre class='terminal'>
+    bin/qgtunnel bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+    </pre>
 
-- Create tunnel configuration via [DATABASE_URL](#tunnel-for-database_url) or [QuotaGuard dashboard](#custom-tunnel-configuration).
+1. Create your tunnel configuration through [DATABASE_URL](#tunnel-for-database_url) or [QuotaGuard dashboard](#custom-tunnel-configuration).
 
-- Commit and deploy these changes.
+1. Commit and deploy these changes.
 
 #### Tunnel for DATABASE_URL
 
-If your application relies on `DATABASE_URL` environment variable then you can use automatically generated configuration and don't have to perform additional configuration steps. For example if your `DATABASE_URL` is postgres://foo:bar@ec2-10-10-10-1.compute-1.amazonaws.com:5432/baz then tunnel will be listening on port 5432 of your dyno and all connections to this port will be forwarded to ec2-10-10-10-1.compute-1.amazonaws.com:5432 via SOCKS5 proxy. In this mode tunnel also enables [transparent DNS override](#transparent-mode) which will resolve DNS name ec2-10-10-10-1.compute-1.amazonaws.com to the localhost address so all connections to this hostname will transparently go to the tunnel.
+If your app relies on the `DATABASE_URL` environment variable, then you can use automatically generated configuration without performing additional configuration steps. For example, if your `DATABASE_URL` is `postgres://foo:bar@ec2-10-10-10-1.compute-1.amazonaws.com:5432/baz`, then the tunnel will be listening on port 5432 of your dyno and all connections to this port will be forwarded to `ec2-10-10-10-1.compute-1.amazonaws.com:5432` through SOCKS5 proxy. In this mode, the tunnel also enables [transparent DNS override](#transparent-mode), which resolves the `ec2-10-10-10-1.compute-1.amazonaws.com` DNS name to the localhost address. All connections to this hostname will transparently go to the tunnel.
 
 #### Custom Tunnel Configuration
 
-Open QuotaGuard Static dashboard and visit `Tunnels` section of the `Setup` page. You can open dashboard from your PWS services page.
+1. Open the QuotaGuard Static dashboard and navigate to the **Tunnels** section of the **Setup** page. You can open the dashboard from your PWS services page.
 
-On the `Setup` page create a new tunnel configuration for the remote server by clicking on `Create Tunnel`. For example, if you want to access IP whitelisted postgres database located on a host ec2-10-10-10-1.compute-1.amazonaws.com, put tcp://ec2-10-10-10-1.compute-1.amazonaws.com:5432 into the `Remote Destination` and press `Save`. With this configuration your tunnel will listen on dyno's port 5432 and will route all traffic to the ec2-10-10-10-1.compute-1.amazonaws.com via the SOCKS5 proxy. If you want to use a different local port, you can provide it explicitly in configuration interface.
+1. On the **Setup** page, create a new tunnel configuration for the remote server by clicking **Create Tunnel**. For example, if you want to access an IP-whitelisted Postgres database located on `ec2-10-10-10-1.compute-1.amazonaws.com`, enter `tcp://ec2-10-10-10-1.compute-1.amazonaws.com:5432` in **Remote Destination** and click **Save**. With this configuration, your tunnel will listen on the dyno's port 5432 and route all traffic to `ec2-10-10-10-1.compute-1.amazonaws.com` through the SOCKS5 proxy. If you want to use a different local port, you can provide it explicitly in the configuration interface.
 
-Modify your app configuration to use localhost instead of remote server. For the same postgres example change connection string from: postgres://user:pass@ec2-10-10-10-1.compute-1.amazonaws.com:5432 to postgres://user:pass@127.0.0.1:5432. You can also export tunnel configuration to use it [locally](#local-tunnel-configuration) on your dyno without relying on QuotaGuard servers.
+1. Modify your app configuration to use localhost instead of the remote server. For the same Postgres example, change the connection string from `postgres://user:pass@ec2-10-10-10-1.compute-1.amazonaws.com:5432` to `postgres://user:pass@127.0.0.1:5432`. You can also export your tunnel configuration to use it [locally](#local-tunnel-configuration) on your dyno without relying on QuotaGuard servers.
 
 ### Debugging Tunnel Configuration
 
-By default all fatal errors encountered by the `qgtunnel` will be logged. If this information is not enough you can enable verbose output mode by setting `QGTUNNEL_DEBUG` environment variable to `true`.
+By default, all fatal errors encountered by `qgtunnel` are logged. If this information is insufficient, you can enable verbose output mode by setting the `QGTUNNEL_DEBUG` environment variable to `true`.
 
 ### Local Tunnel Configuration
 
-By default `qgtunnel` will try to fetch configuration from the QuotaGuard API, but it also supports local configuration. You can download configuration file from the tunnel setup interface by pressing "Download configuration". To enable local mode place downloaded file into root directory of your project under `.qgtunnel` filename, commit it and deploy.
+By default, `qgtunnel` tries to fetch configuration from the QuotaGuard API, but it also supports local configuration. You can download the configuration file from the tunnel setup interface by clicking **Download configuration**. To enable local mode, place the downloaded file into the root directory of your project under the `.qgtunnel` filename, commit it, and deploy.
 
 ### Transparent Mode
 
-If your application depends on DNS based discovery process or needs local tunnel to be resolvable via the DNS name regular tunneling mode will not be enough. For this situation you should enable transparent mode for the tunnel in your configuration. In transparent mode tunnel application will alter DNS queries from your app to the local tunnel address. 
+If your app depends on DNS-based discovery or needs a local tunnel to be resolvable through the DNS name, regular tunneling mode is not enough. In this situation, you should enable transparent mode for the tunnel in your configuration. In transparent mode, the tunnel app alters DNS queries from your app to the local tunnel address.
 
-Let's say you want to access replicated MongoDB cluster using the tunnel with 3 replicas located on the hosts: `rs01.mongodb.net:52115`, `rs02.mongodb.net:52115` and `rs1.mongodb.net:52115`. For this configuration you will need to create  3 separate tunnels for each host on the port `52115` in transparent mode. Once this done, tunnel application will alter DNS resolution process to resolve these host names to the appropriate loopback address and auto discovery for your replicated cluster should work as intended.
+For example, you want to use the tunnel to access a replicated MongoDB cluster with 3 replicas located on the `rs01.mongodb.net:52115`, `rs02.mongodb.net:52115`, and `rs1.mongodb.net:52115` hosts. For this configuration, you need to create 3 separate tunnels for each host on port 52115 in transparent mode. Once this is done, the tunnel app will alter DNS resolution to resolve these host names to the appropriate loopback address and auto-discovery for your replicated cluster should work as intended.
 
 ### Installing the QuotaGuard Static Socksify Wrapper
 
-QuotaGuard Static provides a wrapper script that transparently forwards all outbound TCP traffic through your Static IP. 
+QuotaGuard Static provides a wrapper script that transparently forwards all outbound TCP traffic through your static IP. 
 
 <p class="note"><strong>Note</strong>: The SOCKS wrapper is incompatible with Java, Play, and Node.js. Please contact us for alternative options with these languages.</p>
 
-Download and extract the wrapper in your app directory:
+1. Download and extract the wrapper in your app directory:
 
 <pre class='terminal'>
 $ curl https://s3.amazonaws.com/quotaguard/quotaguard-socksify-latest.tar.gz | tar xz
 </pre>
 
-Add the wrapper to your standard startup commands, for example:
+1. Add the wrapper to your standard startup commands, for example:
 
 <pre class='terminal'>
  bin/qgsocksify bundle exec unicorn -p $PORT -c ./config/unicorn.rb
 </pre>
 
-You should add all extracted files to your git repo except QUOTAGUARD-LICENSE.txt which can be gitignored.
+1. Add all extracted files except `QUOTAGUARD-LICENSE.txt`, which can be included in `.gitignore`, to your Git repository.
 
 <pre class='terminal'>
 $ echo "QUOTAGUARD-LICENSE.txt" >> .gitignore
@@ -408,68 +420,75 @@ $ git commit -m "Add QuotaGuard Static socksify"
 </pre>
 
 ### Controlling What Traffic Goes Through the Socksify Wrapper
-You can provide a standard subnet mask to only route traffic to certain IP subnets via the `QUOTAGUARDSTATIC_MASK` environment variable. The mask supports sub-network specifications (e.g., 192.0.2.22/24), single addresses (192.0.2.22/32), host names (e.g., ftp.example.org), or domain names (e.g., .example.org). A domain name specification will match any host in that domain.
+
+You can provide a standard subnet mask to route traffic only to certain IP subnets through the `QUOTAGUARDSTATIC_MASK` environment variable. The mask supports sub-network specifications (for example, `192.0.2.22/24`), single addresses (`192.0.2.22/32`), host names (for example, `ftp.example.org`), or domain names (for example, `.example.org`). A domain name specification will match any host in that domain.
 
 <pre class='terminal'>
 $ export QUOTAGUARDSTATIC_MASK="100.30.68.0/24"
 </pre>
 
-All outbound traffic to 100.30.68.* would be routed via your Static IPs. Multiple masks can be provided by comma separating the mask values:
+All outbound traffic to `100.30.68.*` is routed through your static IPs. Multiple masks can be provided using comma-separated mask values:
 
 <pre class='terminal'>
 $ export QUOTAGUARDSTATIC_MASK="100.30.68.0/24,99.29.68.0/24"
 </pre>
 
 ## <a id='inbound-proxy'></a> Inbound Proxy Setup
-The Inbound Proxy allows you to always access your app on a Static IP address. This feature is available on our Micro plan and above.
+
+Inbound Proxy allows you to always access your app on a static IP address. This feature is available on the Micro plan and above.
 
 <p class="note warning">
-<strong>WARNING: </strong>
-This should NOT be used as a replacement for a DNS entry resolving a custom domain to your PWS app.</p>
+<strong>WARNING:</strong>
+This should not be used as a replacement for a DNS entry resolving a custom domain to your PWS app.</p>
  
-Once you have provisioned the add-on you just need to visit the QuotaGuard Static Dashboard to complete your setup. You can do this from your your PWS services page.
+Once you have provisioned the add-on, you just need to visit the QuotaGuard Static dashboard to complete your setup. You can do this from your PWS services page.
 
-Visit the Setup page and enter in the full URL of your app.
+Navigate to the **Setup** page and enter the full URL of your app. We then create a unique URL for you that you can use to access your web app, for example, `a62b1d0b4983db763450411fd393b3ce-eu-west-1.getstatica.com`.
 
-We then create for you a unique URL that you can use to access your web application: e.g. a62b1d0b4983db763450411fd393b3ce-eu-west-1.getstatica.com.
+This corresponds to a DNS A record that resolves to one of your two QuotaGuard Static IPs. You should include both IP addresses in all firewall rules or whitelists as we may swap between the IP addresses at any time.
 
-This corresponds to a DNS A name record that resolves to one of your two QuotaGuard Static IPs. You should include both IP addresses in any firewall rules or whitelists as we may swap between IP addresses at any time.
-
-Open this URL in your browser and you should see your own web application. 
+Open this URL in your browser to see your own web app. 
 
 <p class="note"><strong>Note</strong>: Please note it may take up to 10 minutes for configuration and DNS changes to propagate.</p>
 
 In your firewall you can now just open access to the two QuotaGuard Static IPs in order to work with your cloud app.
 
 ### SSL Setup
-Our self-service automated setup supports SSL by default. For custom domains you have to upload valid certificate to enable SSL. In both cases SSL will be terminated on QuotaGuard proxies.
+
+Our self-service automated setup supports SSL by default. For custom domains, you have to upload a valid certificate to enable SSL. In both cases, SSL is terminated on QuotaGuard proxies.
 
 ## <a id='monitoring'></a> Monitoring and Logging
 
-Real-time and historical usage stats can be displayed on the QuotaGuard Static Dashboard accessible from your PWS Service Page.
+Real-time and historical usage stats can be displayed on the QuotaGuard Static dashboard, which is accessible from your PWS service page.
 
 ## <a id='dashboard'></a> Dashboard
 
 The QuotaGuard Static dashboard allows you to view your real-time and historical usage of every API.
 
 ## <a id='faqs'></a> FAQs
-### Do you offer dedicated Static IPs?
-Yes - dedicated IP addresses are available on request for subscriptions on the Enterprise plan and above. As they require dedicated infrastructure we only provision these on request so please contact us if you want a dedicated Static IP address.
+
+### Do you offer dedicated static IPs?
+
+Yes. Dedicated IP addresses are available on request for subscriptions on the Enterprise plan and above. As they require dedicated infrastructure, we provision these IP addresses only on request. Please contact us if you want a dedicated static IP address.
 
 ### What happens when I reach my usage limit?
-To make sure we grow in harmony with your application QuotaGuard Static operates initially with a soft limit. When you reach your plan's monthly usage limit your requests will continue going through but we will reach out to you via e-mail to ask that you upgrade your plan.
 
-If you repeatedly exceed your limits without upgrading then hard limits may be placed on your account but this is a very last resort.
+To ensure we grow in harmony with your app, QuotaGuard Static initially operates with a soft limit. When you reach your plan's monthly usage limit, your requests will continue going through, but we will reach out to you through e-mail to ask that you upgrade your plan.
 
-### I've forgotten what my Static IPs are!
-Both IPs are shown on your Dashboard, which you can get to either from your PWS services page.
+If you repeatedly exceed your limits without upgrading, then hard limits may be placed on your account, but this is a very last resort. 
 
-### Why have you given me two Static IP addresses?
-We believe all apps should be built for scalability and high availability. Our commitment to this means we only provide load balanced, high availability services. Load balancing our nodes allows one node to fail or be brought down for maintenance with no impact to your application. Each IP you are given represents one proxy node that is running behind a load balancer.
+### I've forgotten what my static IPs are!
+
+Both IPs are shown on your Dashboard, which you can get to from your PWS services page.
+
+### Why have you given me two static IP addresses?
+
+We believe all apps should be built for scalability and high availability. Our commitment to this means we provide only load-balanced, highly available services. Load balancing our nodes allows one node to fail or be brought down for maintenance with no impact to your app. Each IP you are given represents one proxy node that is running behind a load balancer.
 
 ### Can I access MySQL or Postgres through this?
-Yes we have many users doing this. The easiest way for most languages is to use our SOCKS proxy wrapper(installation details higher up the page). If you are using Node.js you can also configure the SOCKS proxy in your Javascript code without using the wrapper (details also on this page).
+
+Yes. We have many users doing this. The easiest way for most languages is to use our SOCKS proxy wrapper. (Its installation details are provided on this page.) If you are using Node.js, you can also configure the SOCKS proxy in your JavaScript code without using the wrapper. (Details are also available on this page.)
 
 ## <a id='support'></a> Support
 
-All QuotaGuard Static support and runtime issues should be submitted via the PWS Support channels. Any non-support related issues or product feedback is welcome at [support@quotaguard.com](mailto:support@quotaguard.com) or by visiting [QuotaGuard.com](https://www.quotaguard.com).
+All QuotaGuard Static support and runtime issues should be submitted through the PWS Support channels. Non-support related issues or product feedback is welcome at [support@quotaguard.com](mailto:support@quotaguard.com) or by visiting [QuotaGuard.com](https://www.quotaguard.com).
