@@ -99,7 +99,7 @@ print res.text
 
 urllib2 is a more basic library for HTTP communication in Python that uses environment variables to set a proxy service.
 
-In your app initialization, set the `http_proxy` variable to match the `QUOTAGUARDSTATIC_URL`.
+In your app initialization, set the `http_proxy` variable to match `QUOTAGUARDSTATIC_URL`.
 
 ```python
 # Assign QuotaGuard to your environment's http_proxy variable
@@ -329,13 +329,13 @@ QuotaGuard Static provides two ways for setting up SOCKS5 proxy integration in  
 
 SOCKS5 tunnels:
 
-* Work on a per-host basis
-* Compatible with all programming environments
-* Support advanced configurations such as transparent mode and encryption
+* Work on a per-host basis.
+* Compatible with all programming environments.
+* Support advanced configurations such as transparent mode and encryption.
 
 Wrapper script:
 
-* Proxies all connections, with optional constraints by IP
+* Proxies all connections, with optional constraints by IP.
 * Incompatible with some threaded environments and environments with event loops. Does not support Java and Node.js.
 
 We recommend using SOCKS5 tunnels unless you need to route all traffic within the app through the SOCKS5 proxy.
@@ -402,23 +402,23 @@ QuotaGuard Static provides a wrapper script that transparently forwards all outb
 
 1. Download and extract the wrapper in your app directory:
 
-  <pre class='terminal'>
-  $ curl https://s3.amazonaws.com/quotaguard/quotaguard-socksify-latest.tar.gz | tar xz
-  </pre>
+    <pre class='terminal'>
+    $ curl https://s3.amazonaws.com/quotaguard/quotaguard-socksify-latest.tar.gz | tar xz
+    </pre>
 
 1. Add the wrapper to your standard startup commands. For example:
 
-  <pre class='terminal'>
-  bin/qgsocksify bundle exec unicorn -p $PORT -c ./config/unicorn.rb
-  </pre>
+    <pre class='terminal'>
+    bin/qgsocksify bundle exec unicorn -p $PORT -c ./config/unicorn.rb
+    </pre>
 
 1. Add all extracted files except `QUOTAGUARD-LICENSE.txt`, which can be included in `.gitignore`, to your Git repository.
 
-  <pre class='terminal'>
-  $ echo "QUOTAGUARD-LICENSE.txt" >> .gitignore
-  $ git add bin/qgsocksify vendor/dante
-  $ git commit -m "Add QuotaGuard Static socksify"
-  </pre>
+    <pre class='terminal'>
+    $ echo "QUOTAGUARD-LICENSE.txt" >> .gitignore
+    $ git add bin/qgsocksify vendor/dante
+    $ git commit -m "Add QuotaGuard Static socksify"
+    </pre>
 
 ### Controlling What Traffic Goes Through the Socksify Wrapper
 
