@@ -319,7 +319,7 @@ The example below shows you how to use this with the add-on:
 
 Yes. You can access HTTPS services through the HTTP proxy whilst still getting full SSL and TLS security. When you make a request using the proxy to an HTTPS endpoint, your client should transparently issue a `CONNECT` request rather than a basic `GET` request.
 
-On receipt of this `CONNECT` request, the proxy opens a tunnel between your client and the endpoint, allowing your client to negotiate a standard SSL session with the endpoint. Once negotiated, all traffic sent between your client and the endpoint will be encrypted as if you had connected directly with it.
+On receipt of this `CONNECT` request, the proxy opens a tunnel between your client and the endpoint, allowing your client to negotiate a standard SSL session with the endpoint. Once this is negotiated, all traffic sent between your client and the endpoint will be encrypted as if you had connected directly with it.
 
 We are also testing HTTPS proxy endpoints. Please [contact us](mailto:support@quotaguard.com) if you want to trial it. With an HTTPS endpoint, your initial `CONNECT` request is also encrypted. This protects the proxy credentials and remote hostname but requires an additional TLS handshake. Please note that HTTPS endpoints are supported only by libcurl-based HTTP client libraries. We recommend checking if your language has bindings for it.
 
@@ -386,13 +386,13 @@ By default, all fatal errors encountered by `qgtunnel` are logged. If this infor
 
 ### Local Tunnel Configuration
 
-By default, `qgtunnel` tries to fetch configuration from the QuotaGuard API, but it also supports local configuration. You can download the configuration file from the tunnel setup interface by clicking **Download configuration**. To enable local mode, place the downloaded file into the root directory of your project under the `.qgtunnel` filename, commit it, and deploy.
+By default, `qgtunnel` tries to fetch configuration from the QuotaGuard API, but it also supports local configuration. You can download the configuration file from the tunnel setup interface by clicking **Download configuration**. To enable local mode, place the downloaded file into the root directory of your project under the `.qgtunnel` filename, commit, and deploy it.
 
 ### Transparent Mode
 
-If your app depends on DNS-based discovery or needs a local tunnel to be resolvable through the DNS name, regular tunneling mode is not enough. In this situation, you should enable transparent mode for the tunnel in your configuration. In transparent mode, the tunnel app alters DNS queries from your app to the local tunnel address.
+If your app depends on DNS-based discovery or needs a local tunnel to be resolvable through the DNS name, regular tunneling mode is not sufficient. In this case, you should enable transparent mode for the tunnel in your configuration. In transparent mode, the tunnel app alters DNS queries from your app to the local tunnel address.
 
-For example, you want to use the tunnel to access a replicated MongoDB cluster with 3 replicas located on the `rs01.mongodb.net:52115`, `rs02.mongodb.net:52115`, and `rs1.mongodb.net:52115` hosts. For this configuration, you need to create 3 separate tunnels for each host on port 52115 in transparent mode. Once this is done, the tunnel app will alter DNS resolution to resolve these host names to the appropriate loopback address and auto-discovery for your replicated cluster should work as intended.
+For example, if you want to use the tunnel to access a replicated MongoDB cluster with 3 replicas located on the `rs01.mongodb.net:52115`, `rs02.mongodb.net:52115`, and `rs1.mongodb.net:52115` hosts, you need to create 3 separate tunnels for each host on port 52115 in transparent mode. Once this is done, the tunnel app will alter DNS resolution to resolve these host names to the appropriate loopback address and auto-discovery for your replicated cluster should work as intended.
 
 ### Installing the QuotaGuard Static Socksify Wrapper
 
