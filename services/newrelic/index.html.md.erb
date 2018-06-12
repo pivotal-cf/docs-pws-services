@@ -107,7 +107,7 @@ All three of these things can be found by logging into your New Relic account as
 	</pre>
 1. Now generate some usage on your app and log into New Relic via SSO [as described above](#sso); you should see data coming through!
 
-<p class="note"><strong>Note</strong>: To specify the application name which New Relic uses, you simply need to configure JAVA_OPTS with the name of the app you want to be reflected as ‘-Dnewrelic.config.app_name=<NAME>’.
+<p class="note"><strong>Note</strong>: To specify the app name that New Relic uses, configure <code>JAVA_OPTS</code> with <code>-Dnewrelic.config.app_name=YOUR-APP-NAME</code>. Replace <code>YOUR-APP-NAME</code> with the desired app name.
 </p>
 
 ### <a id='php'></a>PHP ###
