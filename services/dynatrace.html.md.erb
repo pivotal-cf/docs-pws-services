@@ -1,0 +1,113 @@
+---
+title: Dynatrace
+owner: Partners
+---
+
+<strong><%= modified_date %></strong>
+
+This topic describes how to set up monitoring for your Pivotal Web Services (PWS) app using Dynatrace. 
+
+##<a id='managing-services'></a>Managing Services
+
+To create and bind a service instance from the command line, see [Managing Service Instances with the CLI](/devguide/services/managing-services.html).
+
+##<a id='get-cf-cli'></a>Get the Cloud Foundry CLI 
+The code examples below use the Cloud Foundry Command Line Interface (cf CLI) for interfacing with Cloud Foundry clusters.
+You can find the appropriate CLI for your operating system on [GitHub](https://github.com/cloudfoundry/cli).
+
+##<a id='create-dynatrace-service'></a>Create a Dynatrace Service in your Cloud Foundry Environment 
+Cloud Foundry allows you to connect apps with 3rd party tools and other external resources (for example, databases) by means of services.
+On Cloud Foundry, service instances hold the credentials that are required to connect to such resources.
+You will use this same approach to connect your apps with OneAgent.
+
+This is why you need to define a service instance by either creating a user-provided service or by using a service broker app.
+The three available options for defining this service instance are listed below:
+
+###<a id='create-user-provided'></a>Option 1: Create a User-Provided Service
+Create a single service instance with the name `dynatrace` as a substring (for example, `dynatrace-service`) using the command below.
+
+```
+cf cups dynatrace-service -p "environmentid, apitoken"
+```
+
+ The command should include the parameters `environmentid` and `apitoken` written exactly as shown above.
+The API token corresponds to your PaaS token.
+For more information about the Paas token, see [Generate PaaS token](https://www.dynatrace.com/support/help/shortlink/cloud-foundry#generate-paas-token).
+
+<!-- Once the command is executed, you'll be prompted to enter your environment ID and API token. -->
+
+If you're using **Dynatrace Managed**, you need to add an extra field to the payload that specifies the API endpoint of your Dynatrace Server: `apiurl`.
+
+For example:
+
+```
+cf cups dynatrace-service -p "environmentid, apitoken, apiurl"
+```
+The `apiurl` needs to be set to `https://YOUR-DYNATRACE-SERVER-URL/e/ENVIRONMENT-ID/api`.
+
+###<a id='create-using-broker'></a>Option 2: Create a Service Instance using a Service Broker
+If you want to maintain Dynatrace credentials in a central location, use a service broker.
+To do this, you must do the following:
+
+1. Configure and run the broker as an app.
+1. Add the service broker to Cloud Foundry.
+1. Enable service access to users.
+1. Create the service instance.
+
+For more information, see the [Dynatrace Service Broker](https://github.com/dynatrace-innovationlab/dynatrace-service-broker) repository.
+
+###<a id='create-service-on-pivnet'></a>Option 3: Create a service instance using the service broker on the Pivotal Network
+If you run a Pivotal Cloud Foundry environment, you can make use of the Dynatrace Service Broker tile on the Pivotal Network.
+
+##<a id='bind-dynatrace-service'></a>Bind Dynatrace service to your app 
+You can either bind the created Dynatrace service to your app in your manifest.yml file prior to starting your app or you can bind the service to your app and restage the app afterwards.
+
+If you're pushing a Java app, this could look like the following example:
+
+---
+applications:
+- name: spring-music
+  memory: 768M
+  instances: 1
+  host: spring-music-${random-word}
+  path: spring-music.war
+  buildpack: https://github.com/cloudfoundry/java-buildpack.git
+services:
+  - dynatrace-service
+
+
+
+
+## <a id='integration'></a>Integrating the Service With Your App ###
+
+Format of credentials in `VCAP_SERVICES`
+
+~~~xml
+{{
+    "dynatrace-n/a":[
+        {
+            "name":"dynatrace-14e9d",
+            "label":"dynatrace-n/a",
+            "plan":"standard",
+            "credentials":
+                {
+                  "environmentid":"ENVIRONMENT-ID",
+                  "apitoken":"API-TOKEN",
+                  "apiurl":"https://YOUR-DYNATRACE-SERVER-URL/e/ENVIRONMENT-ID/api"
+                }
+        }
+    ]
+}
+~~~
+For more information, see [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
+
+## <a id='addl-docs'></a>Additional Documentation
+
+[How do I monitor Cloud Foundry applications?](https://www.dynatrace.com/support/help/cloud-platforms/cloud-foundry/how-do-i-monitor-cloud-foundry-applications/)
+
+## <a id='support'></a>Support ##
+
+[Contacting Service Providers for Support](../contacting-service-providers-for-support.html)
+
+* Documentation - https://www.dynatrace.com/support/doc/
+* FAQ - https://www.dynatrace.com/trial/appmon/faq/
