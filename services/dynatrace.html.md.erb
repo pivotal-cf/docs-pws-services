@@ -12,7 +12,7 @@ This allows you to monitor your production system, pinpoint the bottlenecks of y
 and determine sources of latency to give you visibility inside your apps without code modification.
 
 
-##<a id='supported-buildpacks'></a>PWS Buildpacks supported by Dynatrace OneAgent
+##<a id='supported-buildpacks'></a>PWS Buildpacks Supported by Dynatrace OneAgent
 PWS provides buildpacks for many common programming languages and frameworks, such as Java and Node.js.
 
 For the list of supported buildpacks, see [Supported Cloud Foundry buildpacks](https://www.dynatrace.com/support/help/cloud-platforms/reference/supported-cloud-foundry-buildpacks/).
@@ -27,23 +27,24 @@ As a PWS user, you need to define this service instance by creating a user-provi
 
 To create a user-provided service for Dynatrace OneAgent, do the following:
 
-1. Generate PaaS token for your Dynatrace OneAgent environment
-1. Create a Dynatrace service on PWS using **Option 1: Create a User-Provided Service**
-1. Bind the created Dynatrace service to your app
+1. Generate PaaS token for your Dynatrace OneAgent environment.
+1. Create a Dynatrace service on PWS using **Option 1: Create a User-Provided Service**.
+1. Bind the created Dynatrace service to your app.
 
-For how to do this, see [How do I monitor Cloud Foundry applications?](https://www.dynatrace.com/support/help/cloud-platforms/cloud-foundry/how-do-i-monitor-cloud-foundry-applications/).
+For instructions, see [How do I monitor Cloud Foundry applications?](https://www.dynatrace.com/support/help/cloud-platforms/cloud-foundry/how-do-i-monitor-cloud-foundry-applications/).
+
 
 ##<a id='update-dynatrace'></a>Update Dynatrace OneAgent on PWS
 
 When a new version of Dynatrace OneAgent becomes available, 
-then restart your PWS app using `cf restage APP-NAME`.
+then restart your PWS app using `cf restage APP-NAME`.<br><br>
 The Cloud Foundry buildpack automatically fetches the latest version of Dynatrace OneAgent.
 After restart, your Cloud Foundry apps are monitored with the latest version of Dynatrace OneAgent.
+
 
 ##<a id='managing-services'></a>Managing Services
 
 To create and bind a service instance from the command line, see [Managing Service Instances with the CLI](/devguide/services/managing-services.html).
-
 
 
 ## <a id='integration'></a>Integrating the Service With Your App ###
