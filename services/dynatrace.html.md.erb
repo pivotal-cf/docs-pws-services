@@ -41,36 +41,6 @@ then restart your PWS app using `cf restage APP-NAME`.<br><br>
 The Cloud Foundry buildpack automatically fetches the latest version of Dynatrace OneAgent.
 After restart, your Cloud Foundry apps are monitored with the latest version of Dynatrace OneAgent.
 
-
-##<a id='managing-services'></a>Managing Services
-
-To create and bind a service instance from the command line, see [Managing Service Instances with the CLI](/devguide/services/managing-services.html).
-
-
-## <a id='integration'></a>Integrating the Service With Your App ###
-
-Format of credentials in `VCAP_SERVICES`
-
-~~~xml
-{{
-    "dynatrace-n/a":[
-        {
-            "name":"dynatrace-14e9d",
-            "label":"dynatrace-n/a",
-            "plan":"standard",
-            "credentials":
-                {
-                  "environmentid":"ENVIRONMENT-ID",
-                  "apitoken":"API-TOKEN",
-                  "apiurl":"https://YOUR-DYNATRACE-SERVER-URL/e/ENVIRONMENT-ID/api"
-                }
-        }
-    ]
-}
-~~~
-For more information, see [VCAP_SERVICES Environment Variable](/devguide/deploy-apps/environment-variable.html).
-
-
 ## <a id='support'></a>Support ##
 
 [Contacting Service Providers for Support](../contacting-service-providers-for-support.html)
