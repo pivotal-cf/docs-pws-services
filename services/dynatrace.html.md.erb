@@ -7,10 +7,10 @@ owner: Partners
 
 This topic describes how to set up monitoring for your Pivotal Web Services (PWS) app using Dynatrace OneAgent.
 
-As a PWS user, you can use Dynatrace OneAgent to monitor your apps in order to improve performance.
-This allows you to monitor your production system, pinpoint the bottlenecks of your app, 
-and determine sources of latency to give you visibility inside your apps without code modification.
-
+As a PWS user, you can use Dynatrace OneAgent to monitor your apps to improve performance.
+Dyntrace OneAgent gives you visibility into app performance without modifying code.
+For example, you can pinpoint bottlenecks in your app
+or determine sources of latency.
 
 ##<a id='supported-buildpacks'></a>PWS Buildpacks Supported by Dynatrace OneAgent
 PWS provides buildpacks for many common programming languages and frameworks, such as Java and Node.js.
@@ -21,7 +21,7 @@ For the list of supported buildpacks, see [Supported Cloud Foundry buildpacks](h
 ##<a id='create-dynatrace-service'></a>Create and Bind a Dynatrace Service in your PWS Environment 
 PWS allows you to connect apps with third-party tools and other external resources by means of services.
 On PWS, service instances hold the credentials that are required to connect to such resources.
-You will use this same approach to connect your apps with Dynatrace OneAgent.
+You use this same approach to connect your apps with Dynatrace OneAgent.
 
 As a PWS user, you need to define this service instance by creating a user-provided service.
 
@@ -31,7 +31,8 @@ To create a user-provided service for Dynatrace OneAgent, do the following:
 1. Create a Dynatrace service on PWS using **Option 1: Create a User-Provided Service**.
 1. Bind the created Dynatrace service to your app.
 
-For instructions, see [How do I monitor Cloud Foundry applications?](https://www.dynatrace.com/support/help/cloud-platforms/cloud-foundry/how-do-i-monitor-cloud-foundry-applications/).
+For detailed instructions, see [How do I monitor Cloud Foundry applications?]
+(https://www.dynatrace.com/support/help/cloud-platforms/cloud-foundry/how-do-i-monitor-cloud-foundry-applications/).
 
 
 ##<a id='update-dynatrace'></a>Update Dynatrace OneAgent on PWS
