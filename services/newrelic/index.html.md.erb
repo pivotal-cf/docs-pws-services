@@ -138,7 +138,7 @@ If you have an existing New Relic license key instead of one provided by the Ser
 1. Run the following command to set the `NEWRELIC_LICENSE` environment variable to your license key:
 
 	<pre class='terminal'>
-	cf set-env &lt;YOUR-APP-NAME&gt; NEWRELIC_LICENSE &lt;LICENSE-KEY&gt;
+	cf set-env YOUR-APP-NAME NEWRELIC_LICENSE LICENSE-KEY
 	</pre>
 
 1. Edit the `newrelic-ruby.yml` file obtained [earlier](#ruby) as shown below. The following change allows the `license_key` key to find your license key from the environment:
@@ -149,14 +149,32 @@ If you have an existing New Relic license key instead of one provided by the Ser
 
 ### <a id='license-java'></a>Java
 
-Ensure that your existing New Relic service has `newrelic` in one of its names or tags. This enables the New Relic Agent Framework to automatically configure your application to work with the service.
+1. From the cf CLI run `cf cups` to create a user-provided New Relic service instance:
+
+	<pre class='terminal'>
+    cf cups newrelic_INSTANCE_NAME -p "{\"license_key\":\"LICENSE-KEY\"}"
+    </pre>
+    - Ensure that your New Relic instance name includes `newrelic`. This enables the New Relic Agent Framework to automatically configure the New Relic application to work with the service.
+    - You can also include a display name for the instance in the New Relic interface by including `\"app_name\":\"PCF-APP-NAME\"` in the JSON structure string.
+    - See [User-Provided Service Instances](../../../devguide/services/user-provided.html) for more information about the `cf cups` command.
+
+
+1. Bind the service instance to any app that you want to use it.
+
+1. Re-stage the app:
+	<pre class="terminal">
+	$ cf restage YOUR-APP
+	</pre>
+
+
+
 
 ### <a id='license-php'></a>PHP
 
 Run the following command to set the `NEWRELIC_LICENSE` environment variable to your license key:
 
 <pre class='terminal'>
-cf set-env &lt;YOUR-APP-NAME&gt; NEWRELIC_LICENSE &lt;LICENSE-KEY&gt;
+cf set-env YOUR-APP-NAME NEWRELIC_LICENSE LICENSE-KEY
 </pre>
 
 ## <a id='vcap-services'></a>VCAP_SERVICES ##
