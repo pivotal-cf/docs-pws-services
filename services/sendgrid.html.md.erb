@@ -85,10 +85,9 @@ import com.github.scottmotte.Vcapenv;
 import com.github.sendgrid.SendGrid;
 
 Vcapenv vcapenv = new Vcapenv();
-String sendgrid_username = vcapenv.SENDGRID_USERNAME();
-String sendgrid_password = vcapenv.SENDGRID_PASSWORD();
+String sendgrid_api_key = vcapenv.SENDGRID_API_KEY();
 
-SendGrid sendgrid = new SendGrid(sendgrid_username, sendgrid_password);
+SendGrid sendgrid = new SendGrid(SENDGRID_API_KEY);
 
 sendgrid.addTo("example@example.com");
 sendgrid.setFrom("other@example.com");
