@@ -68,7 +68,7 @@ The recommended way to use SendGrid with Java is to use the [sendgrid-java](http
 
 ```java
 import com.github.sendgrid.SendGrid;
-SendGrid sendgrid = new SendGrid("sendgrid_username", "sendgrid_password");
+SendGrid sendgrid = new SendGrid(SENDGRID_API_KEY);
 
 sendgrid.addTo("example@example.com");
 sendgrid.setFrom("other@example.com");
