@@ -152,7 +152,7 @@ If you have an existing New Relic license key instead of one provided by the Ser
 1. From the cf CLI run `cf cups` to create a user-provided New Relic service instance:
 
 	<pre class='terminal'>
-    cf cups newrelic_INSTANCE_NAME -p "{\"license_key\":\"LICENSE-KEY\"}"
+    cf cups newrelic_INSTANCE_NAME -p "{\"licenseKey\":\"LICENSE-KEY\"}"
     </pre>
     - Ensure that your New Relic instance name includes `newrelic`. This enables the New Relic Agent Framework to automatically configure the New Relic application to work with the service.
     - You can also include a display name for the instance in the New Relic interface by including `\"app_name\":\"PCF-APP-NAME\"` in the JSON structure string.
