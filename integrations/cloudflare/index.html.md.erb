@@ -5,9 +5,7 @@ owner: London Services
 
 <strong><%= modified_date %></strong>
 
-**Note**: SSL (HTTPS) will not work with custom domains without the use of
-third-party SSL termination.
-Pivotal recommends using CloudFlare for this service.
+<p class="note"><strong>Note:</strong> SSL (HTTPS) does not work with custom domains without the use of third-party SSL termination. Pivotal recommends using CloudFlare for this service. </p>
 
 This topic explains setting up an SSL-enabled custom domain using CloudFlare, a
 content distribution network.
@@ -28,9 +26,8 @@ These instructions assume that your domain is already registered with a DNS
 registrar.
 To complete this procedure, you must be able to access the DNS registrar for the
 domain.
-Note that you do not need to change DNS registrars.
-The only change you make with your registrar is to point the authoritative name
-servers to CloudFlare's name servers.
+
+<p class="note"><strong>Note:</strong> You do not need to change DNS registrars. The only change you make with your registrar is to point the authoritative name servers to CloudFlare's name servers. </p>
 
 Before starting, download the zone file for the domain from your DNS provider to
 use in [Step 3 - Configure DNS Records](#configure-dns).
@@ -50,16 +47,12 @@ SSL Termination is available with any of the CloudFlare plans, including the
 Free plan. The Free and Pro plans always use a CloudFlare-generated certificate.
 Business and Enterprise plans add the option to use your own SSL certificate.
 
-## <a id='sign-up'></a>Step 1 - Get CloudFlare Account ##
 
-1. Go to [https://www.cloudflare.com/plans](https://www.cloudflare.com/plans),
-select the desired account, and click **Sign up now**.
+## <a id='prerequisite'></a>Prerequisites
 
-    <%= image_tag("../../images/cloudflare/sign-up.png") %>
+You require a CloudFlare account.
+You can sign up for one at [https://www.cloudflare.com/plans](https://www.cloudflare.com/plans).
 
-1. On the **Create an Account** page, enter your email address, username, and password. Read and check **I agree to CloudFlare's Terms of use**. Click **Create account now**.
-
-    <%= image_tag("../../images/cloudflare/create-account.png") %>
 
 ## <a id='add-domain'></a>Step 2 - Add Domain to CloudFlare ##
 
