@@ -54,41 +54,62 @@ You require a CloudFlare account.
 You can sign up for one at [https://www.cloudflare.com/plans](https://www.cloudflare.com/plans).
 
 
-## <a id='add-domain'></a>Step 2 - Add Domain to CloudFlare ##
+## <a id='add-domain'></a>Add Domain to CloudFlare
 
-1. On the **Select a website** page, enter the name of your custom domain and
-click **Add website**.
+1. On the **Add your site** page, enter the name of your custom domain and
+click **Add Site**.
 CloudFlare will query authoritative DNS servers for the DNS record registered
 for the domain.
 
     <%= image_tag("../../images/cloudflare/add-website.png") %>
 
-1. When CloudFlare finishes querying the DNS servers, a **Scan complete**
-message appears.
-Click **Continue**.
+1. Once you add your site, the following page is shown:
 
     <%= image_tag("../../images/cloudflare/scan-complete.png") %>
 
-## <a id='configure-dns'></a>Step 3 - Configure DNS Records ##
+    Click **Next**.
 
-The **Configure your records** page lists the records obtained from the
+1. Select a plan for your domain:
+    * Choose **Free** or **Pro** to have CloudFlare generate an SSL
+    certificate for communications between browsers and the CloudFlare proxy.
+    * Choose **Business** if you prefer to provide your own SSL certificate.
+
+
+## <a id='dns-records'></a>Configure DNS Records
+
+The **DNS query results** page lists the records obtained from the
 authoritative DNS servers for your domain.
-In the row containing your domain name, the cloud icon in the **Active** column
-should be orange.
+In the row containing your domain name,
+the cloud icon in the **Active** column should be orange.
 
-To ensure your DNS records are correct and complete, Pivotal recommends you
-download the zone file for the domain from your DNS provider, and then upload it
-to CloudFlare using the **Upload a zone file** link.
+To ensure your DNS records are correct and complete,
+Pivotal recommends you download the zone file for the domain from your DNS provider,
+and then upload it to CloudFlare using the **Upload a DNS File** link under the **Advanced** dropdown.
 
-Use the **Add** button to define additional records, if necessary.
-
-When finished, click **I've added all missing records, continue**.
+1. Use the **Add Record** button to define additional records, if necessary.
+    
     <%= image_tag("../../images/cloudflare/configure-dns.png") %>
+
+1. Click **Continue**.
+
+
+## <a id='update-names'></a>Update Name Servers
+
+The **Change your Nameservers** page lists your current name servers, and the CloudFlare
+name servers to replace them with.
+
+1. Use the provided URLs to update the name server settings for your domain with
+the authoritative server for your domain, such as your ISP.
+
+    <%= image_tag("../../images/cloudflare/update-name.png") %>
+
+1. Click **Continue**.
+
 
 ## <a id='choose-settings'></a>Step 4 - Choose Initial Settings ##
 
 1. On the **Choose initial settings** page, set the following options:
-    * **Choose a plan**: Select **Free**, **Pro**, or **Business**.
+    * (MOVED TO STEP 1) **Choose a plan**: Select **Free**, **Pro**, or **Business**.
     If you choose **Free** or **Pro**, CloudFlare will generate an SSL
     certificate for communications between browsers and the CloudFlare proxy.
     If you prefer to provide your own SSL certificate, choose **Business**.
@@ -153,17 +174,6 @@ website.
 
     <%= image_tag("../../images/cloudflare/confirm-ssl.png") %>
 
-## <a id='update-names'></a>Step 6 - Update Name Servers ##
-
-The **Update your DNS** page lists your current name servers, and the CloudFlare
-name servers with which to replace them.
-
-1. Use the provided URLs to update the name server settings for your domain with
-the authoritative server for your domain, i.e., your ISP.
-
-1. Click **I've updated my nameservers, continue**.
-
-    <%= image_tag("../../images/cloudflare/update-name.png") %>
 
 ## <a id='select-ssl'></a>Step 7 - Select SSL Option ##
 
