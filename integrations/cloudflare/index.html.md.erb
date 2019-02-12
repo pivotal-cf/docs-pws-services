@@ -6,49 +6,51 @@ owner: London Services
 <strong><%= modified_date %></strong>
 <p class="note"><strong>Note:</strong> SSL (HTTPS) does not work with custom domains without the use of third-party SSL termination. Pivotal recommends using CloudFlare for this service. </p>
 
-This topic explains setting up an SSL-enabled custom domain using CloudFlare, a
-content distribution network.
+This topic explains how to set up an SSL-enabled custom domain using CloudFlare,
+a content distribution network.
 This is the Pivotal-recommended strategy for using SSL with a custom domain.
 Using this configuration, traffic to and from your application running on Cloud
-Foundry will be routed via CloudFlare.
+Foundry is routed through CloudFlare.
 
 Browser  &lt; &mdash; ssl &mdash; &gt;  CloudFlare proxy  &lt; &mdash; ssl &mdash; &gt;  Cloud Foundry
 
-To enable this, you configure CloudFlare's "Full SSL" option for the domain.
-You can use a CloudFlare-generated SSL certificate between the browser and the
-CloudFlare server, or, if you prefer, configure CloudFlare to use a certificate
-you provide.
+To enable this, you configure CloudFlare's **Full SSL** option for the domain.
+You can use either a CloudFlare-generated SSL certificate between the browser and the
+CloudFlare server, or configure CloudFlare to use a certificate that you provide.
 A Cloud Foundry-generated SSL certificate is used between the CloudFlare proxy
 and the application on Cloud Foundry.
 
-These instructions assume that your domain is already registered with a DNS
-registrar.
-To complete this procedure, you must be able to access the DNS registrar for the
-domain.
 
-<p class="note"><strong>Note:</strong> You do not need to change DNS registrars. The only change you make with your registrar is to point the authoritative nameservers to CloudFlare's nameservers. </p>
+## <a id='introduction'></a>What is CloudFlare?
+CloudFlare is a caching and security-as-a-service provider that protects
+and accelerates online websites.
+Web traffic is routed through CloudFlare's global network.
+This accelerates delivery of static and dynamic content,
+while blocking threats and limiting abusive bots and crawlers from wasting
+your bandwidth and server resources.
 
-Before starting, download the zone file for the domain from your DNS provider to
-use in [Step 3 - Configure DNS Records](#configure-dns).
-
-
-## <a id='introduction'></a>Introduction
-CloudFlare is a caching and security-as-a-service that protects and accelerates
-on-line websites.
-Web traffic is routed through CloudFlare's global network -- this accelerates
-delivery of static and dynamic content, while blocking threats and limiting
-abusive bots and crawlers from wasting your bandwidth and server resources.
 CloudFlare's SSL termination proxy decrypts incoming SSL traffic and can pass on
 unencrypted or fully encrypted requests to the app server.
-Adding your website requires only a simple change to your domain's DNS settings.
+Adding your website requires changes to your domain's DNS settings.
 SSL Termination is available with any of the CloudFlare plans, including the
-Free plan. The Free and Pro plans always use a CloudFlare-generated certificate.
-Business and Enterprise plans add the option to use your own SSL certificate.
+Free plan. 
 
 
 ## <a id='prerequisite'></a>Prerequisites
-You need a CloudFlare account.
-You can sign up for one at [https://www.cloudflare.com/plans](https://www.cloudflare.com/plans).
+To proceed with setting up your custom domains to be SSL-Enabled using CloudFlare,
+this procedure requires the following:
+
+* Your domain must be registered with a DNS registrar.
+To complete this procedure, you must be able to access the DNS registrar for the
+domain.
+
+    <p class="note"><strong>Note:</strong> You do not need to change DNS registrars. The only change you make with your registrar is to point the authoritative nameservers to CloudFlare's nameservers. </p>
+
+* You must have a CloudFlare account.
+If you do not have one, you can sign up for one at [https://www.cloudflare.com/plans](https://www.cloudflare.com/plans).
+
+* (Optional) You may download the zone file for the domain from your DNS provider prior to beginning,
+as you will need to use it in [Configure DNS Records](#dns-records).
 
 
 ## <a id='add-domain'></a>Add Domain to CloudFlare
