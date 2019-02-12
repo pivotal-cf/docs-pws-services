@@ -86,7 +86,8 @@ that the cloud icon in the **Status** column is orange:
     download the zone file for the domain from your DNS provider,
     and then upload it to CloudFlare using the **Upload a DNS File** link under the **Advanced** dropdown.
 
-1. Use the **Add Record** button to define additional records, if necessary.
+1. Use the **Add Record** button to define additional records such as `CNAME` if necessary.
+    
     For more information on using custom domains with PWS hosted apps, see [Using Custom Domain Names With Pivotal Web Services](https://community.pivotal.io/s/article/Using-Custom-Domain-Names-With-Pivotal-Web-Services) in the Pivotal Support knowledge base..
 
 1. Click **Continue**.
@@ -120,23 +121,23 @@ the authoritative server for your domain, such as your ISP.
 
     <%= image_tag("../../images/cloudflare/use-https.png") %>
 
-<p class="note"><strong>Note:</strong> Because DNS settings are cached in various points throughout the Internet, including on your browser, changes to these SSL settings may take some time to propagate through the system and start functioning as you would expect.</p>
+    <p class="note"><strong>Note:</strong> Because DNS settings are cached in various points throughout the Internet, including on your browser, changes to these SSL settings may take some time to propagate through the system and start functioning as you would expect.</p>
 
 
 ## <a id='review'></a>Review Pending Changes
 After your initial domain setup is complete, review any pending changes required by CloudFlare. To do this, do the following:
 
-1. Click the **Overview** tab from the top navigation bar:
+1. Click the **Overview** tab from the top navigation bar.
 
 1. Review any pending actions required, such as completing your nameserver setup:
 
     <%= image_tag("../../images/cloudflare/overview-complete-setup.png") %>
 
-Once you have finished...
+Once all pending actions are completed, the status of your Domain will change from **Pending** to **Active**, for example:
 
 <%= image_tag("../../images/cloudflare/domain-overview-dropdown.png") %>
 
-You will have access to information...
+Once your registrar has processed your nameserver changes, and your site becomes active on Cloudflare, you will begin to receive analytics on your traffic:
 
 <%= image_tag("../../images/cloudflare/domain-overview.png") %>
 
