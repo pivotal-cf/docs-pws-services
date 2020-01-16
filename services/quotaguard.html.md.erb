@@ -153,7 +153,7 @@ http.get(options, function(res) {
 
 #### Accessing an HTTPS API with Node.js
 
-The standard Node.js HTTPS module does not handle making requests through a proxy very well. If you need to access an HTTPS API, we recommend using the Request module. To install this module, run the `npm install request` command.
+The standard Node.js HTTPS module does not handle making requests through a proxy very well. If you need to access an HTTPS API, <%= vars.recommended_by %> recommends using the Request module. To install this module, run the `npm install request` command.
 
 ```javascript
 var request = require('request');
@@ -177,7 +177,7 @@ request(options, callback);
 
 #### Accessing a MySQL Database Using SOCKS Proxy in Node.js
 
-If you want to use a SOCKS proxy in Node.js, we recommend installing [socksjs](https://github.com/M2Ys4U/socksjs) because this SOCKS module supports authentication:
+If you want to use a SOCKS proxy in Node.js, <%= vars.recommended_by %> recommends installing [socksjs](https://github.com/M2Ys4U/socksjs) because this SOCKS module supports authentication:
 
 <pre class='terminal'>
 npm install socksjs
@@ -321,7 +321,7 @@ Yes. You can access HTTPS services through the HTTP proxy whilst still getting f
 
 On receipt of this `CONNECT` request, the proxy opens a tunnel between your client and the endpoint, allowing your client to negotiate a standard SSL session with the endpoint. Once this is negotiated, all traffic sent between your client and the endpoint will be encrypted as if you had connected directly with it.
 
-We are also testing HTTPS proxy endpoints. Please [contact us](mailto:support@quotaguard.com) if you want to trial it. With an HTTPS endpoint, your initial `CONNECT` request is also encrypted. This protects the proxy credentials and remote hostname but requires an additional TLS handshake. Please note that HTTPS endpoints are supported only by libcurl-based HTTP client libraries. We recommend checking if your language has bindings for it.
+We are also testing HTTPS proxy endpoints. Please [contact us](mailto:support@quotaguard.com) if you want to trial it. With an HTTPS endpoint, your initial `CONNECT` request is also encrypted. This protects the proxy credentials and remote hostname but requires an additional TLS handshake. Please note that HTTPS endpoints are supported only by libcurl-based HTTP client libraries. <%= vars.recommended_by %> recommends checking if your language has bindings for it.
 
 ## <a id='socks'></a> SOCKS Proxy Setup
 
@@ -338,7 +338,7 @@ Wrapper script:
 * Proxies all connections, with optional constraints by IP.
 * Incompatible with some threaded environments and environments with event loops. Does not support Java and Node.js.
 
-We recommend using SOCKS5 tunnels unless you need to route all traffic within the app through the SOCKS5 proxy.
+<%= vars.recommended_by %> recommends using SOCKS5 tunnels unless you need to route all traffic within the app through the SOCKS5 proxy.
 
 ### Setting Up a SOCKS5 Tunnel
 
