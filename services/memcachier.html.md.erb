@@ -208,15 +208,15 @@ mc.get('hello', function(val) {
 
 ##<a id='java'></a>Using MemCachier with Java ##
 
-For Java <%= vars.recommended_by %> recommends using the
+For Java, <%= vars.recommended_by %> recommends using the
 [XMemcached](https://github.com/killme2008/xmemcached) client. There is also
-the [SpyMemcached](https://github.com/couchbase/spymemcached) client which we
-have recommended in the past. Many MemCachier customers reported problems with
+the [SpyMemcached](https://github.com/couchbase/spymemcached) client which 
+<%= vars.recommended_by %> has recommended in the past. Many MemCachier customers reported problems with
 SpyMemcached in the presence of network issues. SpyMemcached seems to have
-trouble coping with connection timeouts or resets. For this reason we now
-recommend XMemcached.
+trouble coping with connection timeouts or resets. For this reason,
+<%= vars.recommended_by %> now recommends XMemcached.
 
-We also recommend using [Apache Maven](https://maven.apache.org/) or
+<%= vars.recommended_by %> also recommends using [Apache Maven](https://maven.apache.org/) or
 [Gradle](https://gradle.org/) as a build tool. Here we show the dependancy
 configuration for Maven but they are similar for Gradle.
 If you aren't using Maven or Gradle and are instead using
@@ -454,7 +454,8 @@ build a Spring Boot application on Pivotal Web Services and scale it with Memcac
 
 In order to use memcache in Spring you can use
 [`simple-spring-memcached`](https://github.com/ragnor/simple-spring-memcached).
-It works with both, the `XMemcached` (recommended) or the `SpyMemcached` client.
+It works with both, the `XMemcached` <%= vars.recommended_by %> recommends or 
+the `SpyMemcached` client.
 
 ### Simple Spring XMemcached
 
