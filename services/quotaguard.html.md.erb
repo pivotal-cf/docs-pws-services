@@ -5,7 +5,7 @@ owner: Partners
 
 <strong><%= modified_date %></strong>
 
-QuotaGuard Static enables a PWS app to route outbound traffic through a static IP. You can provide this IP address to an API partner for IP-based whitelisting and open your own firewall to access internal resources. 
+QuotaGuard Static enables a PWS app to route outbound traffic through a static IP. You can provide this IP address to an API partner for IP-based allowlists and open your own firewall to access internal resources.
 
 QuotaGuard Static is language and platform agnostic. It supports Ruby, Python, Node.js, Scala, Java, and other languages.
 QuotaGuard Static comes in three flavors:
@@ -153,7 +153,7 @@ http.get(options, function(res) {
 
 #### Accessing an HTTPS API with Node.js
 
-The standard Node.js HTTPS module does not handle making requests through a proxy very well. If you need to access an HTTPS API, <%= vars.recommended_by %> recommends using the Request module. To install this module, run the `npm install request` command.
+The standard Node.js HTTPS module does not handle making requests through a proxy very well. If you need to access an HTTPS API, we recommend using the Request module. To install this module, run the `npm install request` command.
 
 ```javascript
 var request = require('request');
@@ -177,7 +177,7 @@ request(options, callback);
 
 #### Accessing a MySQL Database Using SOCKS Proxy in Node.js
 
-If you want to use a SOCKS proxy in Node.js, <%= vars.recommended_by %> recommends installing [socksjs](https://github.com/M2Ys4U/socksjs) because this SOCKS module supports authentication:
+If you want to use a SOCKS proxy in Node.js, we recommend installing [socksjs](https://github.com/M2Ys4U/socksjs) because this SOCKS module supports authentication:
 
 <pre class='terminal'>
 npm install socksjs
@@ -321,7 +321,7 @@ Yes. You can access HTTPS services through the HTTP proxy whilst still getting f
 
 On receipt of this `CONNECT` request, the proxy opens a tunnel between your client and the endpoint, allowing your client to negotiate a standard SSL session with the endpoint. Once this is negotiated, all traffic sent between your client and the endpoint will be encrypted as if you had connected directly with it.
 
-We are also testing HTTPS proxy endpoints. Please [contact us](mailto:support@quotaguard.com) if you want to trial it. With an HTTPS endpoint, your initial `CONNECT` request is also encrypted. This protects the proxy credentials and remote hostname but requires an additional TLS handshake. Please note that HTTPS endpoints are supported only by libcurl-based HTTP client libraries. <%= vars.recommended_by %> recommends checking if your language has bindings for it.
+We are also testing HTTPS proxy endpoints. Please [contact us](mailto:support@quotaguard.com) if you want to trial it. With an HTTPS endpoint, your initial `CONNECT` request is also encrypted. This protects the proxy credentials and remote hostname but requires an additional TLS handshake. Please note that HTTPS endpoints are supported only by libcurl-based HTTP client libraries. We recommend checking if your language has bindings for it.
 
 ## <a id='socks'></a> SOCKS Proxy Setup
 
@@ -338,7 +338,7 @@ Wrapper script:
 * Proxies all connections, with optional constraints by IP.
 * Incompatible with some threaded environments and environments with event loops. Does not support Java and Node.js.
 
-<%= vars.recommended_by %> recommends using SOCKS5 tunnels unless you need to route all traffic within the app through the SOCKS5 proxy.
+We recommend using SOCKS5 tunnels unless you need to route all traffic within the app through the SOCKS5 proxy.
 
 ### Setting Up a SOCKS5 Tunnel
 
@@ -376,7 +376,7 @@ If your app relies on the `DATABASE_URL` environment variable, then you can use 
 
 1. Open the QuotaGuard Static dashboard and navigate to the **Tunnels** section of the **Setup** page. You can open the dashboard from your PWS services page.
 
-1. On the **Setup** page, create a new tunnel configuration for the remote server by clicking **Create Tunnel**. For example, if you want to access an IP-whitelisted Postgres database located on `ec2-10-10-10-1.compute-1.amazonaws.com`, enter `tcp://ec2-10-10-10-1.compute-1.amazonaws.com:5432` in **Remote Destination** and click **Save**. With this configuration, your tunnel will listen on the dyno's port 5432 and route all traffic to `ec2-10-10-10-1.compute-1.amazonaws.com` through the SOCKS5 proxy. If you want to use a different local port, you can provide it explicitly in the configuration interface.
+1. On the **Setup** page, create a new tunnel configuration for the remote server by clicking **Create Tunnel**. For example, if you want to access an IP-allowed Postgres database located on `ec2-10-10-10-1.compute-1.amazonaws.com`, enter `tcp://ec2-10-10-10-1.compute-1.amazonaws.com:5432` in **Remote Destination** and click **Save**. With this configuration, your tunnel will listen on the dyno's port 5432 and route all traffic to `ec2-10-10-10-1.compute-1.amazonaws.com` through the SOCKS5 proxy. If you want to use a different local port, you can provide it explicitly in the configuration interface.
 
 1. Modify your app configuration to use localhost instead of the remote server. For the same Postgres example, change the connection string from `postgres://user:pass@ec2-10-10-10-1.compute-1.amazonaws.com:5432` to `postgres://user:pass@127.0.0.1:5432`. You can also export your tunnel configuration to use it [locally](#local-tunnel-configuration) on your dyno without relying on QuotaGuard servers.
 
@@ -446,7 +446,7 @@ Once you have provisioned the add-on, you just need to visit the QuotaGuard Stat
 
 Navigate to the **Setup** page and enter the full URL of your app. We then create a unique URL for you that you can use to access your web app, for example, `a62b1d0b4983db763450411fd393b3ce-eu-west-1.getstatica.com`.
 
-This corresponds to a DNS A record that resolves to one of your two QuotaGuard Static IPs. You should include both IP addresses in all firewall rules or whitelists as we may swap between the IP addresses at any time.
+This corresponds to a DNS A record that resolves to one of your two QuotaGuard Static IPs. You should include both IP addresses in all firewall rules or allowlists as we may swap between the IP addresses at any time.
 
 Open this URL in your browser to see your own web app. 
 
