@@ -8,20 +8,23 @@ owner: Partners
 
 The first time you create an instance of a given service in a space, an account is created for you on the service provider's system. Because the collaboration model in Cloud Foundry enables transient ownership of orgs and spaces, accounts are created on service provider systems as a user representing the space itself.
 
-When contacting Marketplace service providers for support, you must provide them with either the email address for the space the instance was created in, or the guid of the space service instance.
+When contacting Marketplace service providers for support, you must provide them with either the email address for the space the instance was created in, or the GUID of the space service instance.
 
 ## Space Email Address
 
-Every space has an email alias. This alias is the address used when creating accounts with service providers. Service providers wishing to communicate with members of a space where a service instance of theirs is used can do so by contacting `support@run.pivotal.io`. Please provide the content of the communication and the Space GUID or Space Email Address. The PWS Support team will review the message and forward appropriately.
+Every space has an email alias. This alias is the address used when creating accounts with service providers.
 
-The email address is in the form `space-guid-GUID@email-proxy.run.pivotal.io`, where `GUID` is the guid of the space that contains the service instance. See below for instructions to determine the guid of a space.
+As a service provider, you can communicate with members of a space where you have a service instance by contacting support@run.pivotal.io.
+Provide the content of the communication and the space GUID or space email address. The PWS Support team reviews the message and forwards it to your space members.
+
+The email address is in the form `space-guid-GUID@email-proxy.run.pivotal.io`, where `GUID` is the GUID of the space that contains the service instance. See below for instructions to determine the GUID of a space.
 
 ## Space GUID
 
-You can determine the guid of the space using Apps Manager.
+You can determine the GUID of the space using Apps Manager.
 
-1. Log into Apps Manager, and navigate to the space. 
+1. Log into Apps Manager, and navigate to the space.
 
-2. In the address bar of your browser, examine the URL. The guid of the space is the long string following `spaces/` in the URL.
+2. In the address bar of your browser, examine the URL. The GUID of the space is the long string following `spaces/` in the URL.
 
-Example: `12345678-dddd-cccc-1234-1234567801ab` is the guid of the space in the following URL:  `https://console.run.pivotal.io/organizations/abcd1234-ab12-abcd1234-ab12-abcd1234abcd/spaces/12345678-dddd-cccc-1234-1234567801ab`
+Example: `12345678-dddd-cccc-1234-1234567801ab` is the GUID of the space in the following URL:  `https://console.run.pivotal.io/organizations/abcd1234-ab12-abcd1234-ab12-abcd1234abcd/spaces/12345678-dddd-cccc-1234-1234567801ab`
